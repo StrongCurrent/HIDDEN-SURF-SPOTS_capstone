@@ -1,8 +1,8 @@
-import Heading from ".";
+import Header from ".";
 import { render, screen } from "@testing-library/react";
 
 test("test", () => {
-  render(<Heading>YOUR HIDDEN SPOTS</Heading>);
+  render(<Header>YOUR HIDDEN SPOTS</Header>);
   const element = screen.getByText("YOUR HIDDEN SPOTS");
   expect(element).toBeInTheDocument();
 });
