@@ -31,6 +31,7 @@ const Spots = styled.li`
   list-style: none;
   padding-top: 5px;
   padding-bottom: 5px;
+  margin-bottom: 5px;
   background-color: #fcfcfc;
   border-bottom: solid thin #d5d5d5;
   border-top: ${({ isEven }) =>

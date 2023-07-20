@@ -7,7 +7,7 @@ const Header = styled.h1`
   text-align: center;
   text-transform: uppercase;
   font-size: 1.2rem;
-  margin-top: 49px;
+  margin-top: 50px;
   margin-bottom: 10px;
 `;
 export default Header;
