@@ -7,7 +7,7 @@ export default function SpotList() {
   }
 
   return (
-    <StyledSpotList>
+    <SpotsList>
       {mockData.map((item, index) => {
         const isEven = index % 2 === 0;
         return (
@@ -16,11 +16,11 @@ export default function SpotList() {
           </Spot>
         );
       })}
-    </StyledSpotList>
+    </SpotsList>
   );
 }
 
-const StyledSpotList = styled.ul`
+const SpotsList = styled.ul`
   padding: 0;
   margin: 0;
   list-style-type: none;
@@ -38,7 +38,7 @@ const Spot = styled.li`
   background-color: #fcfcfc;
   border-bottom: solid thin #d5d5d5;
   border-top: ${({ isEven }) =>
-    isEven ? "solid 5px #2f6673" : "solid 5px #5d9ea6"};
+  isEven ? "solid 5px #2f6673" : "solid 5px #5d9ea6"};
 `;
 
 const NoEntryMessage = styled.div`
