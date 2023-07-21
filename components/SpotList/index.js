@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import mockData from "../../pages/lib/mock-data.js"
+import mockData from "../../lib/mock-data";
 
 export default function SpotList() {
 
