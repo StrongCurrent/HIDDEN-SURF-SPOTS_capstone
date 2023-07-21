@@ -1,11 +1,12 @@
-import Heading from "../components/Heading";
-import SubHeading from "../components/SubHeading";
+import Header from "../components/Header";
+import SpotList from "../components/SpotList";
+
 
 export default function Home() {
   return (
     <main>
-      <Heading>🏄‍♂️🏄‍♀️🏄 Capstone Template 🏄🏄‍♀️🏄‍♂️</Heading>
-      <SubHeading>Happy hacking!</SubHeading>
+      <Header>Your Hidden Spots</Header>
+      <SpotList/>
     </main>
   );
 }
