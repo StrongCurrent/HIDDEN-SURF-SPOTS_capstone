@@ -2,26 +2,31 @@ import styled from "styled-components";
 import mockData from "../../lib/mock-data";
 
 export default function SpotList() {
-
   if (mockData.length === 0) {
     return <NoEntryMessage>there is no entry yet</NoEntryMessage>;
   }
 
   return (
-    <>
+    <StyledSpotList>
       {mockData.map((item, index) => {
         const isEven = index % 2 === 0;
         return (
-          <Spots key={item.id} isEven={isEven}>
+          <Spot key={item.id} isEven={isEven}>
             {item.name}
-          </Spots>
+          </Spot>
         );
       })}
-    </>
+    </StyledSpotList>
   );
 }
 
-const Spots = styled.li`
+const StyledSpotList = styled.ul`
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+`;
+
+const Spot = styled.li`
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   text-align: center;
@@ -40,7 +45,7 @@ const NoEntryMessage = styled.div`
   text-align: center;
   text-transform: uppercase;
   font-size: 1rem;
-  color: #FF0000;
+  color: #ff0000;
   list-style: none;
   padding: 40px 0;
   background-color: #fcfcfc;
