@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import mockData from "../../public/mock-data";
+import mockData from "../../pages/lib/mock-data";
 
 export default function SpotList() {
-  console.log(mockData);
 
   if (mockData.length === 0) {
     return <NoEntryMessage>there is no entry yet</NoEntryMessage>;
@@ -29,8 +28,7 @@ const Spots = styled.li`
   text-transform: uppercase;
   font-size: 1rem;
   list-style: none;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 5px 0px;
   margin-bottom: 5px;
   background-color: #fcfcfc;
   border-bottom: solid thin #d5d5d5;
@@ -42,10 +40,9 @@ const NoEntryMessage = styled.div`
   text-align: center;
   text-transform: uppercase;
   font-size: 1rem;
-  color: red;
+  color: #FF0000;
   list-style: none;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding: 40px 0;
   background-color: #fcfcfc;
   border-bottom: solid thin #d5d5d5;
   border-top: solid 5px #2f6673;

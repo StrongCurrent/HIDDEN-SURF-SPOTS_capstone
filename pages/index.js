@@ -5,7 +5,7 @@ import SpotList from "../components/SpotList";
 export default function Home() {
   return (
     <main>
-      <Header>YOUR HIDDEN SPOTS</Header>
+      <Header>Your Hidden Spots</Header>
       <SpotList/>
     </main>
   );
