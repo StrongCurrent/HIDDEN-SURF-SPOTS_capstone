@@ -8,11 +8,16 @@ export default function SpotList() {
 
   return (
     <SpotsList>
-      {mockData.map((item, index) => {
+      {mockData.map((spot, index) => {
         const isEven = index % 2 === 0;
         return (
-          <Spot key={item.id} isEven={isEven}>
-            {item.name}
+          <Spot key={spot.id} isEven={isEven}>
+            <a
+              href={`/SpotInformation/${spot.id}`}
+              style={{ color: "#2f6673", textDecoration: "none" }}
+            >
+              {spot.name}
+            </a>
           </Spot>
         );
       })}

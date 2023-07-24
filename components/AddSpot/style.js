@@ -54,7 +54,7 @@ const InputLabelWrapper = styled.div`
 
 const AddSpotLabel = styled.label`
   display: block;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #2f6673;
   list-style-type: none;
   margin-right: 10px;
