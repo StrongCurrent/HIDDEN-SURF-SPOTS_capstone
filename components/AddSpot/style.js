@@ -28,8 +28,8 @@ export const SpotName = styled.input`
   }
 
   &::placeholder {
-    color: #2f6673;
-    opacity: 1;
+    color: #FF0000;
+    opacity: 0.4;
   }
 
   &:focus::placeholder {
@@ -94,4 +94,5 @@ export const SubmitButton = styled.button`
 export const Error = styled.div`
   color: #ff0000;
 `;
+
 

@@ -11,16 +11,18 @@ export default function SpotList() {
       {mockData.map((spot, index) => {
         const isEven = index % 2 === 0;
         return (
-          <Spot key={spot.id} isEven={isEven}>
-            <a
-              href={`/SpotInformation/${spot.id}`}
-              style={{ color: "#2f6673", textDecoration: "none" }}
-            >
+          <a
+            key={spot.id}
+            href={`/SpotInformation/${spot.id}`}
+            style={{ color: "#2f6673", textDecoration: "none", display: "block" }}
+          >
+            <Spot isEven={isEven}>
               {spot.name}
-            </a>
-          </Spot>
+            </Spot>
+          </a>
         );
       })}
     </SpotsList>
   );
 }
+

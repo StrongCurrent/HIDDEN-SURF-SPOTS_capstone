@@ -31,7 +31,7 @@ export const StyledLi = styled.li`
   }
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #F7F7F7;
   }
 `;
 
@@ -39,9 +39,8 @@ export const StyledLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 60px;
   width: 100%;
-  margin: 15px;
 `;
 
 export const StyledIcon = styled.svg`

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import mockData, { addSpotData } from "../../lib/mock-data";
-import { AddSpotForm, AddSpotInput, AddSpotLabel, FormContainer, InputLabelWrapper, SpotName, SubmitButton, Error } from "./style";
+import { AddSpotForm, AddSpotInput, AddSpotLabel, FormContainer, InputLabelWrapper, SpotName, SubmitButton } from "./style";
 
 
 export default function NewSpotForm() {
