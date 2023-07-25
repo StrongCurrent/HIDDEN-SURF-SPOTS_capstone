@@ -2,6 +2,7 @@ import Header from "../../components/Header";
 import SpotInfo from "../../components/SpotInfo";
 import { useRouter } from "next/router";
 import mockData from "../../lib/mock-data";
+import Navigation from "../../components/Nav";
 
 export default function SpotInformation() {
   const router = useRouter();
@@ -17,6 +18,7 @@ export default function SpotInformation() {
     <main>
       <Header>Spot Information</Header>
       <SpotInfo spot={spot} />
+      <Navigation />
     </main>
   );
 }

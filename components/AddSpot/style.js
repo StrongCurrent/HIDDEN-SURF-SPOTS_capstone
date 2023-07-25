@@ -1,13 +1,13 @@
 
 import styled from "styled-components";
 
-const AddSpotForm = styled.form`
+export const AddSpotForm = styled.form`
   display: flex;
   align-items: center;
   flex-direction: column;
 `;
 
-const SpotName = styled.input`
+export const SpotName = styled.input`
   width: 100%;
   font-weight: 500;
   text-align: center;
@@ -37,14 +37,14 @@ const SpotName = styled.input`
   }
 `;
 
-const FormContainer = styled.div`
+export const FormContainer = styled.div`
   width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const InputLabelWrapper = styled.div`
+export const InputLabelWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,7 +52,7 @@ const InputLabelWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
-const AddSpotLabel = styled.label`
+export const AddSpotLabel = styled.label`
   display: block;
   font-size: 1rem;
   color: #2f6673;
@@ -60,7 +60,7 @@ const AddSpotLabel = styled.label`
   margin-right: 10px;
 `;
 
-const AddSpotInput = styled.input`
+export const AddSpotInput = styled.input`
   display: block;
   background-color: #fcfcfc;
   border-radius: 5px;
@@ -76,7 +76,7 @@ const AddSpotInput = styled.input`
   }
 `;
 
-const SubmitButton = styled.button`
+export const SubmitButton = styled.button`
   background-color: #2f9e44;
   text-transform: uppercase;
   color: #ffffff;
@@ -91,8 +91,7 @@ const SubmitButton = styled.button`
   }
 `;
 
-const Error = styled.div`
+export const Error = styled.div`
   color: #ff0000;
 `;
 
-export {AddSpotForm, SpotName, FormContainer, InputLabelWrapper, AddSpotLabel , AddSpotInput, SubmitButton, Error};

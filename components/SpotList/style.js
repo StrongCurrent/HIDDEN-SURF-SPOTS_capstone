@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-const SpotsList = styled.ul`
+export const SpotsList = styled.ul`
   padding: 0;
   margin: 0;
   list-style-type: none;
 `;
 
-const Spot = styled.li`
+export const Spot = styled.li`
   font-weight: 400;
   text-align: center;
   text-transform: uppercase;
@@ -20,7 +20,7 @@ const Spot = styled.li`
     isEven ? "solid 5px #2f6673" : "solid 5px #5d9ea6"};
 `;
 
-const NoEntryMessage = styled.div`
+export const NoEntryMessage = styled.div`
   text-align: center;
   text-transform: uppercase;
   font-size: 1rem;
@@ -32,5 +32,3 @@ const NoEntryMessage = styled.div`
   border-top: solid 5px #2f6673;
 `;
 
-
-export { SpotsList, Spot, NoEntryMessage,};
