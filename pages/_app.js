@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Roboto_Flex } from "@next/font/google";
+import { Roboto_Flex } from "next/font/google";
 import GlobalStyle from "../styles";
 
 const roboto = Roboto_Flex({
