@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-const SpotsList = styled.ul`
+export const SpotsList = styled.ul`
   padding: 0;
   margin: 0;
   list-style-type: none;
 `;
 
-const Spot = styled.li`
+export const Spot = styled.li`
   font-weight: 400;
   text-align: center;
   text-transform: uppercase;
@@ -18,9 +18,14 @@ const Spot = styled.li`
   border-bottom: solid 1px #d5d5d5;
   border-top: ${({ isEven }) =>
     isEven ? "solid 5px #2f6673" : "solid 5px #5d9ea6"};
+
+  &:hover {
+    background-color: #F7F7F7;
+    font-weight: 500;
+  }
 `;
 
-const NoEntryMessage = styled.div`
+export const NoEntryMessage = styled.div`
   text-align: center;
   text-transform: uppercase;
   font-size: 1rem;
@@ -31,6 +36,3 @@ const NoEntryMessage = styled.div`
   border-bottom: solid 1px #d5d5d5;
   border-top: solid 5px #2f6673;
 `;
-
-
-export { SpotsList, Spot, NoEntryMessage,};

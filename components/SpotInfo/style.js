@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SpotWrapper = styled.div`
+export const SpotWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -8,7 +8,7 @@ const SpotWrapper = styled.div`
   margin: 0;
 `;
 
-const SpotName = styled.div`
+export const SpotName = styled.div`
   width: 100%;
   font-weight: 500;
   text-align: center;
@@ -24,23 +24,23 @@ const SpotName = styled.div`
   border-right: 0px;
 `;
 
-const SpotDetails = styled.div`
+export const SpotDetails = styled.div`
   width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const Longitude = styled.p`
+export const Longitude = styled.p`
   font-size: 1rem;
   color: #2f6673;
   margin: 0px 0px 10px 0px;
 `;
 
-const Latitude = styled.p`
+export const Latitude = styled.p`
   font-size: 1rem;
   color: #2f6673;
   margin: 0px 0px 10px 0px;
 `;
 
-export { SpotWrapper, SpotName, SpotDetails, Longitude, Latitude };
+
