@@ -57,7 +57,7 @@ export const AddSpotLabel = styled.label`
   font-size: 1rem;
   color: #2f6673;
   list-style-type: none;
-  margin-right: 10px;
+  margin-right: 9px;
 `;
 
 export const AddSpotInput = styled.input`
