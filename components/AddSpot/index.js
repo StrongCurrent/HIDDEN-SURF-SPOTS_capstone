@@ -83,7 +83,7 @@ export default function NewSpotForm() {
             Longitude:{" "}
           </AddSpotLabel>
           <AddSpotInput
-            type="input"
+            type="number"
             pattern="-?\d+(\.\d+)?"
             value={longitude}
             onChange={handleLongitudeChange}
@@ -98,14 +98,14 @@ export default function NewSpotForm() {
             Latitude:{" "}
           </AddSpotLabel>
           <AddSpotInput
-            type="input"
+            type="number"
             pattern="-?\d+(\.\d+)?"
             value={latitude}
             onChange={handleLatitudeChange}
             required
             id="latitude"
-            name="latidude"
-            aria-label="Latidude Input"
+            name="latitude"
+            aria-label="Latitude Input"
           />
         </InputLabelWrapper>
         <SubmitButton
