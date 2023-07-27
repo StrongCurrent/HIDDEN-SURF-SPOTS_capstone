@@ -1,3 +1,4 @@
+import useSWR from "swr";
 import {
   SpotWrapper,
   SpotName,
@@ -6,10 +7,16 @@ import {
   Latitude,
 } from "./style";
 
-export default function SpotInfo({ spot }) {
+export default function SpotInfo({spotId}) {
+  const { data: spot, error } = useSWR(`/api/spots?spotId=${spotId}`);
+
+  if (error) return <h2>Failed to load spot information</h2>;
+
+  if (!spot) return <h2>Loading...</h2>;
+
   return (
     <SpotWrapper>
-      <SpotName>{spot.name}</SpotName>
+      <SpotName>{spot.spotName}</SpotName>
       <SpotDetails>
         <h2>SPOT INFORMATION</h2>
         <Longitude>Longitude: {spot.longitude}</Longitude>

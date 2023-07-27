@@ -1,23 +1,20 @@
 import Header from "../../components/Header";
 import SpotInfo from "../../components/SpotInfo";
 import { useRouter } from "next/router";
-import mockData from "../../lib/mock-data";
 import Navigation from "../../components/Nav";
 
 export default function SpotInformation() {
   const router = useRouter();
   const { id } = router.query;
 
-  const spot = mockData.find((spot) => spot.id === Number(id));
-
-  if (!spot) {
-    return <div>Spot not found</div>;
+  if (!id) {
+    return <h2>Spot not found</h2>;
   }
 
   return (
     <main>
       <Header>Spot Information</Header>
-      <SpotInfo spot={spot} />
+      <SpotInfo spotId={id} />
       <Navigation />
     </main>
   );
