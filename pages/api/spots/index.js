@@ -18,12 +18,12 @@ export default async function handler(request, response) {
   } else if (request.method === "POST") {
     const { spotName, longitude, latitude } = request.body;
 
-    const existingSpot = await Spot.findOne({ spot: spotName });
+    const existingSpot = await Spot.findOne({ spotName: spotName });
 
     if (existingSpot) {
       return response
         .status(400)
-        .json({ message: "Name of spot is already in use" });
+        .json({ message: "The name is already taken" });
     }
 
     const newSpot = new Spot({

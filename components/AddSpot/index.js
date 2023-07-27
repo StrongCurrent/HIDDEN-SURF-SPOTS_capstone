@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import mockData, { addSpotData } from "../../lib/mock-data";
 import { AddSpotForm, AddSpotInput, AddSpotLabel, FormContainer, InputLabelWrapper, SpotName, SubmitButton, Error } from "./style";
-
 
 export default function NewSpotForm() {
   const [spotName, setSpotName] = useState("");
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
-  const [isNameError, setIsNameError] = useState(false);
-  const [isDuplicateNameError, setIsDuplicateNameError] = useState(false);
+  const [error, setError] = useState(null);
 
   const router = useRouter();
 
@@ -25,44 +22,31 @@ export default function NewSpotForm() {
     setLatitude(event.target.value);
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    if (areFieldsValid()) {
-      if (isNameDuplicate()) {
-        setIsDuplicateNameError(true);
-      } else {
-        const newSpotData = {
-          id: mockData.length + 1,
-          name: spotName,
-          longitude,
-          latitude,
-        };
-        addSpotData(newSpotData);
-        setSpotName("");
-        setLongitude("");
-        setLatitude("");
-        setIsNameError(false);
-        setIsDuplicateNameError(false);
-        router.push("/");
-      }
-    } else if (spotName.trim() === "" || spotName === "NAME THIS SPOT HERE") {
-      setIsNameError(true);
+    if (spotName.trim() === "" || spotName === "NAME THIS SPOT HERE" || longitude.trim() === "" || latitude.trim() === "") {
+      setError('Please fill all fields.');
+      return;
     }
-  };
 
-  const areFieldsValid = () => {
-    return (
-      spotName.trim() !== "" &&
-      spotName !== "NAME THIS SPOT HERE" &&
-      longitude.trim() !== "" &&
-      latitude.trim() !== ""
-    );
-  };
+    const response = await fetch('/api/spots', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ spotName, longitude, latitude })
+    });
 
-  const isNameDuplicate = () => {
-    return mockData.some(
-      (spot) => spot.name.toLowerCase() === spotName.toLowerCase()
-    );
+    if (response.ok) {
+      setSpotName("");
+      setLongitude("");
+      setLatitude("");
+      setError(null);
+      router.push("/");
+    } else {
+      const responseData = await response.json();
+      setError(responseData.message);
+    }
   };
 
   return (
@@ -115,10 +99,7 @@ export default function NewSpotForm() {
         >
           create this spot
         </SubmitButton>
-        {isNameError && <Error>Please enter a spot name.</Error>}
-        {isDuplicateNameError && (
-          <Error>This spot name is already taken.</Error>
-        )}
+        {error && <Error>{error}</Error>}
       </FormContainer>
     </AddSpotForm>
   );
