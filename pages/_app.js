@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Roboto_Flex } from "next/font/google";
 import GlobalStyle from "../styles";
 import { SWRConfig } from "swr";
+import fetcher from "../utils/fetcher";
 
 const roboto = Roboto_Flex({
   subsets: [
@@ -18,19 +19,7 @@ const roboto = Roboto_Flex({
 export default function App({ Component, pageProps }) {
   return (
     <>
-      <SWRConfig
-        value={{
-          fetcher: async (...args) => {
-            const response = await fetch(...args);
-            if (!response.ok) {
-              const errorObject = await response.json();
-              const error = new Error(errorObject.message);
-              throw error;
-            }
-            return await response.json();
-          },
-        }}
-      >
+      <SWRConfig value={{ fetcher }}>
         <style jsx global>{`
           html {
             font-family: ${roboto.style.fontFamily};
