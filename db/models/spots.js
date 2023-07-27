@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const spotSchema = new Schema({
-  spot: { type: String, required: true },
+  spotName: { type: String, required: true },
   longitude: { type: Number, required: true },
   latitude: { type: Number, required: true },
 });
@@ -11,4 +11,3 @@ const spotSchema = new Schema({
 const Spot = mongoose.models.Spot || mongoose.model("Spot", spotSchema);
 
 export default Spot;
-
