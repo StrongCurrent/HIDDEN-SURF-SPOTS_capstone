@@ -22,7 +22,7 @@ export default function NewSpotForm() {
     setLatitude(event.target.value);
   };
 
-  const handleFormSubmit = async (event) => {
+  const handleAddSpot = async (event) => {
     event.preventDefault();
     if (spotName.trim() === "" || spotName === "NAME THIS SPOT HERE" || longitude.trim() === "" || latitude.trim() === "") {
       setError('Please fill all fields.');
@@ -50,7 +50,7 @@ export default function NewSpotForm() {
   };
 
   return (
-    <AddSpotForm onSubmit={handleFormSubmit}>
+    <AddSpotForm onSubmit={handleAddSpot}>
       <SpotName
         id="spotName"
         name="spotName"

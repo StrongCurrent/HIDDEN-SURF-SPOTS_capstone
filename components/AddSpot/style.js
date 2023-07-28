@@ -86,10 +86,16 @@ export const SubmitButton = styled.button`
   border-radius: 5px;
   border: none;
 
+  &:hover{
+  background-color: #40c057;
+}
+
   &:focus {
     background-color: #40c057;
+    font-weight: 600;
   }
 `;
+
 
 export const Error = styled.div`
   color: #ff0000;

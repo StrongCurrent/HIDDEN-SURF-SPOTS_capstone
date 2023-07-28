@@ -43,4 +43,22 @@ export const Latitude = styled.p`
   margin: 0px 0px 10px 0px;
 `;
 
+export const SpotDeleteButton = styled.button`
+  background-color: #FF5050;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-top: 15px;
+  height: 30px;
+  width: 250px;
+  border-radius: 5px;
+  border: none;
 
+&:hover{
+  background-color: #FF3232;
+}
+
+  &:focus {
+    background-color: #FF3232;
+    font-weight: 600;
+  }
+`;
