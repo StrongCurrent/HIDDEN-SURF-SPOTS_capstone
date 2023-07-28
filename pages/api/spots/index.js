@@ -34,6 +34,21 @@ export default async function handler(request, response) {
     await newSpot.save();
 
     response.status(201).json(newSpot);
+  } else if (request.method === "DELETE") {
+    const { spotId } = request.body;
+
+    if (!spotId) {
+      return response.status(400).json({ message: "No spot id provided" });
+    }
+
+    const spot = await Spot.findById(spotId);
+    if (!spot) {
+      return response.status(404).json({ message: "Spot not found" });
+    }
+
+    await Spot.deleteOne({ _id: spotId });
+
+    return response.status(200).json({ message: "Spot deleted successfully" });
   } else {
     response.status(404).json({ status: "404 Page not found" });
   }
