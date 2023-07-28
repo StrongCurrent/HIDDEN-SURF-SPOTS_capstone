@@ -1,11 +1,8 @@
-import styled from "styled-components";
+import {StyledHeader} from "./style";
+ 
+export default function Header({children}) {
+  return (
+<StyledHeader>{children}</StyledHeader>
+  );
+}
 
-const Header = styled.h1`
-  font-weight: 500;
-  letter-spacing: 0.05rem;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 1.4rem;
-  margin: 50px 0 10px;
-`;
-export default Header;
