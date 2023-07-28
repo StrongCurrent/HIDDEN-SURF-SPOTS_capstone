@@ -10,11 +10,11 @@ import {
 } from "./style";
 
 export default function SpotInfo({ spotId }) {
-  const { data: spot, error } = useSWR(`/api/spots?spotId=${spotId}`);
+  const { data: spot, error } = useSWR(`/api/spots/${spotId}`);
   const router = useRouter();
 
   const handleDeleteSpot = async () => {
-    const response = await fetch(`/api/spots?spotId=${spotId}`, {
+    const response = await fetch(`/api/spots/${spotId}`, {
       method: "DELETE",
     });
 
