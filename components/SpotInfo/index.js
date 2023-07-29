@@ -3,14 +3,21 @@ import { useRouter } from "next/router";
 import {
   SpotWrapper,
   SpotName,
-  SpotDetails,
+  InformationWrapper,
   Longitude,
   Latitude,
   SpotDeleteButton,
+  InfoLabel,
+  InfoTextarea,
+  InfoCreateButtonWrapper,
+  InfoCreateButton,
 } from "./style";
+import LoadingSpinner from "../LoadingSpinner";
+import { ErrorMessage } from "../Error/style";
 
 export default function SpotInfo({ spotId }) {
   const { data: spot, error } = useSWR(`/api/spots/${spotId}`);
+
   const router = useRouter();
 
   const handleDeleteSpot = async () => {
@@ -26,29 +33,47 @@ export default function SpotInfo({ spotId }) {
     }
   };
 
+  if (!spot) {
+    return <LoadingSpinner />;
+  }
+
   if (error) {
     return (
-      <h2>
+      <ErrorMessage>
         {error.message === "Spot not found"
           ? "Spot not found"
           : "Failed to load spot information"}
-      </h2>
+      </ErrorMessage>
     );
-  }
-
-  if (!spot) {
-    return <h2>Loading...</h2>;
   }
 
   return (
     <SpotWrapper>
       <SpotName>{spot.spotName}</SpotName>
-      <SpotDetails>
+      <InformationWrapper>
         <h2>SPOT INFORMATION</h2>
         <Longitude>Longitude: {spot.longitude}</Longitude>
         <Latitude>Latitude: {spot.latitude}</Latitude>
-      </SpotDetails>
-      <SpotDeleteButton onClick={handleDeleteSpot}>Delete this Spot</SpotDeleteButton>
+      </InformationWrapper>
+      <InformationWrapper>
+        <h2>ADDITIONAL SPOT INFORMATION</h2>
+      </InformationWrapper>
+      <InformationWrapper>
+        <InfoLabel for="info">ADD SOME SPOT INFORMATION</InfoLabel>
+        <InfoTextarea id="info" name="info" maxLength="450" />
+        <InfoCreateButtonWrapper>
+          <InfoCreateButton
+            type="submit"
+            name="create-info"
+            aria-label="Create information button"
+          >
+            add this info
+          </InfoCreateButton>
+        </InfoCreateButtonWrapper>
+      </InformationWrapper>
+      <SpotDeleteButton onClick={handleDeleteSpot}>
+        Delete this Spot
+      </SpotDeleteButton>
     </SpotWrapper>
   );
 }

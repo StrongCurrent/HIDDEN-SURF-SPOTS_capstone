@@ -76,7 +76,7 @@ export const AddSpotInput = styled.input`
   }
 `;
 
-export const SubmitButton = styled.button`
+export const SpotCreateButton = styled.button`
   background-color: #2f9e44;
   text-transform: uppercase;
   color: #ffffff;

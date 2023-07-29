@@ -16,7 +16,6 @@ export const SpotName = styled.div`
   font-size: 1rem;
   list-style: none;
   padding: 5px 0px;
-  margin-bottom: 40px;
   background-color: #fcfcfc;
   border-bottom: solid 1px #d5d5d5;
   border-top: solid 5px #2f6673;
@@ -24,11 +23,11 @@ export const SpotName = styled.div`
   border-right: 0px;
 `;
 
-export const SpotDetails = styled.div`
-  width: 250px;
+export const InformationWrapper = styled.div`
+  width: 90%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 `;
 
 export const Longitude = styled.p`
@@ -44,7 +43,7 @@ export const Latitude = styled.p`
 `;
 
 export const SpotDeleteButton = styled.button`
-  background-color: #FF5050;
+  background-color: #ff5050;
   text-transform: uppercase;
   color: #ffffff;
   margin-top: 15px;
@@ -53,12 +52,64 @@ export const SpotDeleteButton = styled.button`
   border-radius: 5px;
   border: none;
 
-&:hover{
-  background-color: #FF3232;
-}
+  &:hover {
+    background-color: #ff3232;
+  }
 
   &:focus {
-    background-color: #FF3232;
+    background-color: #ff3232;
+    font-weight: 600;
+  }
+`;
+
+export const InfoLabel = styled.label`
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 40px 0px 10px 0px;
+`;
+
+export const InfoTextarea = styled.textarea`
+  font-family: Roboto;
+  background-color: #fcfcfc;
+  border: solid 1px #d5d5d5;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 10px;
+  height: 60px;
+  width: 100%;
+
+  &:hover {
+    background-color: #f7f7f7;
+  }
+
+  &:focus {
+    background-color: #ffffff;
+    outline: solid 0.5px #d5d5d5;
+  }
+`;
+
+export const InfoCreateButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+export const InfoCreateButton = styled.button`
+  text-transform: uppercase;
+  background-color: #fcfcfc;
+  border: solid 1px #d5d5d5;
+  border-radius: 5px;
+  margin: 15px 0px 15px 0px;
+  height: 23px;
+  width: 125px;
+
+  &:hover {
+    background-color: #f7f7f7;
+  }
+
+  &:focus {
+    background-color: #f7f7f7;
     font-weight: 600;
   }
 `;

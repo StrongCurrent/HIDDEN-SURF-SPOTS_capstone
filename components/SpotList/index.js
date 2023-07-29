@@ -1,15 +1,17 @@
+import LoadingSpinner from "../LoadingSpinner";
 import { SpotsList, Spot, NoEntryMessage } from "./style";
 import useSWR from "swr";
+import { ErrorMessage } from "../Error/style";
 
 export default function SpotList() {
   const { data: spots, error } = useSWR("/api/spots");
 
   if (error) {
-    return <h2>Failed to load spots</h2>;
+    return <ErrorMessage>Failed to load spots</ErrorMessage>;
   }
 
   if (!spots) {
-    return <h2>Loading...</h2>;
+    return <LoadingSpinner/>;
   }
 
   if (spots.length === 0) {

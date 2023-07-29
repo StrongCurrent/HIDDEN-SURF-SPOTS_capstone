@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { AddSpotForm, AddSpotInput, AddSpotLabel, FormContainer, InputLabelWrapper, SpotName, SubmitButton, Error } from "./style";
+import { AddSpotForm, AddSpotInput, AddSpotLabel, FormContainer, InputLabelWrapper, SpotName, SpotCreateButton, Error } from "./style";
 
 export default function NewSpotForm() {
   const [spotName, setSpotName] = useState("");
@@ -92,13 +92,13 @@ export default function NewSpotForm() {
             aria-label="Latitude Input"
           />
         </InputLabelWrapper>
-        <SubmitButton
+        <SpotCreateButton
           type="submit"
           name="create-spot"
           aria-label="Create this spot button"
         >
           create this spot
-        </SubmitButton>
+        </SpotCreateButton>
         {error && <Error>{error}</Error>}
       </FormContainer>
     </AddSpotForm>
