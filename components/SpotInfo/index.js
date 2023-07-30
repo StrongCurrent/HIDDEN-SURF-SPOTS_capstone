@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import fetcher from "../../utils/fetcher";
 import { useRouter } from "next/router";
 import {
   SpotWrapper,
@@ -16,7 +17,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import { ErrorMessage } from "../Error/style";
 
 export default function SpotInfo({ spotId }) {
-  const { data: spot, error } = useSWR(`/api/spots/${spotId}`);
+  const { data: spot, error } = useSWR(`/api/spots/${spotId}`, fetcher);
 
   const router = useRouter();
 
