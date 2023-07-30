@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
 import { useRouter } from "next/router";
@@ -18,6 +19,7 @@ import { ErrorMessage } from "../Error/style";
 
 export default function SpotInfo({ spotId }) {
   const { data: spot, error } = useSWR(`/api/spots/${spotId}`, fetcher);
+  const [NewInfo, setNewInfo] = useState("");
 
   const router = useRouter();
 
@@ -28,6 +30,28 @@ export default function SpotInfo({ spotId }) {
 
     if (response.ok) {
       router.push("/");
+    } else {
+      const responseData = await response.json();
+      console.error(responseData.message);
+    }
+  };
+
+  const handleNewInfoChange = (event) => {
+    setNewInfo(event.target.value);
+  };
+
+  const handleAddNewInfo = async (event) => {
+    event.preventDefault();
+    const response = await fetch(`/api/spots/${spotId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ info: NewInfo }),
+    });
+
+    if (response.ok) {
+      setNewInfo("");
     } else {
       const responseData = await response.json();
       console.error(responseData.message);
@@ -60,12 +84,19 @@ export default function SpotInfo({ spotId }) {
         <h2>ADDITIONAL SPOT INFORMATION</h2>
       </InformationWrapper>
       <InformationWrapper>
-        <InfoLabel for="info">ADD SOME SPOT INFORMATION</InfoLabel>
-        <InfoTextarea id="info" name="info" maxLength="450" />
+        <InfoLabel htmlFor="new-info">ADD SOME SPOT INFORMATION</InfoLabel>
+        <InfoTextarea
+          id="new-info"
+          name="new-info"
+          maxLength="450"
+          value={NewInfo} 
+          onChange={handleNewInfoChange}
+        />
         <InfoCreateButtonWrapper>
           <InfoCreateButton
             type="submit"
             name="create-info"
+            onClick={handleAddNewInfo}
             aria-label="Create information button"
           >
             add this info
