@@ -2,15 +2,14 @@ import Header from "../../components/Header";
 import SpotInfo from "../../components/SpotInfo";
 import { useRouter } from "next/router";
 import Navigation from "../../components/Nav";
-import LoadingSpinner from "../../components/LoadingSpinner";
-
+import Error from "../../components/Error";
 
 export default function SpotInformation() {
   const router = useRouter();
   const { id } = router.query;
 
   if (!id) {
-    return <LoadingSpinner />;;
+    return <Error>Spot not found</Error>;
   }
 
   return (

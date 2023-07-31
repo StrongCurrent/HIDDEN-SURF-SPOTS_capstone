@@ -10,18 +10,24 @@ import {
   Latitude,
   EntryTextarea,
   NoInfoMessage,
-  InfoLabel,
+  InformationForm,
+  EntryList,
   InfoTextarea,
+  InfoLabel,
   InfoCreateButtonWrapper,
   InfoCreateButton,
-  SpotDeleteButton
+  SpotDeleteButton,
 } from "./style";
 import LoadingSpinner from "../LoadingSpinner";
-import { ErrorMessage } from "../Error/style";
+import Error from "../Error";
 
 export default function SpotInfo({ spotId }) {
-  const { data: spot, error } = useSWR(`/api/spots/${spotId}`, fetcher);
-  const [NewInfo, setNewInfo] = useState("");
+  const {
+    data: spot,
+    error,
+    isValidating,
+  } = useSWR(`/api/spots/${spotId}`, fetcher);
+  const [newInfo, setNewInfo] = useState("");
 
   const router = useRouter();
 
@@ -50,7 +56,7 @@ export default function SpotInfo({ spotId }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ info: NewInfo }),
+      body: JSON.stringify({ info: newInfo }),
     });
 
     if (response.ok) {
@@ -62,17 +68,17 @@ export default function SpotInfo({ spotId }) {
     }
   };
 
-  if (!spot) {
+  if (isValidating) {
     return <LoadingSpinner />;
   }
 
   if (error) {
     return (
-      <ErrorMessage>
+      <Error>
         {error.message === "Spot not found"
           ? "Spot not found"
           : "Failed to load spot information"}
-      </ErrorMessage>
+      </Error>
     );
   }
 
@@ -87,33 +93,34 @@ export default function SpotInfo({ spotId }) {
       <InformationWrapper>
         <h2>ADDITIONAL SPOT INFORMATION</h2>
         {spot.informations && spot.informations.length > 0 ? (
-          spot.informations.map((entry) => (
-            <EntryTextarea key={entry._id} value={entry.info} readOnly />
-          ))
+          <EntryList>
+            {spot.informations.map((entry) => (
+              <EntryTextarea key={entry._id}> {entry.info}</EntryTextarea>
+            ))}
+          </EntryList>
         ) : (
           <NoInfoMessage>There is no entry yet</NoInfoMessage>
         )}
       </InformationWrapper>
-      <InformationWrapper>
+      <InformationForm onSubmit={handleAddNewInfo}>
         <InfoLabel htmlFor="new-info">ADD SOME SPOT INFORMATION</InfoLabel>
         <InfoTextarea
           id="new-info"
           name="new-info"
           maxLength="450"
-          value={NewInfo}
+          value={newInfo}
           onChange={handleNewInfoChange}
         />
         <InfoCreateButtonWrapper>
           <InfoCreateButton
             type="submit"
             name="create-info"
-            onClick={handleAddNewInfo}
             aria-label="Create information button"
           >
             add this info
           </InfoCreateButton>
         </InfoCreateButtonWrapper>
-      </InformationWrapper>
+      </InformationForm>
       <SpotDeleteButton onClick={handleDeleteSpot}>
         Delete this Spot
       </SpotDeleteButton>

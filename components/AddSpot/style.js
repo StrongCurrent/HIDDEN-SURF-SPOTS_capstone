@@ -96,9 +96,3 @@ export const SpotCreateButton = styled.button`
   }
 `;
 
-
-export const Error = styled.div`
-  color: #ff0000;
-`;
-
-

@@ -42,7 +42,14 @@ export const Latitude = styled.p`
   margin: 0px 0px 10px 0px;
 `;
 
-export const EntryTextarea = styled.textarea`
+export const EntryList = styled.ul`
+  padding: 0;
+  margin: 0;
+  align-items: left;
+`;
+
+export const EntryTextarea = styled.li`
+  list-style: none;
   font-family: Roboto;
   background-color: #fcfcfc;
   border: solid 1px #d5d5d5;
@@ -55,11 +62,13 @@ export const EntryTextarea = styled.textarea`
   &:hover {
     background-color: #f7f7f7;
   }
+`;
 
-  &:focus {
-    background-color: #ffffff;
-    outline: solid 0.5px #d5d5d5;
-  }
+export const InformationForm = styled.form`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
 `;
 
 export const NoInfoMessage = styled.div`

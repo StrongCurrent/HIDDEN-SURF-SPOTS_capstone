@@ -2,13 +2,13 @@ import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
 import LoadingSpinner from "../LoadingSpinner";
 import { SpotsList, Spot, NoEntryMessage } from "./style";
-import { ErrorMessage } from "../Error/style";
+import Error from "../Error";
 
 export default function SpotList() {
   const { data: spots, error } = useSWR("/api/spots", fetcher);
 
   if (error) {
-    return <ErrorMessage>Failed to load spots</ErrorMessage>;
+    return <Error>Failed to load spots</Error>;
   }
 
   if (!spots) {

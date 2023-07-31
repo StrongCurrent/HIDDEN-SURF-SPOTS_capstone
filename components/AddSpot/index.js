@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { AddSpotForm, AddSpotInput, AddSpotLabel, FormContainer, InputLabelWrapper, SpotName, SpotCreateButton, Error } from "./style";
+import { AddSpotForm, AddSpotInput, AddSpotLabel, FormContainer, InputLabelWrapper, SpotName, SpotCreateButton} from "./style";
+import Error from "../Error";
+
 
 export default function NewSpotForm() {
   const [spotName, setSpotName] = useState("");
