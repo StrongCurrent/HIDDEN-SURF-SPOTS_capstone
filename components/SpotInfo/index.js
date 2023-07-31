@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import fetcher from "../../utils/fetcher";
 import { useRouter } from "next/router";
 import {
@@ -8,11 +8,13 @@ import {
   InformationWrapper,
   Longitude,
   Latitude,
-  SpotDeleteButton,
+  EntryTextarea,
+  NoInfoMessage,
   InfoLabel,
   InfoTextarea,
   InfoCreateButtonWrapper,
   InfoCreateButton,
+  SpotDeleteButton
 } from "./style";
 import LoadingSpinner from "../LoadingSpinner";
 import { ErrorMessage } from "../Error/style";
@@ -42,6 +44,7 @@ export default function SpotInfo({ spotId }) {
 
   const handleAddNewInfo = async (event) => {
     event.preventDefault();
+
     const response = await fetch(`/api/spots/${spotId}`, {
       method: "PUT",
       headers: {
@@ -52,6 +55,7 @@ export default function SpotInfo({ spotId }) {
 
     if (response.ok) {
       setNewInfo("");
+      mutate(`/api/spots/${spotId}`);
     } else {
       const responseData = await response.json();
       console.error(responseData.message);
@@ -82,6 +86,13 @@ export default function SpotInfo({ spotId }) {
       </InformationWrapper>
       <InformationWrapper>
         <h2>ADDITIONAL SPOT INFORMATION</h2>
+        {spot.informations && spot.informations.length > 0 ? (
+          spot.informations.map((entry) => (
+            <EntryTextarea key={entry._id} value={entry.info} readOnly />
+          ))
+        ) : (
+          <NoInfoMessage>There is no entry yet</NoInfoMessage>
+        )}
       </InformationWrapper>
       <InformationWrapper>
         <InfoLabel htmlFor="new-info">ADD SOME SPOT INFORMATION</InfoLabel>
@@ -89,7 +100,7 @@ export default function SpotInfo({ spotId }) {
           id="new-info"
           name="new-info"
           maxLength="450"
-          value={NewInfo} 
+          value={NewInfo}
           onChange={handleNewInfoChange}
         />
         <InfoCreateButtonWrapper>

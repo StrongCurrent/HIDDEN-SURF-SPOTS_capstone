@@ -42,24 +42,31 @@ export const Latitude = styled.p`
   margin: 0px 0px 10px 0px;
 `;
 
-export const SpotDeleteButton = styled.button`
-  background-color: #ff5050;
-  text-transform: uppercase;
-  color: #ffffff;
-  margin-top: 15px;
-  height: 30px;
-  width: 250px;
+export const EntryTextarea = styled.textarea`
+  font-family: Roboto;
+  background-color: #fcfcfc;
+  border: solid 1px #d5d5d5;
   border-radius: 5px;
-  border: none;
+  margin-top: 10px;
+  padding: 10px;
+  height: 60px;
+  width: 100%;
 
   &:hover {
-    background-color: #ff3232;
+    background-color: #f7f7f7;
   }
 
   &:focus {
-    background-color: #ff3232;
-    font-weight: 600;
+    background-color: #ffffff;
+    outline: solid 0.5px #d5d5d5;
   }
+`;
+
+export const NoInfoMessage = styled.div`
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: #ff0000;
+  margin-top: 5px;
 `;
 
 export const InfoLabel = styled.label`
@@ -76,7 +83,7 @@ export const InfoTextarea = styled.textarea`
   border-radius: 5px;
   margin-top: 10px;
   padding: 10px;
-  height: 60px;
+  height: 100%;
   width: 100%;
 
   &:hover {
@@ -110,6 +117,26 @@ export const InfoCreateButton = styled.button`
 
   &:focus {
     background-color: #f7f7f7;
+    font-weight: 600;
+  }
+`;
+
+export const SpotDeleteButton = styled.button`
+  background-color: #ff5050;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-top: 15px;
+  height: 30px;
+  width: 250px;
+  border-radius: 5px;
+  border: none;
+
+  &:hover {
+    background-color: #ff3232;
+  }
+
+  &:focus {
+    background-color: #ff3232;
     font-weight: 600;
   }
 `;
