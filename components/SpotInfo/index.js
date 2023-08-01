@@ -22,7 +22,7 @@ import {
 } from "./style";
 import LoadingSpinner from "../LoadingSpinner";
 import Error from "../Error";
-import {PiTrash, PiTrashBold} from "react-icons/pi"
+import { PiTrash, PiTrashBold } from "react-icons/pi";
 
 export default function SpotInfo({ spotId }) {
   const { data: spot, error, isValidating } = useSWR(`/api/spots/${spotId}`);
@@ -30,26 +30,12 @@ export default function SpotInfo({ spotId }) {
 
   const router = useRouter();
 
-  const handleDeleteSpot = async () => {
-    const response = await fetch(`/api/spots/${spotId}`, {
-      method: "DELETE",
-    });
-
-    if (response.ok) {
-      router.push("/");
-    } else {
-      const responseData = await response.json();
-      console.error(responseData.message);
-    }
-  };
-
-  const handleNewInfoChange = (event) => {
+  const handleNewEntryChange = (event) => {
     setNewInfo(event.target.value);
   };
 
-  const handleAddNewInfo = async (event) => {
+  const handleAddNewEntry = async (event) => {
     event.preventDefault();
-
     const response = await fetch(`/api/spots/${spotId}`, {
       method: "PUT",
       headers: {
@@ -61,6 +47,35 @@ export default function SpotInfo({ spotId }) {
     if (response.ok) {
       setNewInfo("");
       mutate(`/api/spots/${spotId}`);
+    } else {
+      const responseData = await response.json();
+      console.error(responseData.message);
+    }
+  };
+
+  const handleDeleteEntry = async (infoId) => {
+    const response = await fetch(
+      `/api/spots/${spotId}/informations/${infoId}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (response.ok) {
+      mutate(`/api/spots/${spotId}`);
+    } else {
+      const responseData = await response.json();
+      console.error(responseData.message);
+    }
+  };
+
+  const handleDeleteSpot = async () => {
+    const response = await fetch(`/api/spots/${spotId}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      router.push("/");
     } else {
       const responseData = await response.json();
       console.error(responseData.message);
@@ -95,23 +110,27 @@ export default function SpotInfo({ spotId }) {
           <EntryList>
             {spot.informations.map((entry) => (
               <EntryCard key={entry._id}>
-              <EntryTextarea>{entry.info}</EntryTextarea>
-            <EntryDeleteButton><StyledIcon as={PiTrash} size={25}/></EntryDeleteButton>
-            </EntryCard>
+                <EntryTextarea>{entry.info}</EntryTextarea>
+                <EntryDeleteButton onClick={() => handleDeleteEntry(entry._id)}>
+                  <StyledIcon as={PiTrash} size={25} />
+                </EntryDeleteButton>
+              </EntryCard>
             ))}
           </EntryList>
         ) : (
           <NoEntryMessage>There is no entry yet</NoEntryMessage>
         )}
       </InformationWrapper>
-      <AddEntryForm onSubmit={handleAddNewInfo}>
-        <AddEntryLabel htmlFor="new-info">ADD SOME SPOT INFORMATION</AddEntryLabel>
+      <AddEntryForm onSubmit={handleAddNewEntry}>
+        <AddEntryLabel htmlFor="new-info">
+          ADD SOME SPOT INFORMATION
+        </AddEntryLabel>
         <AddEntryTextarea
           id="new-info"
           name="new-info"
           maxLength="450"
           value={newInfo}
-          onChange={handleNewInfoChange}
+          onChange={handleNewEntryChange}
         />
         <AddEntryButtonWrapper>
           <AddEntryButton
