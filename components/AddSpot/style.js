@@ -76,7 +76,7 @@ export const AddSpotInput = styled.input`
   }
 `;
 
-export const SubmitButton = styled.button`
+export const SpotCreateButton = styled.button`
   background-color: #2f9e44;
   text-transform: uppercase;
   color: #ffffff;
@@ -95,10 +95,4 @@ export const SubmitButton = styled.button`
     font-weight: 600;
   }
 `;
-
-
-export const Error = styled.div`
-  color: #ff0000;
-`;
-
 

@@ -25,6 +25,11 @@ export const Spot = styled.li`
   }
 `;
 
+export const SpotLink = styled.a`
+color: inherit;
+text-decoration: none;
+`;
+
 export const NoEntryMessage = styled.div`
   text-align: center;
   text-transform: uppercase;
