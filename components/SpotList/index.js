@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import LoadingSpinner from "../LoadingSpinner";
-import { SpotsList, Spot, NoEntryMessage } from "./style";
+import { SpotsList, Spot, SpotLink, NoEntryMessage } from "./style";
 import Error from "../Error";
 
 export default function SpotList() {
@@ -24,15 +24,9 @@ export default function SpotList() {
         const isEven = index % 2 === 0;
         return (
           <Spot isEven={isEven} key={spot._id}>
-            <a
-              href={`/SpotInformation/${spot._id}`}
-              style={{
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
+            <SpotLink href={`/SpotInformation/${spot._id}`}>
               {spot.spotName}
-            </a>
+            </SpotLink>
           </Spot>
         );
       })}
