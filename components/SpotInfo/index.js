@@ -7,25 +7,25 @@ import {
   InformationWrapper,
   Longitude,
   Latitude,
-  EntryTextarea,
-  NoInfoMessage,
-  InformationForm,
   EntryList,
-  InfoTextarea,
-  InfoLabel,
-  InfoCreateButtonWrapper,
-  InfoCreateButton,
+  EntryCard,
+  EntryTextarea,
+  EntryDeleteButton,
+  StyledIcon,
+  NoEntryMessage,
+  AddEntryForm,
+  AddEntryLabel,
+  AddEntryTextarea,
+  AddEntryButtonWrapper,
+  AddEntryButton,
   SpotDeleteButton,
 } from "./style";
 import LoadingSpinner from "../LoadingSpinner";
 import Error from "../Error";
+import {PiTrash, PiTrashBold} from "react-icons/pi"
 
 export default function SpotInfo({ spotId }) {
-  const {
-    data: spot,
-    error,
-    isValidating,
-  } = useSWR(`/api/spots/${spotId}`);
+  const { data: spot, error, isValidating } = useSWR(`/api/spots/${spotId}`);
   const [newInfo, setNewInfo] = useState("");
 
   const router = useRouter();
@@ -94,32 +94,35 @@ export default function SpotInfo({ spotId }) {
         {spot.informations && spot.informations.length > 0 ? (
           <EntryList>
             {spot.informations.map((entry) => (
-              <EntryTextarea key={entry._id}> {entry.info}</EntryTextarea>
+              <EntryCard key={entry._id}>
+              <EntryTextarea>{entry.info}</EntryTextarea>
+            <EntryDeleteButton><StyledIcon as={PiTrash} size={25}/></EntryDeleteButton>
+            </EntryCard>
             ))}
           </EntryList>
         ) : (
-          <NoInfoMessage>There is no entry yet</NoInfoMessage>
+          <NoEntryMessage>There is no entry yet</NoEntryMessage>
         )}
       </InformationWrapper>
-      <InformationForm onSubmit={handleAddNewInfo}>
-        <InfoLabel htmlFor="new-info">ADD SOME SPOT INFORMATION</InfoLabel>
-        <InfoTextarea
+      <AddEntryForm onSubmit={handleAddNewInfo}>
+        <AddEntryLabel htmlFor="new-info">ADD SOME SPOT INFORMATION</AddEntryLabel>
+        <AddEntryTextarea
           id="new-info"
           name="new-info"
           maxLength="450"
           value={newInfo}
           onChange={handleNewInfoChange}
         />
-        <InfoCreateButtonWrapper>
-          <InfoCreateButton
+        <AddEntryButtonWrapper>
+          <AddEntryButton
             type="submit"
             name="create-info"
             aria-label="Create information button"
           >
             add this info
-          </InfoCreateButton>
-        </InfoCreateButtonWrapper>
-      </InformationForm>
+          </AddEntryButton>
+        </AddEntryButtonWrapper>
+      </AddEntryForm>
       <SpotDeleteButton onClick={handleDeleteSpot}>
         Delete this Spot
       </SpotDeleteButton>
