@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import useSWR, { mutate } from "swr";
-import fetcher from "../../utils/fetcher";
 import { useRouter } from "next/router";
 import {
   SpotWrapper,
@@ -26,7 +25,7 @@ export default function SpotInfo({ spotId }) {
     data: spot,
     error,
     isValidating,
-  } = useSWR(`/api/spots/${spotId}`, fetcher);
+  } = useSWR(`/api/spots/${spotId}`);
   const [newInfo, setNewInfo] = useState("");
 
   const router = useRouter();

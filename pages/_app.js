@@ -25,6 +25,7 @@ export default function App({ Component, pageProps }) {
             font-family: ${roboto.style.fontFamily};
           }
         `}</style>
+
         <GlobalStyle />
         <Head>
           <title>HIDDEN SURF SPOTS</title>
