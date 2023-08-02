@@ -58,7 +58,7 @@ export default function SpotInfo({ spotId }) {
     const response = await fetch(
       `/api/spots/${spotId}/informations/${infoId}`,
       {
-        method: "Delete",
+        method: "DELETE",
       }
     );
 
