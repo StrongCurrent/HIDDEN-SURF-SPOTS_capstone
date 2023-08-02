@@ -22,7 +22,7 @@ import {
 } from "./style";
 import LoadingSpinner from "../LoadingSpinner";
 import Error from "../Error";
-import { PiTrash, PiTrashBold } from "react-icons/pi";
+import { PiTrash, PiPencilLight } from "react-icons/pi";
 
 export default function SpotInfo({ spotId }) {
   const { data: spot, error, isValidating } = useSWR(`/api/spots/${spotId}`);
@@ -47,26 +47,21 @@ export default function SpotInfo({ spotId }) {
     if (response.ok) {
       setNewInfo("");
       mutate(`/api/spots/${spotId}`);
-    } else {
-      const responseData = await response.json();
-      console.error(responseData.message);
-    }
+    } 
   };
 
   const handleDeleteEntry = async (infoId) => {
-    const response = await fetch(
-      `/api/spots/${spotId}/informations/${infoId}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const response = await fetch(`/api/spots/${spotId}/informations/${infoId}`, {
+      method: "Delete",
+    });
 
     if (response.ok) {
-      mutate(`/api/spots/${spotId}`);
-    } else {
-      const responseData = await response.json();
-      console.error(responseData.message);
-    }
+      const data = await response.json();
+
+      if (data && data.success) {
+        mutate(`/api/spots/${spotId}`, undefined, true);
+      } 
+    } 
   };
 
   const handleDeleteSpot = async () => {
@@ -75,11 +70,7 @@ export default function SpotInfo({ spotId }) {
     });
 
     if (response.ok) {
-      router.push("/");
-    } else {
-      const responseData = await response.json();
-      console.error(responseData.message);
-    }
+      router.push("/");}
   };
 
   if (isValidating) {
@@ -112,7 +103,7 @@ export default function SpotInfo({ spotId }) {
               <EntryCard key={entry._id}>
                 <EntryTextarea>{entry.info}</EntryTextarea>
                 <EntryDeleteButton onClick={() => handleDeleteEntry(entry._id)}>
-                  <StyledIcon as={PiTrash} size={25} />
+                  <StyledIcon as={PiTrash} size={25}/>
                 </EntryDeleteButton>
               </EntryCard>
             ))}

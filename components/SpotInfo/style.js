@@ -59,9 +59,10 @@ export const EntryCard = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  `;
+`;
 
 export const EntryTextarea = styled.li`
+  flex: 1;
   list-style: none;
   font-family: Roboto;
   background-color: #fcfcfc;
@@ -69,8 +70,13 @@ export const EntryTextarea = styled.li`
   border-radius: 5px;
   margin-top: 10px;
   padding: 10px;
-  height: 60px;
+  height: auto;
   width: 100%;
+  max-width: 90%;
+  max-height: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 
   &:hover {
     background-color: #f7f7f7;
@@ -79,21 +85,12 @@ export const EntryTextarea = styled.li`
 
 export const EntryDeleteButton = styled.button`
   text-transform: uppercase;
-  background-color: #fcfcfc;
-  border: solid 1px #d5d5d5;
-  border-radius: 5px;
+  background-color: transparent;
+  border: none;
   margin: 10px 0px 0px 10px;
   height: 60px;
   width: 40px;
 
-  &:hover {
-    background-color: #f7f7f7;
-  }
-
-  &:focus {
-    background-color: #f7f7f7;
-    font-weight: 600;
-  }
 `;
 
 export const AddEntryForm = styled.form`
@@ -151,7 +148,7 @@ export const AddEntryButton = styled.button`
 `;
 
 export const StyledIcon = styled.svg`
-  fill: ${(props) => (props.$active ? "#5d9ea6" : "#2f6673")};
+  fill: #ff3232;
 `;
 
 export const SpotDeleteButton = styled.button`

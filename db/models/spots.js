@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const AdditionalInformationSchema = new Schema({
+  _id: { type: Schema.Types.ObjectId },
   info: { type: String },
 });
 
