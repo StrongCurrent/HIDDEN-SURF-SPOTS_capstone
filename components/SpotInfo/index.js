@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import { useRouter } from "next/router";
 import {
   SpotWrapper,
@@ -25,9 +25,13 @@ import Error from "../Error";
 import { PiTrash, PiPencilLight } from "react-icons/pi";
 
 export default function SpotInfo({ spotId }) {
-  const { data: spot, error, isValidating } = useSWR(`/api/spots/${spotId}`);
+  const {
+    data: spot,
+    error,
+    isValidating,
+    mutate,
+  } = useSWR(`/api/spots/${spotId}`);
   const [newInfo, setNewInfo] = useState("");
-
   const router = useRouter();
 
   const handleNewEntryChange = (event) => {
@@ -46,22 +50,25 @@ export default function SpotInfo({ spotId }) {
 
     if (response.ok) {
       setNewInfo("");
-      mutate(`/api/spots/${spotId}`);
-    } 
+      mutate();
+    }
   };
 
   const handleDeleteEntry = async (infoId) => {
-    const response = await fetch(`/api/spots/${spotId}/informations/${infoId}`, {
-      method: "Delete",
-    });
+    const response = await fetch(
+      `/api/spots/${spotId}/informations/${infoId}`,
+      {
+        method: "Delete",
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
 
       if (data && data.success) {
-        mutate(`/api/spots/${spotId}`, undefined, true);
-      } 
-    } 
+        mutate();
+      }
+    }
   };
 
   const handleDeleteSpot = async () => {
@@ -70,7 +77,8 @@ export default function SpotInfo({ spotId }) {
     });
 
     if (response.ok) {
-      router.push("/");}
+      router.push("/");
+    }
   };
 
   if (isValidating) {
@@ -103,7 +111,7 @@ export default function SpotInfo({ spotId }) {
               <EntryCard key={entry._id}>
                 <EntryTextarea>{entry.info}</EntryTextarea>
                 <EntryDeleteButton onClick={() => handleDeleteEntry(entry._id)}>
-                  <StyledIcon as={PiTrash} size={25}/>
+                  <StyledIcon as={PiTrash} size={25} />
                 </EntryDeleteButton>
               </EntryCard>
             ))}
