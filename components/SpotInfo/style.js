@@ -42,55 +42,75 @@ export const Latitude = styled.p`
   margin: 0px 0px 10px 0px;
 `;
 
-export const EntryList = styled.ul`
-  padding: 0;
-  margin: 0;
-  align-items: left;
-`;
-
-export const EntryTextarea = styled.li`
-  list-style: none;
-  font-family: Roboto;
-  background-color: #fcfcfc;
-  border: solid 1px #d5d5d5;
-  border-radius: 5px;
-  margin-top: 10px;
-  padding: 10px;
-  height: 60px;
-  width: 100%;
-
-  &:hover {
-    background-color: #f7f7f7;
-  }
-`;
-
-export const InformationForm = styled.form`
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-`;
-
-export const NoInfoMessage = styled.div`
+export const NoEntryMessage = styled.div`
   text-transform: uppercase;
   font-size: 1rem;
   color: #ff0000;
   margin-top: 5px;
 `;
 
-export const InfoLabel = styled.label`
-  font-size: 1.1rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  margin: 40px 0px 10px 0px;
+export const EntryList = styled.ul`
+  padding: 0;
+  margin: 0;
+  align-items: left;
 `;
 
-export const InfoTextarea = styled.textarea`
+export const EntryCard = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const EntryTextarea = styled.li`
+  flex: 1;
+  list-style: none;
   font-family: Roboto;
   background-color: #fcfcfc;
   border: solid 1px #d5d5d5;
   border-radius: 5px;
-  margin-top: 10px;
+  padding: 10px;
+  height: auto;
+  width: 100%;
+  margin-bottom: 10px;
+  max-width: 90%;
+  max-height: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+
+  &:hover {
+    background-color: #f7f7f7;
+  }
+`;
+
+export const EntryDeleteButton = styled.button`
+  text-transform: uppercase;
+  background-color: transparent;
+  border: none;
+  margin: 0px 0px 5px 10px;
+  height: 40px;
+  width: 40px;
+`;
+
+export const AddEntryForm = styled.form`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+`;
+
+export const AddEntryLabel = styled.label`
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 40px 0px 20px 0px;
+`;
+
+export const AddEntryTextarea = styled.textarea`
+  font-family: Roboto;
+  background-color: #fcfcfc;
+  border: solid 1px #d5d5d5;
+  border-radius: 5px;
   padding: 10px;
   height: 100%;
   width: 100%;
@@ -105,13 +125,13 @@ export const InfoTextarea = styled.textarea`
   }
 `;
 
-export const InfoCreateButtonWrapper = styled.div`
+export const AddEntryButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
 `;
 
-export const InfoCreateButton = styled.button`
+export const AddEntryButton = styled.button`
   text-transform: uppercase;
   background-color: #fcfcfc;
   border: solid 1px #d5d5d5;
@@ -123,11 +143,10 @@ export const InfoCreateButton = styled.button`
   &:hover {
     background-color: #f7f7f7;
   }
+`;
 
-  &:focus {
-    background-color: #f7f7f7;
-    font-weight: 600;
-  }
+export const StyledIcon = styled.svg`
+  fill: #ff3232;
 `;
 
 export const SpotDeleteButton = styled.button`
