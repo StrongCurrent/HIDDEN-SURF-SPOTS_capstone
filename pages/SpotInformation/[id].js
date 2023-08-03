@@ -10,7 +10,7 @@ export default function SpotInformation() {
   const { id } = router.query;
 
   if (!id) {
-    return <Error>Spot not found</Error>;
+    return <Error role="alert">Spot not found</Error>;
   }
 
   return (
