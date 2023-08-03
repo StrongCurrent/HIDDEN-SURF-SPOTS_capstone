@@ -3,6 +3,7 @@ import Link from "next/link";
 
 export const StyledNav = styled.nav`
   position: fixed;
+  z-index: 1000;
   bottom: 0;
   left: 0;
   width: 100%;

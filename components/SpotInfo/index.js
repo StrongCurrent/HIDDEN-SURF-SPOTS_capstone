@@ -185,12 +185,12 @@ export default function SpotInfo({ spotId }) {
   };
 
   if (isValidating) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner role="status"/>;
   }
 
   if (error) {
     return (
-      <Error>
+      <Error role="alert">
         {error.message === "Spot not found"
           ? "Spot not found"
           : "Failed to load spot information"}
@@ -206,16 +206,17 @@ export default function SpotInfo({ spotId }) {
             type="text"
             value={newSpotName}
             onChange={handleSpotNameChange}
+            aria-label="Spot name input"
           />
         ) : (
           spot.spotName
         )}
-        <SpotNameEditButton onClick={handleEditSpotName}>
+        <SpotNameEditButton onClick={handleEditSpotName} aria-label="Edit spot name">
           {isEditingSpotName ? (
             <EditIcon as={CiCircleCheck} size={25} />
           ) : (
             <EditIcon as={CiEdit} size={25} />
-          )}
+          )} 
         </SpotNameEditButton>
       </SpotName>
       <SpotNameError>{spotNameError}</SpotNameError>
@@ -241,7 +242,7 @@ export default function SpotInfo({ spotId }) {
                     {entry.info}
                   </EntryTextarea>
                   <EdTrButtonWrapper>
-                    <EntryEditButton onClick={() => handleEditEntry(entry._id)}>
+                    <EntryEditButton onClick={() => handleEditEntry(entry._id)} aria-label={`Edit entry for ${entry.info}`}>
                       {editMode === entry._id ? (
                         <EditIcon as={CiCircleCheck} size={25} />
                       ) : (
@@ -249,7 +250,7 @@ export default function SpotInfo({ spotId }) {
                       )}
                     </EntryEditButton>
                     <EntryDeleteButton
-                      onClick={() => handleDeleteEntry(entry._id)}
+                      onClick={() => handleDeleteEntry(entry._id)} aria-label={`Delete entry for ${entry.info}`}
                     >
                       <TrashIcon as={CiTrash} size={25} />
                     </EntryDeleteButton>
@@ -257,7 +258,7 @@ export default function SpotInfo({ spotId }) {
                 </EntryContentWrapper>
                 {editError && editMode === entry._id && (
                   <ButtonAndErrorWrapper>
-                    <EntryEditErrorText>{editError}</EntryEditErrorText>
+                    <EntryEditErrorText aria-live="polite">{editError}</EntryEditErrorText>
                   </ButtonAndErrorWrapper>
                 )}
               </EntryCard>
@@ -267,23 +268,24 @@ export default function SpotInfo({ spotId }) {
           <NoEntryMessage>There is no entry yet</NoEntryMessage>
         )}
       </InformationWrapper>
-      <AddEntryForm onSubmit={handleAddNewEntry}>
+      <AddEntryForm onSubmit={handleAddNewEntry} aria-label="Form to add a new entry">
         <AddEntryLabel htmlFor="new-info">
           ADD SOME SPOT INFORMATION
         </AddEntryLabel>
-        <EntryEditErrorText>{entryError}</EntryEditErrorText>
+        <EntryEditErrorText aria-live="polite">{entryError}</EntryEditErrorText>
         <AddEntryTextarea
           id="new-info"
           name="new-info"
           maxLength="450"
           value={newInfo}
           onChange={handleNewEntryChange}
+          aria-label="Add new entry input"
         />
         <AddEntryButtonWrapper>
           <AddEntryButton
             type="submit"
             name="create-info"
-            aria-label="Create information button"
+            aria-label="Create entry"
           >
             add this entry
           </AddEntryButton>

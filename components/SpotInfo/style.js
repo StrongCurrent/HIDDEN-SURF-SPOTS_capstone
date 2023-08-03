@@ -84,7 +84,7 @@ export const EntryList = styled.ul`
   align-items: left;
 `;
 
-export const EntryCard = styled.div`
+export const EntryCard = styled.li`
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-start;
@@ -106,7 +106,7 @@ export const ButtonAndErrorWrapper = styled.div`
 `;
 
 export const EntryTextarea = styled(({ isEditing, ...props }) =>
-  isEditing ? <textarea {...props} /> : <li {...props} />
+  isEditing ? <textarea {...props} /> : <p {...props} />
 )`
   flex: 1;
   list-style: none;

@@ -97,7 +97,7 @@ export default function NewSpotForm() {
         <SpotCreateButton
           type="submit"
           name="create-spot"
-          aria-label="Create this spot button"
+          aria-label="Create spot"
         >
           create this spot
         </SpotCreateButton>

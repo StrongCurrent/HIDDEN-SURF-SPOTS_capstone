@@ -3,6 +3,7 @@ import SpotInfo from "../../components/SpotInfo";
 import { useRouter } from "next/router";
 import Navigation from "../../components/Nav";
 import Error from "../../components/Error";
+import MainContent from "../../components/MainContent";
 
 export default function SpotInformation() {
   const router = useRouter();
@@ -13,10 +14,10 @@ export default function SpotInformation() {
   }
 
   return (
-    <main>
+    <MainContent>
       <Header>Spot Information</Header>
       <SpotInfo spotId={id} />
       <Navigation />
-    </main>
+    </MainContent>
   );
 }
