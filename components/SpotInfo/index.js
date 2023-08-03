@@ -48,6 +48,7 @@ export default function SpotInfo({ spotId }) {
   const [originalInfo, setOriginalInfo] = useState("");
   const [editInfo, setEditInfo] = useState("");
   const [editError, setEditError] = useState("");
+  const [entryError, setEntryError] = useState("");
   const router = useRouter();
 
   const handleSpotNameChange = (event) => {
@@ -88,6 +89,12 @@ export default function SpotInfo({ spotId }) {
 
   const handleAddNewEntry = async (event) => {
     event.preventDefault();
+
+    if (!newInfo.trim()) {
+      setEntryError("YOU FORGOT TO ENTER THE INFORMATION");
+      return;
+    }
+
     const response = await fetch(`/api/spots/${spotId}`, {
       method: "PUT",
       headers: {
@@ -99,6 +106,7 @@ export default function SpotInfo({ spotId }) {
     if (response.ok) {
       setNewInfo("");
       mutate();
+      setEntryError("");
     }
   };
 
@@ -263,6 +271,7 @@ export default function SpotInfo({ spotId }) {
         <AddEntryLabel htmlFor="new-info">
           ADD SOME SPOT INFORMATION
         </AddEntryLabel>
+        <EntryEditErrorText>{entryError}</EntryEditErrorText>
         <AddEntryTextarea
           id="new-info"
           name="new-info"
@@ -276,7 +285,7 @@ export default function SpotInfo({ spotId }) {
             name="create-info"
             aria-label="Create information button"
           >
-            add this info
+            add this entry
           </AddEntryButton>
         </AddEntryButtonWrapper>
       </AddEntryForm>
