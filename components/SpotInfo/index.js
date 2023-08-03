@@ -9,9 +9,15 @@ import {
   Latitude,
   EntryList,
   EntryCard,
+  EntryContentWrapper,
   EntryTextarea,
+  EditIcon,
+  TrashIcon,
+  EdTrButtonWrapper,
+  EntryEditErrorText,
+  ButtonAndErrorWrapper,
+  EntryEditButton,
   EntryDeleteButton,
-  StyledIcon,
   NoEntryMessage,
   AddEntryForm,
   AddEntryLabel,
@@ -22,7 +28,7 @@ import {
 } from "./style";
 import LoadingSpinner from "../LoadingSpinner";
 import Error from "../Error";
-import { PiTrash, PiPencilLight } from "react-icons/pi";
+import { CiEdit, CiTrash } from "react-icons/ci";
 
 export default function SpotInfo({ spotId }) {
   const {
@@ -32,6 +38,10 @@ export default function SpotInfo({ spotId }) {
     mutate,
   } = useSWR(`/api/spots/${spotId}`);
   const [newInfo, setNewInfo] = useState("");
+  const [editMode, setEditMode] = useState(null);
+  const [originalInfo, setOriginalInfo] = useState("");
+  const [editInfo, setEditInfo] = useState("");
+  const [editError, setEditError] = useState("");
   const router = useRouter();
 
   const handleNewEntryChange = (event) => {
@@ -51,6 +61,53 @@ export default function SpotInfo({ spotId }) {
     if (response.ok) {
       setNewInfo("");
       mutate();
+    }
+  };
+
+  const handleEditChange = (event) => {
+    setEditInfo(event.target.value);
+  };
+
+  const handleEditEntry = async (infoId) => {
+    if (editMode !== null) {
+      if (!editInfo.trim()) {
+        setEditError("YOU FORGOT TO ENTER THE INFORMATION");
+        return;
+      }
+      if (editInfo === originalInfo) {
+        setEditMode(null);
+        setOriginalInfo("");
+        return;
+      }
+
+      const response = await fetch(
+        `/api/spots/${spotId}/informations/${infoId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ info: editInfo }),
+        }
+      );
+
+      if (response.ok) {
+        setEditInfo("");
+        setEditMode(null);
+        setOriginalInfo("");
+        mutate();
+        setEditError("");
+      } else {
+        const errorData = await response.json();
+        setEditError(errorData.message);
+      }
+    } else {
+      setEditMode(infoId);
+      const infoToBeEdited = spot.informations.find(
+        (info) => info._id === infoId
+      );
+      setEditInfo(infoToBeEdited.info);
+      setOriginalInfo(infoToBeEdited.info);
     }
   };
 
@@ -109,10 +166,36 @@ export default function SpotInfo({ spotId }) {
           <EntryList>
             {spot.informations.map((entry) => (
               <EntryCard key={entry._id}>
-                <EntryTextarea>{entry.info}</EntryTextarea>
-                <EntryDeleteButton onClick={() => handleDeleteEntry(entry._id)}>
-                  <StyledIcon as={PiTrash} size={25} />
-                </EntryDeleteButton>
+                <EntryContentWrapper>
+                  <EntryTextarea
+                    isEditing={editMode === entry._id}
+                    value={editMode === entry._id ? editInfo : undefined}
+                    onChange={
+                      editMode === entry._id ? handleEditChange : undefined
+                    }
+                  >
+                    {entry.info}
+                  </EntryTextarea>
+                  <EdTrButtonWrapper>
+                    <EntryEditButton onClick={() => handleEditEntry(entry._id)}>
+                      {editMode === entry._id ? (
+                        "Save"
+                      ) : (
+                        <EditIcon as={CiEdit} size={25} />
+                      )}
+                    </EntryEditButton>
+                    <EntryDeleteButton
+                      onClick={() => handleDeleteEntry(entry._id)}
+                    >
+                      <TrashIcon as={CiTrash} size={25} />
+                    </EntryDeleteButton>
+                  </EdTrButtonWrapper>
+                </EntryContentWrapper>
+                {editError && editMode === entry._id && (
+                  <ButtonAndErrorWrapper>
+                    <EntryEditErrorText>{editError}</EntryEditErrorText>
+                  </ButtonAndErrorWrapper>
+                )}
               </EntryCard>
             ))}
           </EntryList>
