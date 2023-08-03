@@ -1,5 +1,31 @@
 import styled from "styled-components";
 
+export const SpotNameInput = styled.input`
+  border: 1px dotted #5d9ea6;
+  border-radius: 5px;
+  padding: 5px;
+  width: 25%;
+
+  &:focus {
+    background-color: #ffffff;
+    outline: solid 1px #5d9ea6;
+    border: none;
+  }
+`;
+
+export const SpotNameEditButton = styled.button`
+  background-color: transparent;
+  border: none;
+  margin: 0px 0px 0px 0px;
+`;
+
+export const SpotNameError = styled.div`
+  text-align: center;
+  color: #ff3232;
+  font-size: 0.9rem;
+  margin: 5px 0px 0px 0px;
+`;
+
 export const SpotWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -9,13 +35,16 @@ export const SpotWrapper = styled.div`
 `;
 
 export const SpotName = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   font-weight: 500;
   text-align: center;
   text-transform: uppercase;
   font-size: 1rem;
   list-style: none;
-  padding: 5px 0px;
+  padding: 0px 0px 0px 25px;
   background-color: #fcfcfc;
   border-bottom: solid 1px #d5d5d5;
   border-top: solid 5px #2f6673;
@@ -97,7 +126,7 @@ export const EntryTextarea = styled(({ isEditing, ...props }) =>
   ${({ isEditing }) =>
     isEditing
       ? `
-    border: dotted 1.5px #40c057;
+    border: dotted 1.5px #5d9ea6;
     
       `
       : `
@@ -106,13 +135,13 @@ export const EntryTextarea = styled(({ isEditing, ...props }) =>
       `}
   &:focus {
     background-color: #ffffff;
-    outline: solid 1px #40c057;
+    outline: solid 1px #5d9ea6;
     border: none;
   }
 `;
 
 export const EditIcon = styled.svg`
-  fill: #40c057;
+  fill: #5d9ea6;
 `;
 
 export const TrashIcon = styled.svg`
@@ -177,7 +206,7 @@ export const AddEntryTextarea = styled.textarea`
 
   &:focus {
     background-color: #ffffff;
-    outline: solid 1px #40c057;
+    outline: solid 1px #5d9ea6;
     border: none;
   }
 `;

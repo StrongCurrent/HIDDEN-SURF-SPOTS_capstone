@@ -44,5 +44,5 @@ export const StyledLink = styled(Link)`
 `;
 
 export const StyledIcon = styled.svg`
-  fill: ${(props) => (props.$active ? "#5d9ea6" : "#2f6673")};
+  fill: ${(props) => (props.$active ? "#2f6673" : "#5d9ea6")};
 `;

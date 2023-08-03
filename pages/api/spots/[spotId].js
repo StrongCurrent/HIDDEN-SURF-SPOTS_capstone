@@ -24,27 +24,53 @@ export default async function handler(request, response) {
   }
 
   if (request.method === "PUT") {
-    const { info } = request.body;
-  
-    const newInfo = {
-      _id: new mongoose.Types.ObjectId(),
-      info,
-    };
-  
-    try {
-      const updatedSpot = await Spot.findByIdAndUpdate(
-        spotId,
-        { $push: { informations: newInfo } },
-        { new: true }
-      );
-  
-      if (!updatedSpot) {
-        response.status(404).json({ message: "No spot found to update" });
-      } else {
-        response.status(200).json(updatedSpot);
+    const { info, spotName } = request.body;
+
+    if (info) {
+      const newInfo = {
+        _id: new mongoose.Types.ObjectId(),
+        info,
+      };
+
+      try {
+        const updatedSpot = await Spot.findByIdAndUpdate(
+          spotId,
+          { $push: { informations: newInfo } },
+          { new: true }
+        );
+
+        if (!updatedSpot) {
+          response.status(404).json({ message: "No spot found to update" });
+        } else {
+          response.status(200).json(updatedSpot);
+        }
+      } catch (error) {
+        response
+          .status(500)
+          .json({ message: "Internal server error", error: error.message });
       }
-  
-    } catch (error) {
-      response.status(500).json({ message: "Internal server error", error: error.message });
+    } else if (spotName) {
+      try {
+        const updatedSpot = await Spot.findByIdAndUpdate(
+          spotId,
+          { $set: { spotName: spotName } },
+          { new: true }
+        );
+
+        if (!updatedSpot) {
+          response.status(404).json({ message: "No spot found to update" });
+        } else {
+          response.status(200).json(updatedSpot);
+        }
+      } catch (error) {
+        response
+          .status(500)
+          .json({ message: "Internal server error", error: error.message });
+      }
+    } else {
+      response
+        .status(400)
+        .json({ message: "No information or spotName provided" });
     }
-  }}
+  }
+}

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import {
+  SpotNameInput,
+  SpotNameEditButton,
+  SpotNameError,
   SpotWrapper,
   SpotName,
   InformationWrapper,
@@ -28,7 +31,7 @@ import {
 } from "./style";
 import LoadingSpinner from "../LoadingSpinner";
 import Error from "../Error";
-import { CiEdit, CiTrash } from "react-icons/ci";
+import { CiEdit, CiCircleCheck, CiTrash } from "react-icons/ci";
 
 export default function SpotInfo({ spotId }) {
   const {
@@ -37,12 +40,47 @@ export default function SpotInfo({ spotId }) {
     isValidating,
     mutate,
   } = useSWR(`/api/spots/${spotId}`);
+  const [isEditingSpotName, setIsEditingSpotName] = useState(false);
+  const [spotNameError, setSpotNameError] = useState("");
+  const [newSpotName, setNewSpotName] = useState("");
   const [newInfo, setNewInfo] = useState("");
   const [editMode, setEditMode] = useState(null);
   const [originalInfo, setOriginalInfo] = useState("");
   const [editInfo, setEditInfo] = useState("");
   const [editError, setEditError] = useState("");
   const router = useRouter();
+
+  const handleSpotNameChange = (event) => {
+    setNewSpotName(event.target.value);
+  };
+
+  const handleEditSpotName = async () => {
+    if (isEditingSpotName) {
+      if (!newSpotName.trim()) {
+        setSpotNameError("YOU FORGOT TO ENTER THE SPOTNAME");
+        return;
+      }
+
+      const response = await fetch(`/api/spots/${spotId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ spotName: newSpotName }),
+      });
+
+      if (response.ok) {
+        setIsEditingSpotName(false);
+        mutate();
+        setSpotNameError("");
+      } else {
+        setSpotNameError("Failed to update spot name");
+      }
+    } else {
+      setIsEditingSpotName(true);
+      setNewSpotName(spot.spotName);
+    }
+  };
 
   const handleNewEntryChange = (event) => {
     setNewInfo(event.target.value);
@@ -154,7 +192,25 @@ export default function SpotInfo({ spotId }) {
 
   return (
     <SpotWrapper>
-      <SpotName>{spot.spotName}</SpotName>
+      <SpotName>
+        {isEditingSpotName ? (
+          <SpotNameInput
+            type="text"
+            value={newSpotName}
+            onChange={handleSpotNameChange}
+          />
+        ) : (
+          spot.spotName
+        )}
+        <SpotNameEditButton onClick={handleEditSpotName}>
+          {isEditingSpotName ? (
+            <EditIcon as={CiCircleCheck} size={25} />
+          ) : (
+            <EditIcon as={CiEdit} size={25} />
+          )}
+        </SpotNameEditButton>
+      </SpotName>
+      <SpotNameError>{spotNameError}</SpotNameError>
       <InformationWrapper>
         <h2>SPOT INFORMATION</h2>
         <Longitude>Longitude: {spot.longitude}</Longitude>
@@ -179,7 +235,7 @@ export default function SpotInfo({ spotId }) {
                   <EdTrButtonWrapper>
                     <EntryEditButton onClick={() => handleEditEntry(entry._id)}>
                       {editMode === entry._id ? (
-                        "Save"
+                        <EditIcon as={CiCircleCheck} size={25} />
                       ) : (
                         <EditIcon as={CiEdit} size={25} />
                       )}
