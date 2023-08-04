@@ -18,7 +18,7 @@ import {
 import LoadingSpinner from "../LoadingSpinner";
 import Error from "../Error";
 import { CiEdit, CiCircleCheck } from "react-icons/ci";
-import InfoForm from "../InfoForm";
+import EditDeleteInfoForm from "../EditDeleteInfoForm";
 import AddNewInfoForm from "../AddNewInfoForm"
 
 export default function SpotInfo({ spotId }) {
@@ -124,7 +124,7 @@ export default function SpotInfo({ spotId }) {
         {spot.informations && spot.informations.length > 0 ? (
           <EntryList>
             {spot.informations.map((entry) => (
-              <InfoForm key={entry._id} entry={entry} spotId={spotId} />
+              <EditDeleteInfoForm key={entry._id} entry={entry} spotId={spotId} />
             ))}
           </EntryList>
         ) : (

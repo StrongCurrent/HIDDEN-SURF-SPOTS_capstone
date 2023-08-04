@@ -14,7 +14,7 @@ import {
   EntryEditErrorText,
 } from "./style";
 
-export default function InfoForm({ entry, spotId }) {
+export default function EditDeleteInfoForm({ entry, spotId }) {
   const { mutate } = useSWRConfig();
   const [isEditing, setIsEditing] = useState(false);
   const [editInfo, setEditInfo] = useState(entry ? entry.info : "");
