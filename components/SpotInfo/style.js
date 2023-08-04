@@ -79,9 +79,13 @@ export const NoEntryMessage = styled.p`
 `;
 
 export const EntryList = styled.ul`
+ list-style-type: none;
   padding: 0;
   margin: 0;
   align-items: left;
+`;
+
+export const EntryListItem = styled.li`
 `;
 
 export const EditIcon = styled.svg`

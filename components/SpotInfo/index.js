@@ -11,6 +11,7 @@ import {
   Longitude,
   Latitude,
   EntryList,
+  EntryListItem,
   EditIcon,
   NoEntryMessage,
   SpotDeleteButton,
@@ -123,10 +124,12 @@ export default function SpotInfo({ spotId }) {
         <h2>ADDITIONAL SPOT INFORMATION</h2>
         {spot.informations && spot.informations.length > 0 ? (
           <EntryList>
-            {spot.informations.map((entry) => (
-              <EditDeleteInfoForm key={entry._id} entry={entry} spotId={spotId} />
-            ))}
-          </EntryList>
+          {spot.informations.map((entry) => (
+            <EntryListItem key={entry._id}>
+              <EditDeleteInfoForm entry={entry} spotId={spotId} />
+            </EntryListItem>
+          ))}
+        </EntryList>
         ) : (
           <NoEntryMessage>There is no entry yet</NoEntryMessage>
         )}
