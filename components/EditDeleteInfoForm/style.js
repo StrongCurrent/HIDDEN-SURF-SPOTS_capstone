@@ -22,7 +22,7 @@ export const ButtonAndErrorWrapper = styled.div`
 `;
 
 export const EntryTextarea = styled(({ isEditing, ...props }) =>
-  isEditing ? <textarea {...props} /> : <li {...props} />
+  isEditing ? <textarea {...props} /> : <p {...props} />
 )`
   flex: 1;
   list-style: none;
