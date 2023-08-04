@@ -20,7 +20,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import Error from "../Error";
 import { CiEdit, CiCircleCheck } from "react-icons/ci";
 import EditDeleteInfoForm from "../EditDeleteInfoForm";
-import AddNewInfoForm from "../AddNewInfoForm"
+import AddNewInfoForm from "../AddNewInfoForm";
 
 export default function SpotInfo({ spotId }) {
   const {
@@ -53,12 +53,18 @@ export default function SpotInfo({ spotId }) {
         body: JSON.stringify({ spotName: newSpotName }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         setIsEditingSpotName(false);
         mutate();
         setSpotNameError("");
       } else {
-        setSpotNameError("Failed to update spot name");
+        if (data.message.toUpperCase() === "SPOT NAME IS ALREADY TAKEN") {
+          setSpotNameError(data.message);
+        } else {
+          setSpotNameError("FAILED TO UPDATE SPOT NAME");
+        }
       }
     } else {
       setIsEditingSpotName(true);
@@ -124,16 +130,16 @@ export default function SpotInfo({ spotId }) {
         <h2>ADDITIONAL SPOT INFORMATION</h2>
         {spot.informations && spot.informations.length > 0 ? (
           <EntryList>
-          {spot.informations.map((entry) => (
-            <EntryListItem key={entry._id}>
-              <EditDeleteInfoForm entry={entry} spotId={spotId} />
-            </EntryListItem>
-          ))}
-        </EntryList>
+            {spot.informations.map((entry) => (
+              <EntryListItem key={entry._id}>
+                <EditDeleteInfoForm entry={entry} spotId={spotId} />
+              </EntryListItem>
+            ))}
+          </EntryList>
         ) : (
           <NoEntryMessage>There is no entry yet</NoEntryMessage>
         )}
-        <AddNewInfoForm spotId={spotId}/>
+        <AddNewInfoForm spotId={spotId} />
       </InformationWrapper>
       <SpotDeleteButton onClick={handleDeleteSpot}>
         Delete this Spot

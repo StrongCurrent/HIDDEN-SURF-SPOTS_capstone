@@ -10,7 +10,7 @@ export default async function handler(request, response) {
   if (request.method === "GET") {
     const spot = await Spot.findById(spotId);
     if (!spot) {
-      return response.status(404).json({ message: "Spot not found" });
+      return response.status(404).json({ message: "SPOT NOT FOUND" });
     }
     return response.status(200).json(spot);
   }
@@ -18,9 +18,9 @@ export default async function handler(request, response) {
   if (request.method === "DELETE") {
     const deletedSpot = await Spot.findByIdAndDelete(spotId);
     if (!deletedSpot) {
-      return response.status(404).json({ message: "No spot found to delete" });
+      return response.status(404).json({ message: "NO SPOT FOUND TO DELETE" });
     }
-    return response.status(200).json({ message: "Spot deleted successfully" });
+    return response.status(200).json({ message: "SPOT DELETED SUCCESSFULLY" });
   }
 
   if (request.method === "PUT") {
@@ -40,37 +40,44 @@ export default async function handler(request, response) {
         );
 
         if (!updatedSpot) {
-          response.status(404).json({ message: "No spot found to update" });
+          response.status(404).json({ message: "NO SPOT FOUND TO UPDATE" });
         } else {
           response.status(200).json(updatedSpot);
         }
       } catch (error) {
         response
           .status(500)
-          .json({ message: "Internal server error", error: error.message });
+          .json({ message: "INTERNAL SERVER ERROR", error: error.message });
       }
     } else if (spotName) {
+      const lowerCaseSpotName = spotName.toLowerCase();
+      const existingSpot = await Spot.findOne({ spotName: lowerCaseSpotName });
+
+      if (existingSpot && String(existingSpot._id) !== spotId) {
+        return response
+          .status(400)
+          .json({ message: "SPOT NAME IS ALREADY TAKEN" });
+      }
+
       try {
         const updatedSpot = await Spot.findByIdAndUpdate(
           spotId,
-          { $set: { spotName: spotName } },
+          { $set: { spotName: lowerCaseSpotName } },
           { new: true }
         );
 
         if (!updatedSpot) {
-          response.status(404).json({ message: "No spot found to update" });
+          response.status(404).json({ message: "NO SPOT FOUND TO UPDATE" });
         } else {
           response.status(200).json(updatedSpot);
         }
       } catch (error) {
-        response
-          .status(500)
-          .json({ message: "Internal server error", error: error.message });
+        response.status(500).json({ message: error.message, error: error });
       }
     } else {
       response
         .status(400)
-        .json({ message: "No information or spotName provided" });
+        .json({ message: "NO INFORMATION OR SPOTNAME PROVIDED" });
     }
   }
 }
