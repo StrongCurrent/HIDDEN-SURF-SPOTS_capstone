@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }) {
       <SWRConfig value={{ fetcher }}>
         <style jsx global>{`
           html {
-            font-family: ${roboto.style.fontFamily};
+            font-family: ${roboto.style.fontFamily}, Arial, sans-serif;
           }
         `}</style>
 
