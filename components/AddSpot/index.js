@@ -8,6 +8,7 @@ import {
   InputLabelWrapper,
   SpotName,
   SpotCreateButton,
+  SpotAdded,
 } from "./style";
 import ErrorMessage from "../Error";
 import LoadingSpinner from "../LoadingSpinner";
@@ -137,7 +138,7 @@ export default function NewSpotForm() {
         {isLoading && (
           <>
             <LoadingSpinner />
-            <p>SPOT WILL BE ADDED</p>
+            <SpotAdded>SPOT WILL BE ADDED</SpotAdded>
           </>
         )}
       </FormContainer>

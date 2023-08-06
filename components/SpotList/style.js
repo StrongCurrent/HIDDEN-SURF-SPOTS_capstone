@@ -13,6 +13,7 @@ export const Spot = styled.li`
   font-size: 1rem;
   list-style: none;
   padding: 5px 0px;
+  display: block;
   margin-bottom: 5px;
   background-color: #fcfcfc;
   border-bottom: solid 1px #d5d5d5;
@@ -26,8 +27,11 @@ export const Spot = styled.li`
 `;
 
 export const SpotLink = styled.a`
-color: inherit;
-text-decoration: none;
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
 `;
 
 export const NoEntryMessage = styled.div`

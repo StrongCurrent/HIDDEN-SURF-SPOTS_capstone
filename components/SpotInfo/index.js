@@ -70,7 +70,7 @@ export default function SpotInfo({ spotId }) {
         setSpotNameChangeSuccess(true);
         setTimeout(() => setSpotNameChangeSuccess(false), 3000);
       } else {
-        if (data.message.toUpperCase() === "SPOT NAME IS ALREADY TAKEN") {
+        if (data.message.toUpperCase() === "PLEASE CHOOSE ANOTHER NAME, THIS ONE IS ALREADY TAKEN. SPOT HAS NOT BEEN ADDED.") {
           setSpotNameError(data.message);
         } else {
           setSpotNameError("FAILED TO UPDATE SPOT NAME");
