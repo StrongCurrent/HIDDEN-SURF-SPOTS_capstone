@@ -26,7 +26,12 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <meta 
+            name="description" 
+            content="Store your own surf spots with this app. Mark spots with useful information to catch even better waves and be able to inform yourself about the conditions on site. Even if you haven't been to this place for a long time, you have access to your entered information anytime and anywhere. Experience the freedom of surfing like never before." 
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import {
@@ -15,6 +15,7 @@ import {
   EditIcon,
   NoEntryMessage,
   SpotDeleteButton,
+  SpotNameChangedSuccess,
 } from "./style";
 import LoadingSpinner from "../LoadingSpinner";
 import Error from "../Error";
@@ -32,16 +33,23 @@ export default function SpotInfo({ spotId }) {
   const [isEditingSpotName, setIsEditingSpotName] = useState(false);
   const [spotNameError, setSpotNameError] = useState("");
   const [newSpotName, setNewSpotName] = useState("");
+  const [spotNameChangeSuccess, setSpotNameChangeSuccess] = useState(false);
   const router = useRouter();
 
   const handleSpotNameChange = (event) => {
     setNewSpotName(event.target.value);
   };
 
-  const handleEditSpotName = async () => {
+  const handleEditSpotName = useCallback(async () => {
     if (isEditingSpotName) {
       if (!newSpotName.trim()) {
         setSpotNameError("YOU FORGOT TO ENTER THE SPOTNAME");
+        return;
+      }
+
+      if (newSpotName === spot.spotName) {
+        setIsEditingSpotName(false);
+        setSpotNameError("");
         return;
       }
 
@@ -59,6 +67,8 @@ export default function SpotInfo({ spotId }) {
         setIsEditingSpotName(false);
         mutate();
         setSpotNameError("");
+        setSpotNameChangeSuccess(true);
+        setTimeout(() => setSpotNameChangeSuccess(false), 3000);
       } else {
         if (data.message.toUpperCase() === "SPOT NAME IS ALREADY TAKEN") {
           setSpotNameError(data.message);
@@ -70,9 +80,9 @@ export default function SpotInfo({ spotId }) {
       setIsEditingSpotName(true);
       setNewSpotName(spot.spotName);
     }
-  };
+  }, [isEditingSpotName, newSpotName, spotId, mutate, spot]);
 
-  const handleDeleteSpot = async () => {
+  const handleDeleteSpot = useCallback(async () => {
     const response = await fetch(`/api/spots/${spotId}`, {
       method: "DELETE",
     });
@@ -80,7 +90,7 @@ export default function SpotInfo({ spotId }) {
     if (response.ok) {
       router.push("/");
     }
-  };
+  }, [spotId, router]);
 
   if (isValidating) {
     return <LoadingSpinner role="status" />;
@@ -105,6 +115,8 @@ export default function SpotInfo({ spotId }) {
             value={newSpotName}
             onChange={handleSpotNameChange}
             aria-label="Spot name input"
+            id="spotName"
+            name="spotName"
           />
         ) : (
           spot.spotName
@@ -121,6 +133,9 @@ export default function SpotInfo({ spotId }) {
         </SpotNameEditButton>
       </SpotName>
       <SpotNameError>{spotNameError}</SpotNameError>
+      {spotNameChangeSuccess && (
+        <SpotNameChangedSuccess>SPOT NAME CHANGED</SpotNameChangedSuccess>
+      )}
       <InformationWrapper>
         <h2>SPOT INFORMATION</h2>
         <Longitude>Longitude: {spot.longitude}</Longitude>

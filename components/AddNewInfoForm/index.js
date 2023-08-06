@@ -9,7 +9,7 @@ import {
   EntryEditErrorText
 } from "./style";
 
-export default function AddNewInfoForm({ spotId }) {
+const useAddNewEntry = (spotId) => {
   const { mutate } = useSWRConfig();
   const [newInfo, setNewInfo] = useState("");
   const [entryError, setEntryError] = useState("");
@@ -18,14 +18,21 @@ export default function AddNewInfoForm({ spotId }) {
     setNewInfo(event.target.value);
   };
 
+  const validateNewEntry = () => {
+    if (!newInfo.trim()) {
+      return "YOU FORGOT TO ENTER THE INFORMATION";
+    }
+    return null;
+  };
+
   const handleAddNewEntry = async (event) => {
     event.preventDefault();
-
-    if (!newInfo.trim()) {
-      setEntryError("YOU FORGOT TO ENTER THE INFORMATION");
+    const error = validateNewEntry();
+    if (error) {
+      setEntryError(error);
       return;
     }
-
+    
     const response = await fetch(`/api/spots/${spotId}/informations`, {
       method: "POST",
       headers: {
@@ -38,8 +45,26 @@ export default function AddNewInfoForm({ spotId }) {
       setNewInfo("");
       mutate(`/api/spots/${spotId}`);
       setEntryError("");
+    } else {
+      setEntryError("AN UNKNOWN ERROR OCCURRED");
     }
   };
+
+  return {
+    newInfo,
+    entryError,
+    handleNewEntryChange,
+    handleAddNewEntry
+  };
+};
+
+export default function AddNewInfoForm({ spotId }) {
+  const {
+    newInfo,
+    entryError,
+    handleNewEntryChange,
+    handleAddNewEntry
+  } = useAddNewEntry(spotId);
 
   return (
     <AddEntryForm

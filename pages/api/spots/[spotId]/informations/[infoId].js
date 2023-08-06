@@ -18,7 +18,7 @@ export default async function handler(req, res) {
       } else {
         res
           .status(200)
-          .json({ success: true, message: "Entry successfully deleted" });
+          .json({ success: true, message: "ENTRY SUCCESSFULLY DELETED" });
       }
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     if (!info) {
       return res
         .status(400)
-        .json({ success: false, message: "Missing info data" });
+        .json({ success: false, message: "YOU FORGOT TO ENTER THE INFORMATION" });
     }
 
     try {
@@ -42,14 +42,14 @@ export default async function handler(req, res) {
         if (result.matchedCount > 0) {
           res
             .status(200)
-            .json({ success: true, message: "No changes were made" });
+            .json({ success: true, message: "NO CHANGES WERE MADE" });
         } else {
           res.status(404).json({ success: false });
         }
       } else {
         res
           .status(200)
-          .json({ success: true, message: "Entry successfully updated" });
+          .json({ success: true, message: "ENTRY SUCCESSFULLY UPDATED" });
       }
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });

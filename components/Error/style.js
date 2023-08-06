@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
 export const ErrorMessage = styled.div`
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.2rem;
-  font-weight: bold;
+  margin-top: 20px;  
+  font-size: 1.0rem;
   color: #ff3232;
+  z-index: 100;
 `;

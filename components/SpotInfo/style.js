@@ -75,18 +75,17 @@ export const NoEntryMessage = styled.p`
   text-transform: uppercase;
   font-size: 1rem;
   color: #ff0000;
-  margin-top: 5px;
+  margin-top: 0px;
 `;
 
 export const EntryList = styled.ul`
- list-style-type: none;
+  list-style-type: none;
   padding: 0;
   margin: 0;
   align-items: left;
 `;
 
-export const EntryListItem = styled.li`
-`;
+export const EntryListItem = styled.li``;
 
 export const EditIcon = styled.svg`
   fill: #5d9ea6;
@@ -110,4 +109,11 @@ export const SpotDeleteButton = styled.button`
     background-color: #ff3232;
     font-weight: 600;
   }
+`;
+
+export const SpotNameChangedSuccess = styled.div`
+  margin-top: 5px;
+  font-size: 1rem;
+  color: #40c057;
+  z-index: 100;
 `;

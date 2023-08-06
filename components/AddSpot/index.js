@@ -1,54 +1,86 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { AddSpotForm, AddSpotInput, AddSpotLabel, FormContainer, InputLabelWrapper, SpotName, SpotCreateButton} from "./style";
-import Error from "../Error";
+import {
+  AddSpotForm,
+  AddSpotInput,
+  AddSpotLabel,
+  FormContainer,
+  InputLabelWrapper,
+  SpotName,
+  SpotCreateButton,
+} from "./style";
+import ErrorMessage from "../Error";
+import LoadingSpinner from "../LoadingSpinner";
 
+const createSpot = async (spotName, longitude, latitude) => {
+  const response = await fetch("/api/spots", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ spotName, longitude, latitude }),
+  });
+
+  if (!response.ok) {
+    const responseData = await response.json();
+    throw new Error(responseData.message || "Unexpected error occurred");
+  }
+};
 
 export default function NewSpotForm() {
   const [spotName, setSpotName] = useState("");
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
-  const handleSpotNameChange = (event) => {
-    setSpotName(event.target.value);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    if (name === "spotName") {
+      setSpotName(value);
+    } else if (name === "longitude") {
+      setLongitude(value);
+    } else if (name === "latitude") {
+      setLatitude(value);
+    }
   };
 
-  const handleLongitudeChange = (event) => {
-    setLongitude(event.target.value);
-  };
-
-  const handleLatitudeChange = (event) => {
-    setLatitude(event.target.value);
+  const isValidInput = () => {
+    return !(
+      spotName.trim() === "" ||
+      spotName === "NAME THIS SPOT HERE" ||
+      longitude.trim() === "" ||
+      latitude.trim() === ""
+    );
   };
 
   const handleAddSpot = async (event) => {
     event.preventDefault();
-    if (spotName.trim() === "" || spotName === "NAME THIS SPOT HERE" || longitude.trim() === "" || latitude.trim() === "") {
-      setError('Please fill all fields.');
+    if (!isValidInput()) {
+      setError("PLEASE FILL ALL FIELDS");
       return;
     }
 
-    const response = await fetch('/api/spots', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ spotName, longitude, latitude })
-    });
+    setIsLoading(true);
 
-    if (response.ok) {
+    try {
+      await createSpot(spotName.toLowerCase(), longitude, latitude);
       setSpotName("");
       setLongitude("");
       setLatitude("");
-      setError(null);
       router.push("/");
-    } else {
-      const responseData = await response.json();
-      setError(responseData.message);
+    } catch (error) {
+      if (error.message && typeof error.message === "string") {
+        setError(error.message);
+      } else {
+        setError("UNKNOWN ERROR OCCURRED");
+      }
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -59,7 +91,7 @@ export default function NewSpotForm() {
         type="input"
         placeholder="NAME THIS SPOT HERE"
         value={spotName}
-        onChange={handleSpotNameChange}
+        onChange={handleChange}
         required
         aria-label="Spotname Input"
       />
@@ -72,7 +104,7 @@ export default function NewSpotForm() {
             type="number"
             pattern="-?\d+(\.\d+)?"
             value={longitude}
-            onChange={handleLongitudeChange}
+            onChange={handleChange}
             required
             id="longitude"
             name="longitude"
@@ -87,7 +119,7 @@ export default function NewSpotForm() {
             type="number"
             pattern="-?\d+(\.\d+)?"
             value={latitude}
-            onChange={handleLatitudeChange}
+            onChange={handleChange}
             required
             id="latitude"
             name="latitude"
@@ -101,7 +133,13 @@ export default function NewSpotForm() {
         >
           create this spot
         </SpotCreateButton>
-        {error && <Error>{error}</Error>}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {isLoading && (
+          <>
+            <LoadingSpinner />
+            <p>SPOT WILL BE ADDED</p>
+          </>
+        )}
       </FormContainer>
     </AddSpotForm>
   );

@@ -6,7 +6,7 @@ import MainContent from "../components/MainContent";
 export default function Home() {
   return (
     <MainContent>
-      <Header>Your Hidden Spots</Header>
+      <Header>Hidden Surf Spots</Header>
       <SpotList />
       <Navigation />
     </MainContent>

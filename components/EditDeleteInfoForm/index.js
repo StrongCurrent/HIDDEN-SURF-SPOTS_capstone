@@ -14,68 +14,88 @@ import {
   EntryEditErrorText,
 } from "./style";
 
+const updateInformation = async (spotId, infoId, info) => {
+  const response = await fetch(
+    `/api/spots/${spotId}/informations/${infoId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ info }),
+    }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message);
+  }
+};
+
+const deleteInformation = async (spotId, infoId) => {
+  const response = await fetch(
+    `/api/spots/${spotId}/informations/${infoId}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message);
+  }
+};
+
 export default function EditDeleteInfoForm({ entry, spotId }) {
   const { mutate } = useSWRConfig();
   const [isEditing, setIsEditing] = useState(false);
   const [editInfo, setEditInfo] = useState(entry ? entry.info : "");
   const [inputError, setInputError] = useState(null);
 
+  const isValidEntry = useCallback(
+    () => entry && entry.info.trim(),
+    [entry]
+  );
+
+  const [disabled, setDisabled] = useState(!isValidEntry());
+
   useEffect(() => {
     setEditInfo(entry ? entry.info : "");
-  }, [entry]);
+    setDisabled(!isValidEntry());
+  }, [entry, isValidEntry]);
 
   const handleEdit = useCallback(async () => {
-    if (!entry) return;
+    if (!isValidEntry() || disabled) {
+      return;
+    }
 
     if (isEditing) {
-      if (!editInfo.trim()) {
-        setInputError("YOU FORGOT TO ENTER THE INFORMATION");
-        return;
-      }
-
-      const response = await fetch(
-        `/api/spots/${spotId}/informations/${entry._id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ info: editInfo }),
-        }
-      );
-
-      if (response.ok) {
+      try {
+        await updateInformation(spotId, entry._id, editInfo);
         setIsEditing(false);
         setInputError(null);
         mutate(`/api/spots/${spotId}`);
-      } else {
-        const errorData = await response.json();
-        setInputError(errorData.message);
+      } catch (error) {
+        setInputError(error.message);
       }
     } else {
       setIsEditing(true);
       setEditInfo(entry.info);
     }
-  }, [entry, isEditing, editInfo, spotId, mutate]);
+  }, [entry, isEditing, editInfo, spotId, mutate, disabled, isValidEntry]);
 
-  const handleDelete = async () => {
-    if (!entry) return;
-
-    const response = await fetch(
-      `/api/spots/${spotId}/informations/${entry._id}`,
-      {
-        method: "DELETE",
-      }
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      if (!data.success) {
-        setEditError(data.message);
-      }
-      mutate(`/api/spots/${spotId}`);
+  const handleDelete = useCallback(async () => {
+    if (!isValidEntry() || disabled) {
+      return;
     }
-  };
+
+    try {
+      await deleteInformation(spotId, entry._id);
+      mutate(`/api/spots/${spotId}`);
+    } catch (error) {
+      setInputError(error.message);
+    }
+  }, [entry, spotId, mutate, disabled, isValidEntry]);
 
   return (
     <InfoFormWrapper>
@@ -97,6 +117,7 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
               onChange={
                 isEditing ? (e) => setEditInfo(e.target.value) : undefined
               }
+              disabled={disabled}
             >
               {entry.info}
             </EntryTextarea>
@@ -104,6 +125,7 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
               <EntryEditButton
                 onClick={handleEdit}
                 aria-label={`Edit entry for ${entry.info}`}
+                disabled={disabled}
               >
                 {isEditing ? (
                   <EditIcon as={CiCircleCheck} size={25} />
@@ -114,6 +136,7 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
               <EntryDeleteButton
                 onClick={handleDelete}
                 aria-label={`Delete entry for ${entry.info}`}
+                disabled={disabled}
               >
                 <TrashIcon as={CiTrash} size={25} />
               </EntryDeleteButton>

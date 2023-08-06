@@ -15,7 +15,7 @@ export default async function handler(request, response) {
     if (existingSpot) {
       return response
         .status(400)
-        .json({ message: "The name is already taken" });
+        .json({ message: "SPOT NAME IS ALREADY TAKEN" });
     }
 
     const newSpot = new Spot({

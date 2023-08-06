@@ -77,7 +77,7 @@ export default async function handler(request, response) {
     } else {
       response
         .status(400)
-        .json({ message: "NO INFORMATION OR SPOTNAME PROVIDED" });
+        .json({ message: "NO INFORMATION OR SPOT NAME PROVIDED" });
     }
   }
 }
