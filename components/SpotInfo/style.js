@@ -117,3 +117,57 @@ export const SpotNameChangedSuccess = styled.div`
   color: #40c057;
   z-index: 100;
 `;
+
+export const ModalHeadline = styled.h2`
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ff0000;
+  margin:0px 0px 10px 0px;
+`;
+
+export const ModalMessage = styled.p`
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000000;
+  margin-top: 0px;
+`;
+
+export const ModalDeleteButton = styled.button`
+  background-color: #ff5050;
+  text-transform: uppercase;
+  color: #ffffff;
+  height: 25px;
+  width: 120px;
+  border-radius: 5px;
+  border: none;
+
+  &:hover {
+    background-color: #ff3232;
+  }
+
+  &:focus {
+    background-color: #ff3232;
+    font-weight: 600;
+  }
+`;
+
+export const ModalKeepButton = styled.button`
+  background-color: #2f9e44;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0px 0px 0px 10px;
+  height: 25px;
+  width: 120px;
+  border-radius: 5px;
+  border: none;
+
+  &:hover{
+  background-color: #40c057;
+}
+
+  &:focus {
+    background-color: #40c057;
+    font-weight: 600;
+  }
+`;
