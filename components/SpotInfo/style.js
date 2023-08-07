@@ -94,10 +94,13 @@ export const EditIcon = styled.svg`
 export const SpotDeleteButton = styled.button`
   background-color: #ff5050;
   text-transform: uppercase;
+  text-shadow: 0px 1px 3px #474747;
+  letter-spacing: 1px;
+  font-weight: 600;
   color: #ffffff;
   margin-top: 15px;
-  height: 30px;
-  width: 250px;
+  height: 50px;
+  width: 170px;
   border-radius: 5px;
   border: none;
 
@@ -107,7 +110,7 @@ export const SpotDeleteButton = styled.button`
 
   &:focus {
     background-color: #ff3232;
-    font-weight: 600;
+    font-weight: 200;
   }
 `;
 
@@ -123,7 +126,7 @@ export const ModalHeadline = styled.h2`
   font-size: 1.3rem;
   font-weight: 700;
   color: #ff0000;
-  margin:0px 0px 10px 0px;
+  margin: 0px 0px 10px 0px;
 `;
 
 export const ModalMessage = styled.p`
@@ -133,41 +136,35 @@ export const ModalMessage = styled.p`
   margin-top: 0;
 `;
 
-export const ModalDeleteButton = styled.button`
-  background-color: #ff5050;
+export const BaseModalButton = styled.button`
   text-transform: uppercase;
+  text-shadow: 0px 1px 3px #474747;
+  letter-spacing: 1px;
   color: #ffffff;
-  height: 25px;
-  width: 120px;
+  font-weight: 600;
+  height: 45px;
+  width: 135px;
   border-radius: 5px;
-  border: none;
-
-  &:hover {
-    background-color: #ff3232;
-  }
+  border: none;  
 
   &:focus {
-    background-color: #ff3232;
-    font-weight: 600;
+    font-weight: 200;
   }
 `;
 
-export const ModalKeepButton = styled.button`
+export const ModalDeleteButton = styled(BaseModalButton)`
+  background-color: #ff5050;
+
+  &:hover, &:focus {
+    background-color: #ff3232;
+  }
+`;
+
+export const ModalKeepButton = styled(BaseModalButton)`
   background-color: #2f9e44;
-  text-transform: uppercase;
-  color: #ffffff;
   margin: 0px 0px 0px 10px;
-  height: 25px;
-  width: 120px;
-  border-radius: 5px;
-  border: none;
 
-  &:hover{
-  background-color: #40c057;
-}
-
-  &:focus {
+  &:hover, &:focus {
     background-color: #40c057;
-    font-weight: 600;
   }
 `;

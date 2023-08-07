@@ -4,7 +4,7 @@ export const ModalWrapper = styled.div`
   width: 80%;
   min-height: 60%;
   max-height: 90vh;
-  max-width: 300px;
+  max-width: 400px;
   overflow: auto;
   display: flex;
   flex-direction: column;

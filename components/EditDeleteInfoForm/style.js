@@ -82,6 +82,11 @@ export const EntryEditButton = styled.button`
   margin: 0px 0px 5px 10px;
   height: 40px;
   width: 40px;
+
+  &:disabled {
+    color: #cccccc; 
+    cursor: not-allowed;
+  }
 `;
 
 export const EntryDeleteButton = styled.button`
@@ -91,6 +96,11 @@ export const EntryDeleteButton = styled.button`
   margin: 0px 0px 5px 10px;
   height: 40px;
   width: 40px;
+
+  &:disabled {
+    color: #cccccc; 
+    cursor: not-allowed;
+  }
 `;
 
 export const ModalHeadline = styled.h2`
@@ -108,41 +118,35 @@ export const ModalMessage = styled.p`
   margin-top: 0px;
 `;
 
-export const ModalDeleteButton = styled.button`
-  background-color: #ff5050;
+export const BaseModalButton = styled.button`
   text-transform: uppercase;
+  text-shadow: 0px 1px 3px #474747;
   color: #ffffff;
-  height: 25px;
-  width: 120px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  height: 45px;
+  width: 135px;
   border-radius: 5px;
-  border: none;
-
-  &:hover {
-    background-color: #ff3232;
-  }
+  border: none;  
 
   &:focus {
-    background-color: #ff3232;
-    font-weight: 600;
+    font-weight: 200;
   }
 `;
 
-export const ModalKeepButton = styled.button`
-  background-color: #2f9e44;
-  text-transform: uppercase;
-  color: #ffffff;
-  margin: 0px 0px 0px 10px;
-  height: 25px;
-  width: 120px;
-  border-radius: 5px;
-  border: none;
+export const ModalDeleteButton = styled(BaseModalButton)`
+  background-color: #ff5050;
 
-  &:hover {
-    background-color: #40c057;
+  &:hover, &:focus {
+    background-color: #ff3232;
   }
+`;
 
-  &:focus {
+export const ModalKeepButton = styled(BaseModalButton)`
+  background-color: #2f9e44;
+  margin: 0px 0px 0px 10px;
+
+  &:hover, &:focus {
     background-color: #40c057;
-    font-weight: 600;
   }
 `;

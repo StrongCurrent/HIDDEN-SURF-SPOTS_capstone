@@ -177,7 +177,7 @@ export default function SpotInfo({ spotId }) {
       </SpotDeleteButton>
       {isModalOpen && (
         <Modal onClose={closeModal} aria-label="Confirmation modal">
-          <ModalHeadline>!!! WARNING !!!</ModalHeadline>
+          <ModalHeadline>WARNING</ModalHeadline>
           <ModalMessage>
             Sure you want to delete this Spot with all the informations?
           </ModalMessage>

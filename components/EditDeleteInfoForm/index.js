@@ -148,7 +148,7 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
           onClose={() => closeModal(false)}
           aria-label="Confirmation modal"
         >
-          <ModalHeadline>!!! WARNING !!!</ModalHeadline>
+          <ModalHeadline>WARNING</ModalHeadline>
           <ModalMessage>Sure you want to delete this information?</ModalMessage>
           <ModalDeleteButton
             onClick={() => closeModal(true)}
