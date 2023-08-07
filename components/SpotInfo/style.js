@@ -130,7 +130,7 @@ export const ModalMessage = styled.p`
   font-size: 1rem;
   font-weight: 500;
   color: #000000;
-  margin-top: 0px;
+  margin-top: 0;
 `;
 
 export const ModalDeleteButton = styled.button`

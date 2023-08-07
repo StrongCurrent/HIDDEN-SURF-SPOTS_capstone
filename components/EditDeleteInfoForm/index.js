@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSWRConfig } from "swr";
 import { CiEdit, CiCircleCheck, CiTrash } from "react-icons/ci";
 import {

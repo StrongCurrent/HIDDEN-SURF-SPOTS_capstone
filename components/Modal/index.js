@@ -1,5 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { createPortal } from "react-dom";
 import {
   ModalWrapper,
   StyledModal,
@@ -23,7 +22,7 @@ const Modal = ({ onClose, children }) => {
     </ModalOverlay>
   );
 
-  return ReactDOM.createPortal(
+  return createPortal(
     modalContent,
     document.getElementById("modal-root")
   );

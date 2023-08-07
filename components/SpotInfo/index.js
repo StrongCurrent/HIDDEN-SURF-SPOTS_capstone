@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import {
@@ -29,11 +29,13 @@ import Modal from "../Modal";
 
 export default function SpotInfo({ spotId }) {
   const { data: spot, error, mutate } = useSWR(`/api/spots/${spotId}`);
+
+  const router = useRouter();
+
   const [isEditingSpotName, setIsEditingSpotName] = useState(false);
   const [spotNameError, setSpotNameError] = useState("");
   const [newSpotName, setNewSpotName] = useState("");
   const [spotNameChangeSuccess, setSpotNameChangeSuccess] = useState(false);
-  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSpotNameChange = (event) => {
@@ -136,11 +138,11 @@ export default function SpotInfo({ spotId }) {
           onClick={handleEditSpotName}
           aria-label="Edit spot name"
         >
-          {isEditingSpotName ? (
-            <EditIcon as={CiCircleCheck} size={25} aria-hidden="true" />
-          ) : (
-            <EditIcon as={CiEdit} size={25} aria-hidden="true" />
-          )}
+          <EditIcon
+            as={isEditingSpotName ? CiCircleCheck : CiEdit}
+            size={25}
+            aria-hidden="true"
+          />
         </SpotNameEditButton>
       </SpotName>
       <SpotNameError role="alert">{spotNameError}</SpotNameError>
