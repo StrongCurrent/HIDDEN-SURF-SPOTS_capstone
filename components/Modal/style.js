@@ -33,25 +33,4 @@ export const ModalOverlay = styled.div`
 `;
 
 export const ModalBody = styled.div`
-  padding-top: 10px;
-`;
-
-export const ModalHeader = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  font-size: 1.5rem;
-`;
-
-export const CloseModal = styled.button`
-  font-weight: 600;
-  text-transform: uppercase;
-  background-color: #fcfcfc;
-  border: solid 1px #d5d5d5;
-  border-radius: 5px;
-  height: 25px;
-  width: 25px;
-
-  &:hover {
-    background-color: #f7f7f7;
-  }
 `;

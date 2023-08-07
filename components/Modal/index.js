@@ -5,8 +5,6 @@ import {
   StyledModal,
   ModalOverlay,
   ModalBody,
-  ModalHeader,
-  CloseModal,
 } from "./style";
 
 const Modal = ({ onClose, children }) => {
@@ -19,15 +17,6 @@ const Modal = ({ onClose, children }) => {
     <ModalOverlay>
       <ModalWrapper>
         <StyledModal>
-          <ModalHeader>
-            <CloseModal
-              href="#"
-              onClick={handleCloseClick}
-              aria-label="Close modal"
-            >
-              x
-            </CloseModal>
-          </ModalHeader>
           <ModalBody>{children}</ModalBody>
         </StyledModal>
       </ModalWrapper>
