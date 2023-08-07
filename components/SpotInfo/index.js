@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import {
@@ -17,19 +17,13 @@ import {
   SpotDeleteButton,
   SpotNameChangedSuccess,
 } from "./style";
-import LoadingSpinner from "../LoadingSpinner";
 import Error from "../Error";
 import { CiEdit, CiCircleCheck } from "react-icons/ci";
 import EditDeleteInfoForm from "../EditDeleteInfoForm";
 import AddNewInfoForm from "../AddNewInfoForm";
 
 export default function SpotInfo({ spotId }) {
-  const {
-    data: spot,
-    error,
-    isValidating,
-    mutate,
-  } = useSWR(`/api/spots/${spotId}`);
+  const { data: spot, error, mutate } = useSWR(`/api/spots/${spotId}`);
   const [isEditingSpotName, setIsEditingSpotName] = useState(false);
   const [spotNameError, setSpotNameError] = useState("");
   const [newSpotName, setNewSpotName] = useState("");
@@ -40,7 +34,7 @@ export default function SpotInfo({ spotId }) {
     setNewSpotName(event.target.value);
   };
 
-  const handleEditSpotName = useCallback(async () => {
+  const handleEditSpotName = async () => {
     if (isEditingSpotName) {
       if (!newSpotName.trim()) {
         setSpotNameError("YOU FORGOT TO ENTER THE SPOTNAME");
@@ -70,7 +64,10 @@ export default function SpotInfo({ spotId }) {
         setSpotNameChangeSuccess(true);
         setTimeout(() => setSpotNameChangeSuccess(false), 3000);
       } else {
-        if (data.message.toUpperCase() === "PLEASE CHOOSE ANOTHER NAME, THIS ONE IS ALREADY TAKEN. SPOT HAS NOT BEEN ADDED.") {
+        if (
+          data.message.toUpperCase() ===
+          "PLEASE CHOOSE ANOTHER NAME, THIS ONE IS ALREADY TAKEN."
+        ) {
           setSpotNameError(data.message);
         } else {
           setSpotNameError("FAILED TO UPDATE SPOT NAME");
@@ -80,9 +77,9 @@ export default function SpotInfo({ spotId }) {
       setIsEditingSpotName(true);
       setNewSpotName(spot.spotName);
     }
-  }, [isEditingSpotName, newSpotName, spotId, mutate, spot]);
+  };
 
-  const handleDeleteSpot = useCallback(async () => {
+  const handleDeleteSpot = async () => {
     const response = await fetch(`/api/spots/${spotId}`, {
       method: "DELETE",
     });
@@ -90,10 +87,10 @@ export default function SpotInfo({ spotId }) {
     if (response.ok) {
       router.push("/");
     }
-  }, [spotId, router]);
+  };
 
-  if (isValidating) {
-    return <LoadingSpinner role="status" />;
+  if (!spot) {
+    return;
   }
 
   if (error) {

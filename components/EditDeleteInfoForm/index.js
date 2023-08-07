@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect} from "react";
 import { useSWRConfig } from "swr";
 import { CiEdit, CiCircleCheck, CiTrash } from "react-icons/ci";
 import {
@@ -52,19 +52,16 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
   const [editInfo, setEditInfo] = useState(entry ? entry.info : "");
   const [inputError, setInputError] = useState(null);
 
-  const isValidEntry = useCallback(
-    () => entry && entry.info.trim(),
-    [entry]
-  );
+  const isValidEntry = () => entry && entry.info.trim();
 
   const [disabled, setDisabled] = useState(!isValidEntry());
 
   useEffect(() => {
     setEditInfo(entry ? entry.info : "");
     setDisabled(!isValidEntry());
-  }, [entry, isValidEntry]);
+  }, [entry]);
 
-  const handleEdit = useCallback(async () => {
+  const handleEdit = async () => {
     if (!isValidEntry() || disabled) {
       return;
     }
@@ -82,9 +79,9 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
       setIsEditing(true);
       setEditInfo(entry.info);
     }
-  }, [entry, isEditing, editInfo, spotId, mutate, disabled, isValidEntry]);
+  };
 
-  const handleDelete = useCallback(async () => {
+  const handleDelete = async () => {
     if (!isValidEntry() || disabled) {
       return;
     }
@@ -95,7 +92,7 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
     } catch (error) {
       setInputError(error.message);
     }
-  }, [entry, spotId, mutate, disabled, isValidEntry]);
+  };
 
   return (
     <InfoFormWrapper>
