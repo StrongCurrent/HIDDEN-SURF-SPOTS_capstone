@@ -2,31 +2,60 @@ import Spot from "../../../../../db/models/spots";
 import mongoose from "mongoose";
 
 export default async function handler(req, res) {
-  if (req.method !== "DELETE") {
-    res.setHeader("Allow", ["DELETE"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
-    return;
-  }
-
   const { spotId, infoId } = req.query;
-
   const objectIdSpot = new mongoose.Types.ObjectId(spotId);
   const objectIdInfo = new mongoose.Types.ObjectId(infoId);
 
-  try {
-    const result = await Spot.updateOne(
-      { _id: objectIdSpot },
-      { $pull: { informations: { _id: objectIdInfo } } }
-    );
+  if (req.method === "DELETE") {
+    try {
+      const result = await Spot.updateOne(
+        { _id: objectIdSpot },
+        { $pull: { informations: { _id: objectIdInfo } } }
+      );
 
-    if (!result.modifiedCount) {
-      res.status(404).json({ success: false });
-    } else {
-      res
-        .status(200)
-        .json({ success: true, message: "Entry successfully deleted" });
+      if (!result.modifiedCount) {
+        res.status(404).json({ success: false });
+      } else {
+        res
+          .status(200)
+          .json({ success: true, message: "ENTRY SUCCESSFULLY DELETED" });
+      }
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
     }
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+  } else if (req.method === "PUT") {
+    const { info } = req.body;
+
+    if (!info) {
+      return res
+        .status(400)
+        .json({ success: false, message: "YOU FORGOT TO ENTER THE INFORMATION" });
+    }
+
+    try {
+      const result = await Spot.updateOne(
+        { _id: objectIdSpot, "informations._id": objectIdInfo },
+        { $set: { "informations.$.info": info } }
+      );
+
+      if (!result.modifiedCount) {
+        if (result.matchedCount > 0) {
+          res
+            .status(200)
+            .json({ success: true, message: "NO CHANGES WERE MADE" });
+        } else {
+          res.status(404).json({ success: false });
+        }
+      } else {
+        res
+          .status(200)
+          .json({ success: true, message: "ENTRY SUCCESSFULLY UPDATED" });
+      }
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  } else {
+    res.setHeader("Allow", ["DELETE", "PUT"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

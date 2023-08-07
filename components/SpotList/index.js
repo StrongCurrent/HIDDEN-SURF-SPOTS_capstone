@@ -7,15 +7,15 @@ export default function SpotList() {
   const { data: spots, error } = useSWR("/api/spots");
 
   if (error) {
-    return <Error>Failed to load spots</Error>;
+    return <Error role="alert">Failed to load spots</Error>;
   }
 
   if (!spots) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner role="status"/>;
   }
 
   if (spots.length === 0) {
-    return <NoEntryMessage>There is no entry yet</NoEntryMessage>;
+    return <NoEntryMessage role="status">There is no entry yet</NoEntryMessage>;
   }
 
   return (
@@ -24,7 +24,7 @@ export default function SpotList() {
         const isEven = index % 2 === 0;
         return (
           <Spot isEven={isEven} key={spot._id}>
-            <SpotLink href={`/SpotInformation/${spot._id}`}>
+            <SpotLink href={`/SpotInformation/${spot._id}`} aria-label={`View details for ${spot.spotName}`}>
               {spot.spotName}
             </SpotLink>
           </Spot>

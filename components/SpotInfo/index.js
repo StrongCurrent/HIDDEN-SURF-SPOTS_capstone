@@ -1,28 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import {
+  SpotNameInput,
+  SpotNameEditButton,
+  SpotNameError,
   SpotWrapper,
   SpotName,
   InformationWrapper,
   Longitude,
   Latitude,
   EntryList,
-  EntryCard,
-  EntryTextarea,
-  EntryDeleteButton,
-  StyledIcon,
+  EntryListItem,
+  EditIcon,
   NoEntryMessage,
-  AddEntryForm,
-  AddEntryLabel,
-  AddEntryTextarea,
-  AddEntryButtonWrapper,
-  AddEntryButton,
   SpotDeleteButton,
+  SpotNameChangedSuccess,
 } from "./style";
 import LoadingSpinner from "../LoadingSpinner";
 import Error from "../Error";
-import { PiTrash, PiPencilLight } from "react-icons/pi";
+import { CiEdit, CiCircleCheck } from "react-icons/ci";
+import EditDeleteInfoForm from "../EditDeleteInfoForm";
+import AddNewInfoForm from "../AddNewInfoForm";
 
 export default function SpotInfo({ spotId }) {
   const {
@@ -31,47 +30,59 @@ export default function SpotInfo({ spotId }) {
     isValidating,
     mutate,
   } = useSWR(`/api/spots/${spotId}`);
-  const [newInfo, setNewInfo] = useState("");
+  const [isEditingSpotName, setIsEditingSpotName] = useState(false);
+  const [spotNameError, setSpotNameError] = useState("");
+  const [newSpotName, setNewSpotName] = useState("");
+  const [spotNameChangeSuccess, setSpotNameChangeSuccess] = useState(false);
   const router = useRouter();
 
-  const handleNewEntryChange = (event) => {
-    setNewInfo(event.target.value);
+  const handleSpotNameChange = (event) => {
+    setNewSpotName(event.target.value);
   };
 
-  const handleAddNewEntry = async (event) => {
-    event.preventDefault();
-    const response = await fetch(`/api/spots/${spotId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ info: newInfo }),
-    });
-
-    if (response.ok) {
-      setNewInfo("");
-      mutate();
-    }
-  };
-
-  const handleDeleteEntry = async (infoId) => {
-    const response = await fetch(
-      `/api/spots/${spotId}/informations/${infoId}`,
-      {
-        method: "DELETE",
+  const handleEditSpotName = useCallback(async () => {
+    if (isEditingSpotName) {
+      if (!newSpotName.trim()) {
+        setSpotNameError("YOU FORGOT TO ENTER THE SPOTNAME");
+        return;
       }
-    );
 
-    if (response.ok) {
+      if (newSpotName === spot.spotName) {
+        setIsEditingSpotName(false);
+        setSpotNameError("");
+        return;
+      }
+
+      const response = await fetch(`/api/spots/${spotId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ spotName: newSpotName }),
+      });
+
       const data = await response.json();
 
-      if (data && data.success) {
+      if (response.ok) {
+        setIsEditingSpotName(false);
         mutate();
+        setSpotNameError("");
+        setSpotNameChangeSuccess(true);
+        setTimeout(() => setSpotNameChangeSuccess(false), 3000);
+      } else {
+        if (data.message.toUpperCase() === "PLEASE CHOOSE ANOTHER NAME, THIS ONE IS ALREADY TAKEN. SPOT HAS NOT BEEN ADDED.") {
+          setSpotNameError(data.message);
+        } else {
+          setSpotNameError("FAILED TO UPDATE SPOT NAME");
+        }
       }
+    } else {
+      setIsEditingSpotName(true);
+      setNewSpotName(spot.spotName);
     }
-  };
+  }, [isEditingSpotName, newSpotName, spotId, mutate, spot]);
 
-  const handleDeleteSpot = async () => {
+  const handleDeleteSpot = useCallback(async () => {
     const response = await fetch(`/api/spots/${spotId}`, {
       method: "DELETE",
     });
@@ -79,15 +90,15 @@ export default function SpotInfo({ spotId }) {
     if (response.ok) {
       router.push("/");
     }
-  };
+  }, [spotId, router]);
 
   if (isValidating) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner role="status" />;
   }
 
   if (error) {
     return (
-      <Error>
+      <Error role="alert">
         {error.message === "Spot not found"
           ? "Spot not found"
           : "Failed to load spot information"}
@@ -97,7 +108,34 @@ export default function SpotInfo({ spotId }) {
 
   return (
     <SpotWrapper>
-      <SpotName>{spot.spotName}</SpotName>
+      <SpotName>
+        {isEditingSpotName ? (
+          <SpotNameInput
+            type="text"
+            value={newSpotName}
+            onChange={handleSpotNameChange}
+            aria-label="Spot name input"
+            id="spotName"
+            name="spotName"
+          />
+        ) : (
+          spot.spotName
+        )}
+        <SpotNameEditButton
+          onClick={handleEditSpotName}
+          aria-label="Edit spot name"
+        >
+          {isEditingSpotName ? (
+            <EditIcon as={CiCircleCheck} size={25} />
+          ) : (
+            <EditIcon as={CiEdit} size={25} />
+          )}
+        </SpotNameEditButton>
+      </SpotName>
+      <SpotNameError>{spotNameError}</SpotNameError>
+      {spotNameChangeSuccess && (
+        <SpotNameChangedSuccess>SPOT NAME CHANGED</SpotNameChangedSuccess>
+      )}
       <InformationWrapper>
         <h2>SPOT INFORMATION</h2>
         <Longitude>Longitude: {spot.longitude}</Longitude>
@@ -108,39 +146,16 @@ export default function SpotInfo({ spotId }) {
         {spot.informations && spot.informations.length > 0 ? (
           <EntryList>
             {spot.informations.map((entry) => (
-              <EntryCard key={entry._id}>
-                <EntryTextarea>{entry.info}</EntryTextarea>
-                <EntryDeleteButton onClick={() => handleDeleteEntry(entry._id)}>
-                  <StyledIcon as={PiTrash} size={25} />
-                </EntryDeleteButton>
-              </EntryCard>
+              <EntryListItem key={entry._id}>
+                <EditDeleteInfoForm entry={entry} spotId={spotId} />
+              </EntryListItem>
             ))}
           </EntryList>
         ) : (
           <NoEntryMessage>There is no entry yet</NoEntryMessage>
         )}
+        <AddNewInfoForm spotId={spotId} />
       </InformationWrapper>
-      <AddEntryForm onSubmit={handleAddNewEntry}>
-        <AddEntryLabel htmlFor="new-info">
-          ADD SOME SPOT INFORMATION
-        </AddEntryLabel>
-        <AddEntryTextarea
-          id="new-info"
-          name="new-info"
-          maxLength="450"
-          value={newInfo}
-          onChange={handleNewEntryChange}
-        />
-        <AddEntryButtonWrapper>
-          <AddEntryButton
-            type="submit"
-            name="create-info"
-            aria-label="Create information button"
-          >
-            add this info
-          </AddEntryButton>
-        </AddEntryButtonWrapper>
-      </AddEntryForm>
       <SpotDeleteButton onClick={handleDeleteSpot}>
         Delete this Spot
       </SpotDeleteButton>

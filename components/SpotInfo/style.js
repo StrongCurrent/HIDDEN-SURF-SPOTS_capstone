@@ -1,5 +1,31 @@
 import styled from "styled-components";
 
+export const SpotNameInput = styled.input`
+  border: 1px dotted #5d9ea6;
+  border-radius: 5px;
+  padding: 5px;
+  width: 25%;
+
+  &:focus {
+    background-color: #ffffff;
+    outline: solid 1px #5d9ea6;
+    border: none;
+  }
+`;
+
+export const SpotNameEditButton = styled.button`
+  background-color: transparent;
+  border: none;
+  margin: 0px 0px 0px 0px;
+`;
+
+export const SpotNameError = styled.div`
+  text-align: center;
+  color: #ff3232;
+  font-size: 0.9rem;
+  margin: 5px 0px 0px 0px;
+`;
+
 export const SpotWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -9,13 +35,16 @@ export const SpotWrapper = styled.div`
 `;
 
 export const SpotName = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   font-weight: 500;
   text-align: center;
   text-transform: uppercase;
   font-size: 1rem;
   list-style: none;
-  padding: 5px 0px;
+  padding: 0px 0px 0px 25px;
   background-color: #fcfcfc;
   border-bottom: solid 1px #d5d5d5;
   border-top: solid 5px #2f6673;
@@ -42,111 +71,24 @@ export const Latitude = styled.p`
   margin: 0px 0px 10px 0px;
 `;
 
-export const NoEntryMessage = styled.div`
+export const NoEntryMessage = styled.p`
   text-transform: uppercase;
   font-size: 1rem;
   color: #ff0000;
-  margin-top: 5px;
+  margin-top: 0px;
 `;
 
 export const EntryList = styled.ul`
+  list-style-type: none;
   padding: 0;
   margin: 0;
   align-items: left;
 `;
 
-export const EntryCard = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+export const EntryListItem = styled.li``;
 
-export const EntryTextarea = styled.li`
-  flex: 1;
-  list-style: none;
-  font-family: Roboto;
-  background-color: #fcfcfc;
-  border: solid 1px #d5d5d5;
-  border-radius: 5px;
-  padding: 10px;
-  height: auto;
-  width: 100%;
-  margin-bottom: 10px;
-  max-width: 90%;
-  max-height: 100%;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  white-space: pre-wrap;
-
-  &:hover {
-    background-color: #f7f7f7;
-  }
-`;
-
-export const EntryDeleteButton = styled.button`
-  text-transform: uppercase;
-  background-color: transparent;
-  border: none;
-  margin: 0px 0px 5px 10px;
-  height: 40px;
-  width: 40px;
-`;
-
-export const AddEntryForm = styled.form`
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-`;
-
-export const AddEntryLabel = styled.label`
-  font-size: 1.1rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  margin: 40px 0px 20px 0px;
-`;
-
-export const AddEntryTextarea = styled.textarea`
-  font-family: Roboto;
-  background-color: #fcfcfc;
-  border: solid 1px #d5d5d5;
-  border-radius: 5px;
-  padding: 10px;
-  height: 100%;
-  width: 100%;
-
-  &:hover {
-    background-color: #f7f7f7;
-  }
-
-  &:focus {
-    background-color: #ffffff;
-    outline: solid 0.5px #d5d5d5;
-  }
-`;
-
-export const AddEntryButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-`;
-
-export const AddEntryButton = styled.button`
-  text-transform: uppercase;
-  background-color: #fcfcfc;
-  border: solid 1px #d5d5d5;
-  border-radius: 5px;
-  margin: 15px 0px 15px 0px;
-  height: 23px;
-  width: 125px;
-
-  &:hover {
-    background-color: #f7f7f7;
-  }
-`;
-
-export const StyledIcon = styled.svg`
-  fill: #ff3232;
+export const EditIcon = styled.svg`
+  fill: #5d9ea6;
 `;
 
 export const SpotDeleteButton = styled.button`
@@ -167,4 +109,11 @@ export const SpotDeleteButton = styled.button`
     background-color: #ff3232;
     font-weight: 600;
   }
+`;
+
+export const SpotNameChangedSuccess = styled.div`
+  margin-top: 5px;
+  font-size: 1rem;
+  color: #40c057;
+  z-index: 100;
 `;

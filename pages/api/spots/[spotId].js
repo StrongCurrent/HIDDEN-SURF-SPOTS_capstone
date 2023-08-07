@@ -10,7 +10,7 @@ export default async function handler(request, response) {
   if (request.method === "GET") {
     const spot = await Spot.findById(spotId);
     if (!spot) {
-      return response.status(404).json({ message: "Spot not found" });
+      return response.status(404).json({ message: "SPOT NOT FOUND" });
     }
     return response.status(200).json(spot);
   }
@@ -18,33 +18,66 @@ export default async function handler(request, response) {
   if (request.method === "DELETE") {
     const deletedSpot = await Spot.findByIdAndDelete(spotId);
     if (!deletedSpot) {
-      return response.status(404).json({ message: "No spot found to delete" });
+      return response.status(404).json({ message: "NO SPOT FOUND TO DELETE" });
     }
-    return response.status(200).json({ message: "Spot deleted successfully" });
+    return response.status(200).json({ message: "SPOT DELETED SUCCESSFULLY" });
   }
 
   if (request.method === "PUT") {
-    const { info } = request.body;
-  
-    const newInfo = {
-      _id: new mongoose.Types.ObjectId(),
-      info,
-    };
-  
-    try {
-      const updatedSpot = await Spot.findByIdAndUpdate(
-        spotId,
-        { $push: { informations: newInfo } },
-        { new: true }
-      );
-  
-      if (!updatedSpot) {
-        response.status(404).json({ message: "No spot found to update" });
-      } else {
-        response.status(200).json(updatedSpot);
+    const { info, spotName } = request.body;
+
+    if (info) {
+      const newInfo = {
+        _id: new mongoose.Types.ObjectId(),
+        info,
+      };
+
+      try {
+        const updatedSpot = await Spot.findByIdAndUpdate(
+          spotId,
+          { $push: { informations: newInfo } },
+          { new: true }
+        );
+
+        if (!updatedSpot) {
+          response.status(404).json({ message: "NO SPOT FOUND TO UPDATE" });
+        } else {
+          response.status(200).json(updatedSpot);
+        }
+      } catch (error) {
+        response
+          .status(500)
+          .json({ message: "INTERNAL SERVER ERROR", error: error.message });
       }
-  
-    } catch (error) {
-      response.status(500).json({ message: "Internal server error", error: error.message });
+    } else if (spotName) {
+      const lowerCaseSpotName = spotName.toLowerCase();
+      const existingSpot = await Spot.findOne({ spotName: lowerCaseSpotName });
+
+      if (existingSpot && String(existingSpot._id) !== spotId) {
+        return response
+          .status(400)
+          .json({ message: "PLEASE CHOOSE ANOTHER NAME, THIS ONE IS ALREADY TAKEN. SPOT HAS NOT BEEN ADDED." });
+      }
+
+      try {
+        const updatedSpot = await Spot.findByIdAndUpdate(
+          spotId,
+          { $set: { spotName: lowerCaseSpotName } },
+          { new: true }
+        );
+
+        if (!updatedSpot) {
+          response.status(404).json({ message: "NO SPOT FOUND TO UPDATE" });
+        } else {
+          response.status(200).json(updatedSpot);
+        }
+      } catch (error) {
+        response.status(500).json({ message: error.message, error: error });
+      }
+    } else {
+      response
+        .status(400)
+        .json({ message: "NO INFORMATION OR SPOT NAME PROVIDED" });
     }
-  }}
+  }
+}

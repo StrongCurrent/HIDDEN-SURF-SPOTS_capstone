@@ -3,6 +3,7 @@ import Link from "next/link";
 
 export const StyledNav = styled.nav`
   position: fixed;
+  z-index: 1000;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -44,5 +45,5 @@ export const StyledLink = styled(Link)`
 `;
 
 export const StyledIcon = styled.svg`
-  fill: ${(props) => (props.$active ? "#5d9ea6" : "#2f6673")};
+  fill: ${(props) => (props.$active ? "#2f6673" : "#5d9ea6")};
 `;
