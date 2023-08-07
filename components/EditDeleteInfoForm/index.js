@@ -51,18 +51,17 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editInfo, setEditInfo] = useState(entry ? entry.info : "");
   const [inputError, setInputError] = useState(null);
-
-  const isValidEntry = () => entry && entry.info.trim();
-
-  const [disabled, setDisabled] = useState(!isValidEntry());
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
+    const isValidEntry = () => entry && entry.info.trim();
+
     setEditInfo(entry ? entry.info : "");
     setDisabled(!isValidEntry());
   }, [entry]);
 
   const handleEdit = async () => {
-    if (!isValidEntry() || disabled) {
+    if (!entry || !entry.info.trim() || disabled) {
       return;
     }
 
@@ -82,7 +81,7 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
   };
 
   const handleDelete = async () => {
-    if (!isValidEntry() || disabled) {
+    if (!entry || !entry.info.trim() || disabled) {
       return;
     }
 
