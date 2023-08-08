@@ -44,7 +44,7 @@ export const SpotName = styled.div`
   text-transform: uppercase;
   font-size: 1rem;
   list-style: none;
-  padding: 0px 0px 0px 25px;
+  padding: 10px 0px 10px 25px;
   background-color: #fcfcfc;
   border-bottom: solid 1px #d5d5d5;
   border-top: solid 5px #2f6673;

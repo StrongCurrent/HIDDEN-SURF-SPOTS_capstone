@@ -8,12 +8,12 @@ export const AddSpotForm = styled.form`
 
 export const SpotName = styled.input`
   width: 100%;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
   text-transform: uppercase;
   font-size: 1rem;
   list-style: none;
-  padding: 5px 0px;
+  padding: 15px 0px 15px 0px;
   background-color: #fcfcfc;
   border-bottom: solid 1px #d5d5d5;
   border-top: solid 5px #2f6673;
@@ -27,7 +27,7 @@ export const SpotName = styled.input`
 
   &::placeholder {
     color: #ff0000;
-    opacity: 0.4;
+    opacity: 0.8;
   }
 
   &:focus::placeholder {

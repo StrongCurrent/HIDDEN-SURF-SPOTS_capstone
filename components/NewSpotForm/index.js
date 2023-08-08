@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { AddSpotForm, SpotName, SpotCreateButton, SpotAdded } from "./style";
 import ErrorMessage from "../Error";
 import LoadingSpinner from "../LoadingSpinner";
-import DraggableMarkerMap from "../MapDragableMarker";
+import MarkerMap from "../MarkerMap";
 
 const createSpot = async (spotName, longitude, latitude) => {
   const response = await fetch("/api/spots", {
@@ -56,7 +56,7 @@ export default function NewSpotForm() {
       await createSpot(
         spotName.toLowerCase(),
         marker.longitude,
-        marker.latitude 
+        marker.latitude
       );
       setSpotName("");
       setMarker({
@@ -85,9 +85,9 @@ export default function NewSpotForm() {
         value={spotName}
         onChange={handleChange}
         required
-        aria-label="Spotname Input"
+        aria-label="Spot name Input"
       />
-      <DraggableMarkerMap marker={marker} setMarker={setMarker} />
+      <MarkerMap marker={marker} setMarker={setMarker} draggable={true} />
       <SpotCreateButton
         type="submit"
         name="create-spot"

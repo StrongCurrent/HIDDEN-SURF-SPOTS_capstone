@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import { MapContainer, MapMenu, MapWrapper } from "./style";
 
-export default function DraggableMarkerMap({ marker, setMarker }) {
+export default function MarkerMap({ marker, setMarker, draggable = false }) {
   const mapContainerRef = useRef(null);
   const markerRef = useRef();
   const [style, setStyle] = useState("mapbox://styles/mapbox/outdoors-v12");
@@ -20,21 +20,23 @@ export default function DraggableMarkerMap({ marker, setMarker }) {
     });
 
     markerRef.current = new mapboxgl.Marker({
-      draggable: true,
+      draggable: draggable,
     })
       .setLngLat([marker.longitude, marker.latitude])
       .addTo(map);
 
-    markerRef.current.on("dragend", function () {
-      const lngLat = markerRef.current.getLngLat();
-      setMarker({
-        longitude: lngLat.lng,
-        latitude: lngLat.lat,
+    if (draggable) {
+      markerRef.current.on("dragend", function () {
+        const lngLat = markerRef.current.getLngLat();
+        setMarker({
+          longitude: lngLat.lng,
+          latitude: lngLat.lat,
+        });
       });
-    });
+    }
 
     return () => map.remove();
-  }, [style]);
+  }, [style, draggable]);
 
   useEffect(() => {
     if (markerRef.current) {

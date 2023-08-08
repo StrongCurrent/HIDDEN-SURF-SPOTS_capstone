@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import NonDraggableMarkerMap from "../MapNondragableMarker";
+import MarkerMap from "../MarkerMap";
 import {
   SpotNameInput,
   SpotNameEditButton,
@@ -42,7 +42,7 @@ export default function SpotInfo({ spotId }) {
   const handleEditSpotName = async () => {
     if (isEditingSpotName) {
       if (!newSpotName.trim()) {
-        setSpotNameError("YOU FORGOT TO ENTER THE SPOTNAME");
+        setSpotNameError("YOU FORGOT TO ENTER THE SPOT NAME");
         return;
       }
       if (newSpotName === spot.spotName) {
@@ -111,7 +111,7 @@ export default function SpotInfo({ spotId }) {
 
   return (
     <SpotWrapper>
-        <NonDraggableMarkerMap marker={{ latitude: spot.latitude, longitude: spot.longitude }} />
+        <MarkerMap marker={{ latitude: spot.latitude, longitude: spot.longitude }} draggable={false} />
       <SpotName>
         {isEditingSpotName ? (
           <SpotNameInput
