@@ -24,7 +24,7 @@ import {
 import Error from "../Error";
 import { CiEdit, CiCircleCheck } from "react-icons/ci";
 import EditDeleteInfoForm from "../EditDeleteInfoForm";
-import AddNewInfoForm from "../AddNewInfoForm";
+import NewInfoForm from "../NewInfoForm";
 import Modal from "../Modal";
 
 export default function SpotInfo({ spotId }) {
@@ -167,7 +167,7 @@ export default function SpotInfo({ spotId }) {
         ) : (
           <NoEntryMessage>There is no entry yet</NoEntryMessage>
         )}
-        <AddNewInfoForm spotId={spotId} />
+        <NewInfoForm spotId={spotId} />
       </InformationWrapper>
       <SpotDeleteButton
         onClick={openModal}
