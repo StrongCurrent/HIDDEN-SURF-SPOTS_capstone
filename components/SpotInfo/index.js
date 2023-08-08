@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
+import NonDraggableMarkerMap from "../MapNondragableMarker";
 import {
   SpotNameInput,
   SpotNameEditButton,
@@ -9,8 +10,6 @@ import {
   SpotWrapper,
   SpotName,
   InformationWrapper,
-  Longitude,
-  Latitude,
   EntryList,
   EntryListItem,
   EditIcon,
@@ -29,9 +28,7 @@ import Modal from "../Modal";
 
 export default function SpotInfo({ spotId }) {
   const { data: spot, error, mutate } = useSWR(`/api/spots/${spotId}`);
-
   const router = useRouter();
-
   const [isEditingSpotName, setIsEditingSpotName] = useState(false);
   const [spotNameError, setSpotNameError] = useState("");
   const [newSpotName, setNewSpotName] = useState("");
@@ -48,13 +45,11 @@ export default function SpotInfo({ spotId }) {
         setSpotNameError("YOU FORGOT TO ENTER THE SPOTNAME");
         return;
       }
-
       if (newSpotName === spot.spotName) {
         setIsEditingSpotName(false);
         setSpotNameError("");
         return;
       }
-
       const response = await fetch(`/api/spots/${spotId}`, {
         method: "PUT",
         headers: {
@@ -62,9 +57,7 @@ export default function SpotInfo({ spotId }) {
         },
         body: JSON.stringify({ spotName: newSpotName }),
       });
-
       const data = await response.json();
-
       if (response.ok) {
         setIsEditingSpotName(false);
         mutate();
@@ -90,16 +83,13 @@ export default function SpotInfo({ spotId }) {
   const openModal = () => {
     setIsModalOpen(true);
   };
-
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
   const handleDeleteSpot = async () => {
     const response = await fetch(`/api/spots/${spotId}`, {
       method: "DELETE",
     });
-
     if (response.ok) {
       router.push("/");
     }
@@ -121,6 +111,7 @@ export default function SpotInfo({ spotId }) {
 
   return (
     <SpotWrapper>
+        <NonDraggableMarkerMap marker={{ latitude: spot.latitude, longitude: spot.longitude }} />
       <SpotName>
         {isEditingSpotName ? (
           <SpotNameInput
@@ -149,11 +140,6 @@ export default function SpotInfo({ spotId }) {
       {spotNameChangeSuccess && (
         <SpotNameChangedSuccess>SPOT NAME CHANGED</SpotNameChangedSuccess>
       )}
-      <InformationWrapper>
-        <h2>SPOT INFORMATION</h2>
-        <Longitude>Longitude: {spot.longitude}</Longitude>
-        <Latitude>Latitude: {spot.latitude}</Latitude>
-      </InformationWrapper>
       <InformationWrapper>
         <h2>ADDITIONAL SPOT INFORMATION</h2>
         {spot.informations && spot.informations.length > 0 ? (
