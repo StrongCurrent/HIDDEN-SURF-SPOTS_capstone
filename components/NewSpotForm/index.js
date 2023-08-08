@@ -12,6 +12,7 @@ import {
 } from "./style";
 import ErrorMessage from "../Error";
 import LoadingSpinner from "../LoadingSpinner";
+import DraggableMarkerMap from "../MapDragableMarker";
 
 const createSpot = async (spotName, longitude, latitude) => {
   const response = await fetch("/api/spots", {
@@ -142,6 +143,7 @@ export default function NewSpotForm() {
           </>
         )}
       </FormContainer>
+      <DraggableMarkerMap/>
     </AddSpotForm>
   );
 }

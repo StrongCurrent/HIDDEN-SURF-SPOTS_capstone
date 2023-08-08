@@ -27,6 +27,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
           <meta 
             name="description" 
             content="Store your own surf spots with this app. Mark spots with useful information to catch even better waves and be able to inform yourself about the conditions on site. Even if you haven't been to this place for a long time, you have access to your entered information anytime and anywhere. Experience the freedom of surfing like never before." 
