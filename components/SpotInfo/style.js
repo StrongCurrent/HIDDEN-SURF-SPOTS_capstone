@@ -165,6 +165,6 @@ export const ModalKeepButton = styled(BaseModalButton)`
   margin: 0px 0px 0px 10px;
 
   &:hover, &:focus {
-    background-color: #40c057;
+    background-color: #40c057; 
   }
 `;
