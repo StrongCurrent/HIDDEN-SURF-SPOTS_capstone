@@ -1,14 +1,14 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const MapWrapper = styled.div`
   position: relative;
   width: 100vw;
-  height: 75vh;
+  height: 60vh;
 `;
 
 export const MapContainer = styled.div`
   width: 100%;
-  height: 75%;
+  height: 100%;
 `;
 
 export const MapMenu = styled.div`
@@ -24,5 +24,3 @@ export const MapMenu = styled.div`
     margin-right: 20px;
   }
 `;
-
-

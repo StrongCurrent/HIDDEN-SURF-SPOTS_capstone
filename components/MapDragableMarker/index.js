@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import mapboxgl from 'mapbox-gl';
-import { MapContainer, MapMenu, MapWrapper } from './style';
+import mapboxgl from "mapbox-gl";
+import { MapContainer, MapMenu, MapWrapper } from "./style";
 
-export default function DraggableMarkerMap() {
+export default function DraggableMarkerMap({ marker, setMarker }) {
   const mapContainerRef = useRef(null);
-  const [marker, setMarker] = useState({
-    latitude: 53.5511,
-    longitude: 9.9937,
-  });
+  const markerRef = useRef();
   const [style, setStyle] = useState("mapbox://styles/mapbox/outdoors-v12");
 
   useEffect(() => {
-    mapContainerRef.current.innerHTML = '';
+    mapContainerRef.current.innerHTML = "";
 
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAP_BOX_GL;
 
@@ -22,22 +19,28 @@ export default function DraggableMarkerMap() {
       zoom: 5,
     });
 
-    const mapMarker = new mapboxgl.Marker({
-      draggable: true
+    markerRef.current = new mapboxgl.Marker({
+      draggable: true,
     })
-    .setLngLat([marker.longitude, marker.latitude])
-    .addTo(map);
+      .setLngLat([marker.longitude, marker.latitude])
+      .addTo(map);
 
-    mapMarker.on('dragend', function() {
-      const lngLat = mapMarker.getLngLat();
+    markerRef.current.on("dragend", function () {
+      const lngLat = markerRef.current.getLngLat();
       setMarker({
         longitude: lngLat.lng,
-        latitude: lngLat.lat
+        latitude: lngLat.lat,
       });
     });
 
     return () => map.remove();
   }, [style]);
+
+  useEffect(() => {
+    if (markerRef.current) {
+      markerRef.current.setLngLat([marker.longitude, marker.latitude]);
+    }
+  }, [marker.latitude, marker.longitude]);
 
   const handleStyleChange = (event) => {
     setStyle("mapbox://styles/mapbox/" + event.target.value);
@@ -47,12 +50,26 @@ export default function DraggableMarkerMap() {
     <MapWrapper>
       <MapContainer ref={mapContainerRef} aria-label="Map" />
       <MapMenu id="menu" aria-label="Map Style Selector">
-      <label>
-          <input type="radio" name="mapStyle" value="outdoors-v12" checked={style === "mapbox://styles/mapbox/outdoors-v12"} onChange={handleStyleChange} aria-label="Outdoors Style" />
+        <label>
+          <input
+            type="radio"
+            name="mapStyle"
+            value="outdoors-v12"
+            checked={style === "mapbox://styles/mapbox/outdoors-v12"}
+            onChange={handleStyleChange}
+            aria-label="Outdoors Style"
+          />
           Outdoors
         </label>
         <label>
-          <input type="radio" name="mapStyle" value="satellite-streets-v12" checked={style === "mapbox://styles/mapbox/satellite-streets-v12"} onChange={handleStyleChange} aria-label="Satellite Streets Style" />
+          <input
+            type="radio"
+            name="mapStyle"
+            value="satellite-streets-v12"
+            checked={style === "mapbox://styles/mapbox/satellite-streets-v12"}
+            onChange={handleStyleChange}
+            aria-label="Satellite Streets Style"
+          />
           Satellite Streets
         </label>
       </MapMenu>

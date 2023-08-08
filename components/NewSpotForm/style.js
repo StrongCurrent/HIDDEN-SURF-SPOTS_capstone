@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 
 export const AddSpotForm = styled.form`
@@ -15,7 +14,6 @@ export const SpotName = styled.input`
   font-size: 1rem;
   list-style: none;
   padding: 5px 0px;
-  margin-bottom: 40px;
   background-color: #fcfcfc;
   border-bottom: solid 1px #d5d5d5;
   border-top: solid 5px #2f6673;
@@ -28,7 +26,7 @@ export const SpotName = styled.input`
   }
 
   &::placeholder {
-    color: #FF0000;
+    color: #ff0000;
     opacity: 0.4;
   }
 
@@ -83,15 +81,15 @@ export const SpotCreateButton = styled.button`
   letter-spacing: 1px;
   font-weight: 600;
   color: #ffffff;
-  margin-top: 15px;
+  margin-top: 25px;
   height: 50px;
   width: 180px;
   border-radius: 5px;
   border: none;
 
-  &:hover{
-  background-color: #40c057;
-}
+  &:hover {
+    background-color: #40c057;
+  }
 
   &:focus {
     background-color: #40c057;
@@ -105,4 +103,3 @@ export const SpotAdded = styled.p`
   color: #40c057;
   z-index: 100;
 `;
-

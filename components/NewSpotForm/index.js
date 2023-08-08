@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import {
-  AddSpotForm,
-  AddSpotInput,
-  AddSpotLabel,
-  FormContainer,
-  InputLabelWrapper,
-  SpotName,
-  SpotCreateButton,
-  SpotAdded,
-} from "./style";
+import { AddSpotForm, SpotName, SpotCreateButton, SpotAdded } from "./style";
 import ErrorMessage from "../Error";
 import LoadingSpinner from "../LoadingSpinner";
 import DraggableMarkerMap from "../MapDragableMarker";
@@ -31,8 +22,10 @@ const createSpot = async (spotName, longitude, latitude) => {
 
 export default function NewSpotForm() {
   const [spotName, setSpotName] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [latitude, setLatitude] = useState("");
+  const [marker, setMarker] = useState({
+    latitude: 53.5511,
+    longitude: 9.9937,
+  });
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -43,20 +36,11 @@ export default function NewSpotForm() {
 
     if (name === "spotName") {
       setSpotName(value);
-    } else if (name === "longitude") {
-      setLongitude(value);
-    } else if (name === "latitude") {
-      setLatitude(value);
     }
   };
 
   const isValidInput = () => {
-    return !(
-      spotName.trim() === "" ||
-      spotName === "NAME THIS SPOT HERE" ||
-      longitude.trim() === "" ||
-      latitude.trim() === ""
-    );
+    return !(spotName.trim() === "" || spotName === "NAME THIS SPOT HERE");
   };
 
   const handleAddSpot = async (event) => {
@@ -69,10 +53,16 @@ export default function NewSpotForm() {
     setIsLoading(true);
 
     try {
-      await createSpot(spotName.toLowerCase(), longitude, latitude);
+      await createSpot(
+        spotName.toLowerCase(),
+        marker.longitude,
+        marker.latitude 
+      );
       setSpotName("");
-      setLongitude("");
-      setLatitude("");
+      setMarker({
+        latitude: 53.5511,
+        longitude: 9.9937,
+      });
       router.push("/");
     } catch (error) {
       if (error.message && typeof error.message === "string") {
@@ -97,53 +87,21 @@ export default function NewSpotForm() {
         required
         aria-label="Spotname Input"
       />
-      <FormContainer>
-        <InputLabelWrapper>
-          <AddSpotLabel type="text" htmlFor="longitude">
-            Longitude:{" "}
-          </AddSpotLabel>
-          <AddSpotInput
-            type="number"
-            pattern="-?\d+(\.\d+)?"
-            value={longitude}
-            onChange={handleChange}
-            required
-            id="longitude"
-            name="longitude"
-            aria-label="Longitude Input"
-          />
-        </InputLabelWrapper>
-        <InputLabelWrapper>
-          <AddSpotLabel type="text" htmlFor="latitude">
-            Latitude:{" "}
-          </AddSpotLabel>
-          <AddSpotInput
-            type="number"
-            pattern="-?\d+(\.\d+)?"
-            value={latitude}
-            onChange={handleChange}
-            required
-            id="latitude"
-            name="latitude"
-            aria-label="Latitude Input"
-          />
-        </InputLabelWrapper>
-        <SpotCreateButton
-          type="submit"
-          name="create-spot"
-          aria-label="Create spot"
-        >
-          create this spot
-        </SpotCreateButton>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
-        {isLoading && (
-          <>
-            <LoadingSpinner />
-            <SpotAdded>SPOT WILL BE ADDED</SpotAdded>
-          </>
-        )}
-      </FormContainer>
-      <DraggableMarkerMap/>
+      <DraggableMarkerMap marker={marker} setMarker={setMarker} />
+      <SpotCreateButton
+        type="submit"
+        name="create-spot"
+        aria-label="Create spot"
+      >
+        create this spot
+      </SpotCreateButton>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
+      {isLoading && (
+        <>
+          <LoadingSpinner />
+          <SpotAdded>SPOT WILL BE ADDED</SpotAdded>
+        </>
+      )}
     </AddSpotForm>
   );
 }
