@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import {
   SpotNameInput,
   SpotNameEditButton,
+  SpotNameChangedSuccess,
   SpotNameError,
   SpotWrapper,
   SpotName,
@@ -15,32 +16,33 @@ import {
   EditIcon,
   NoEntryMessage,
   SpotDeleteButton,
-  SpotNameChangedSuccess,
+  ModalHeadline,
+  ModalMessage,
+  ModalDeleteButton,
+  ModalKeepButton,
 } from "./style";
-import LoadingSpinner from "../LoadingSpinner";
 import Error from "../Error";
 import { CiEdit, CiCircleCheck } from "react-icons/ci";
 import EditDeleteInfoForm from "../EditDeleteInfoForm";
 import AddNewInfoForm from "../AddNewInfoForm";
+import Modal from "../Modal";
 
 export default function SpotInfo({ spotId }) {
-  const {
-    data: spot,
-    error,
-    isValidating,
-    mutate,
-  } = useSWR(`/api/spots/${spotId}`);
+  const { data: spot, error, mutate } = useSWR(`/api/spots/${spotId}`);
+
+  const router = useRouter();
+
   const [isEditingSpotName, setIsEditingSpotName] = useState(false);
   const [spotNameError, setSpotNameError] = useState("");
   const [newSpotName, setNewSpotName] = useState("");
   const [spotNameChangeSuccess, setSpotNameChangeSuccess] = useState(false);
-  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSpotNameChange = (event) => {
     setNewSpotName(event.target.value);
   };
 
-  const handleEditSpotName = useCallback(async () => {
+  const handleEditSpotName = async () => {
     if (isEditingSpotName) {
       if (!newSpotName.trim()) {
         setSpotNameError("YOU FORGOT TO ENTER THE SPOTNAME");
@@ -70,7 +72,10 @@ export default function SpotInfo({ spotId }) {
         setSpotNameChangeSuccess(true);
         setTimeout(() => setSpotNameChangeSuccess(false), 3000);
       } else {
-        if (data.message.toUpperCase() === "PLEASE CHOOSE ANOTHER NAME, THIS ONE IS ALREADY TAKEN. SPOT HAS NOT BEEN ADDED.") {
+        if (
+          data.message.toUpperCase() ===
+          "PLEASE CHOOSE ANOTHER NAME, THIS ONE IS ALREADY TAKEN."
+        ) {
           setSpotNameError(data.message);
         } else {
           setSpotNameError("FAILED TO UPDATE SPOT NAME");
@@ -80,9 +85,17 @@ export default function SpotInfo({ spotId }) {
       setIsEditingSpotName(true);
       setNewSpotName(spot.spotName);
     }
-  }, [isEditingSpotName, newSpotName, spotId, mutate, spot]);
+  };
 
-  const handleDeleteSpot = useCallback(async () => {
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteSpot = async () => {
     const response = await fetch(`/api/spots/${spotId}`, {
       method: "DELETE",
     });
@@ -90,10 +103,10 @@ export default function SpotInfo({ spotId }) {
     if (response.ok) {
       router.push("/");
     }
-  }, [spotId, router]);
+  };
 
-  if (isValidating) {
-    return <LoadingSpinner role="status" />;
+  if (!spot) {
+    return;
   }
 
   if (error) {
@@ -125,14 +138,14 @@ export default function SpotInfo({ spotId }) {
           onClick={handleEditSpotName}
           aria-label="Edit spot name"
         >
-          {isEditingSpotName ? (
-            <EditIcon as={CiCircleCheck} size={25} />
-          ) : (
-            <EditIcon as={CiEdit} size={25} />
-          )}
+          <EditIcon
+            as={isEditingSpotName ? CiCircleCheck : CiEdit}
+            size={25}
+            aria-hidden="true"
+          />
         </SpotNameEditButton>
       </SpotName>
-      <SpotNameError>{spotNameError}</SpotNameError>
+      <SpotNameError role="alert">{spotNameError}</SpotNameError>
       {spotNameChangeSuccess && (
         <SpotNameChangedSuccess>SPOT NAME CHANGED</SpotNameChangedSuccess>
       )}
@@ -156,9 +169,29 @@ export default function SpotInfo({ spotId }) {
         )}
         <AddNewInfoForm spotId={spotId} />
       </InformationWrapper>
-      <SpotDeleteButton onClick={handleDeleteSpot}>
+      <SpotDeleteButton
+        onClick={openModal}
+        aria-label="Open delete confirmation"
+      >
         Delete this Spot
       </SpotDeleteButton>
+      {isModalOpen && (
+        <Modal onClose={closeModal} aria-label="Confirmation modal">
+          <ModalHeadline>WARNING</ModalHeadline>
+          <ModalMessage>
+            Sure you want to delete this Spot with all the informations?
+          </ModalMessage>
+          <ModalDeleteButton
+            onClick={handleDeleteSpot}
+            aria-label="Confirm deletion"
+          >
+            Yes, delete it
+          </ModalDeleteButton>
+          <ModalKeepButton onClick={closeModal} aria-label="Cancel deletion">
+            No, keep it
+          </ModalKeepButton>
+        </Modal>
+      )}
     </SpotWrapper>
   );
 }

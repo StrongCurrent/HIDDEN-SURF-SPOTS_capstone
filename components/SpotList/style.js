@@ -21,12 +21,13 @@ export const Spot = styled.li`
     isEven ? "solid 5px #2f6673" : "solid 5px #5d9ea6"};
 
   &:hover {
-    background-color: #F7F7F7;
+    background-color: #f7f7f7;
     font-weight: 500;
   }
 `;
 
 export const SpotLink = styled.a`
+  padding: 10px;
   color: inherit;
   text-decoration: none;
   display: block;
