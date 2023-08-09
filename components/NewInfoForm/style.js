@@ -40,16 +40,20 @@ export const AddEntryButtonWrapper = styled.div`
 `;
 
 export const AddEntryButton = styled.button`
-  text-transform: uppercase;
-  background-color: #fcfcfc;
-  border: solid 1px #d5d5d5;
+ text-transform: uppercase;
+  background-color: #40c057;
+  text-shadow: 0px 1px 3px #474747;
+  letter-spacing: 1px;
+  color: #ffffff;
+  font-weight: 600;
+  height: 35px;
+  width: 165px;
   border-radius: 5px;
-  margin: 15px 0px 15px 0px;
-  height: 23px;
-  width: 125px;
+  border: none;
+  margin: 15px 0px 25px 0px;
 
   &:hover {
-    background-color: #f7f7f7;
+    background-color: #2f9e44;
   }
 `;
 

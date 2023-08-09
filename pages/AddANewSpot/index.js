@@ -1,5 +1,5 @@
 import Header from "../../components/Header";
-import NewSpotForm from "../../components/AddSpot";
+import NewSpotForm from "../../components/NewSpotForm";
 import Navigation from "../../components/Nav";
 import MainContent from "../../components/MainContent";
 

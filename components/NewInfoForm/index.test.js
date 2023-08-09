@@ -1,4 +1,4 @@
-import AddNewInfoForm from '../AddNewInfoForm';
+import AddNewInfoForm from '../NewInfoForm';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 
 global.fetch = jest.fn(() =>
