@@ -16,8 +16,8 @@ export default function Navigation() {
     },
     {
       id: 2,
-      title: "ADD A NEW SPOT",
-      href: "/AddANewSpot",
+      title: "CREATE A NEW SPOT",
+      href: "/createspot",
       icon: MdAddLocationAlt,
       ariaLabel: "Navigate to add a new spot page",
     },

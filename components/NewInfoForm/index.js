@@ -45,6 +45,8 @@ const useAddNewEntry = (spotId) => {
       setNewInfo("");
       mutate(`/api/spots/${spotId}`);
       setEntryError("");
+    } else if (response.status === 401) {
+      setEntryError("PLEASE LOGIN TO ACCESS YOUR DATA");
     } else {
       setEntryError("AN UNKNOWN ERROR OCCURRED");
     }
@@ -89,7 +91,7 @@ export default function AddNewInfoForm({ spotId }) {
           name="create-info"
           aria-label="Create entry"
         >
-          add this entry
+          ADD THIS ENTRY
         </AddEntryButton>
       </AddEntryButtonWrapper>
     </AddEntryForm>
