@@ -1,26 +1,61 @@
 import { useSession, signOut, signIn } from "next-auth/react";
-import { LoginButton, LogoutButton, Container } from "./style";
+import { useRouter } from "next/router";
+import {
+  FixedLine,
+  Welcome,
+  Container,
+  Text,
+  LoginButton,
+  LogoutButton,
+} from "./style";
+import LoadingSpinner from "../LoadingSpinner";
+import Error from "../Error";
 
 function Profile() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
-  if (!session) {
+  if (status === "loading") {
     return (
       <Container>
-        <p>Oops you are not logged in. Please log in to access your data.</p>
-        <LoginButton onClick={() => signIn('github')}>Login with Github</LoginButton>
+        <LoadingSpinner aria-label="Loading" />
       </Container>
     );
   }
 
+  if (!session) {
+    return (
+      <Container>
+        <Error>OOPS YOU ARE NOT LOGGED IN </Error>{" "}
+        <Error>Please log in to access your data.</Error>
+        <LoginButton aria-label="Login" onClick={() => signIn("github")}>
+          Login
+        </LoginButton>
+      </Container>
+    );
+  }
+
+  const handleLogout = () => {
+    signOut({
+      callbackUrl: `${window.location.origin}/`,
+    });
+  };
+
   return (
-    <Container>
-      <p>Hi, {session.user.name} thank you for using this app.</p>
-      <p>You are logged in as: {session.user.email}</p>
-      <p>You can use the app completely when you are logged in.</p>
-      <p>When you log out, you have to log in again to access your saved data.</p>
-      <LogoutButton onClick={signOut}>Logout</LogoutButton>
-    </Container>
+    <>
+      <FixedLine aria-hidden="true" />{" "}
+      <Container>
+        <Welcome>G'day {session.user.name},</Welcome>
+        <Text>you are logged in as: {session.user.email}</Text>
+        <Text>
+          As long as you are logged in, you can use the app and its features.
+        </Text>
+        <Text>I would be happy about a small donation if you like the app</Text>
+        <LogoutButton aria-label="Logout" onClick={handleLogout}>
+          Logout
+        </LogoutButton>
+      </Container>
+    </>
   );
 }
 
