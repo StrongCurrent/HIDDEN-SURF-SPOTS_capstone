@@ -11,4 +11,6 @@ export const authOptions = {
   ],
 };
 
-export default (req, res) => NextAuth(req, res, authOptions);
+const authHandler = (req, res) => NextAuth(req, res, authOptions);
+
+export default authHandler;
