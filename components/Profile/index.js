@@ -45,7 +45,7 @@ function Profile() {
     <>
       <FixedLine aria-hidden="true" />{" "}
       <Container>
-        <Welcome>G'day {session.user.name},</Welcome>
+        <Welcome>G&apos;day {session.user.name},</Welcome>
         <Text>you are logged in as: {session.user.email}</Text>
         <Text>
           As long as you are logged in, you can use the app and its features.
