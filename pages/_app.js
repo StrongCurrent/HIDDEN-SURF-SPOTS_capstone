@@ -3,6 +3,7 @@ import { Roboto_Flex } from "next/font/google";
 import GlobalStyle from "../styles";
 import { SWRConfig } from "swr";
 import fetcher from "../utils/fetcher";
+import { SessionProvider } from "next-auth/react";
 
 const roboto = Roboto_Flex({
   subsets: [
@@ -16,7 +17,7 @@ const roboto = Roboto_Flex({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
       <SWRConfig value={{ fetcher }}>
@@ -30,7 +31,9 @@ export default function App({ Component, pageProps }) {
         <Head>
           <title>HIDDEN SURF SPOTS</title>
         </Head>
-        <Component {...pageProps} />
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
       </SWRConfig>
     </>
   );
