@@ -11,6 +11,7 @@ const spotSchema = new Schema({
   longitude: { type: Number, required: true },
   latitude: { type: Number, required: true },
   informations: [AdditionalInformationSchema],
+  createdBy: { type: String, required: true },
 });
 
 const Spot = mongoose.models.Spot || mongoose.model("Spot", spotSchema);
