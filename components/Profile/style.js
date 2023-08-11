@@ -1,15 +1,5 @@
 import styled from "styled-components";
 
-export const FixedLine = styled.div`
-  position: fixed;
-  top: 60;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background-color: #2f6673;
-  z-index: 10000;
-`;
-
 export const Welcome = styled.h2`
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
@@ -26,10 +16,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  height: 100vh;
+  justify-content: center;
+  height: auto;
   padding: 2rem;
-  padding-top: 0vh;
   max-width: 600px;
   margin: 0 auto;
 `;

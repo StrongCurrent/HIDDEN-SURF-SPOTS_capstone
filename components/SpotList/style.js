@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SpotsList = styled.ul`
   padding: 0;
@@ -23,6 +23,10 @@ export const Spot = styled.li`
   &:hover {
     background-color: #f7f7f7;
     font-weight: 500;
+  }
+
+  &:first-child {
+    border-top: none;
   }
 `;
 

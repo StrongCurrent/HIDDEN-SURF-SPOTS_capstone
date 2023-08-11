@@ -55,8 +55,6 @@ function Profile() {
   };
 
   return (
-    <>
-      <FixedLine aria-hidden="true" />{" "}
       <Container>
         <Welcome>{getAussieGreeting()}</Welcome>
         <User>{session.user.name}</User>
@@ -69,7 +67,6 @@ function Profile() {
           Logout
         </LogoutButton>
       </Container>
-    </>
   );
 }
 

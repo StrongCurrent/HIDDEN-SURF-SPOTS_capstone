@@ -16,7 +16,7 @@ export const SpotName = styled.input`
   padding: 15px 0px 15px 0px;
   background-color: #fcfcfc;
   border-bottom: solid 1px #d5d5d5;
-  border-top: solid 5px #2f6673;
+  border-top: 0px;
   border-left: 0px;
   border-right: 0px;
 
