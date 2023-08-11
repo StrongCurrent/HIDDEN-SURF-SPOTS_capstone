@@ -28,7 +28,7 @@ export default function SpotList() {
         return (
           <Spot isEven={isEven} key={spot._id}>
             <SpotLink
-              href={`/SpotInformation/${spot._id}`}
+              href={`/spot-information/${spot._id}`}
               aria-label={`View details for ${spot.spotName}`}
             >
               {spot.spotName}
