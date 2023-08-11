@@ -17,7 +17,7 @@ function getAussieGreeting() {
   if (currentHour >= 5 && currentHour < 12) {
     return "Mornin' sets rollin' in,";
   } else if (currentHour >= 12 && currentHour < 18) {
-    return "Arvo's surf calling for";
+    return "Arvo's surf calling for,";
   } else if (currentHour >= 18 && currentHour < 22) {
     return "Sun's setting, surf's up,";
   } else {
