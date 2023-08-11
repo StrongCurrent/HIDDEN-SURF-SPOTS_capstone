@@ -175,10 +175,10 @@ export default function SpotInfo({ spotId }) {
             onClick={handleDeleteSpot}
             aria-label="Confirm deletion"
           >
-            Yes, delete it
+            Delete
           </ModalDeleteButton>
           <ModalKeepButton onClick={closeModal} aria-label="Cancel deletion">
-            No, keep it
+            Cancel
           </ModalKeepButton>
         </Modal>
       )}

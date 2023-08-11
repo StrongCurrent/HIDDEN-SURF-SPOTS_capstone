@@ -125,7 +125,7 @@ export const BaseModalButton = styled.button`
   font-weight: 600;
   letter-spacing: 1px;
   height: 45px;
-  width: 135px;
+  width: 100px;
   border-radius: 5px;
   border: none;  
 

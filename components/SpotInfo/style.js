@@ -98,7 +98,7 @@ export const SpotDeleteButton = styled.button`
   letter-spacing: 1px;
   font-weight: 600;
   color: #ffffff;
-  margin-top: 15px;
+  margin-top: 35px;
   height: 50px;
   width: 170px;
   border-radius: 5px;
@@ -143,7 +143,7 @@ export const BaseModalButton = styled.button`
   color: #ffffff;
   font-weight: 600;
   height: 45px;
-  width: 135px;
+  width: 100px;
   border-radius: 5px;
   border: none;  
 

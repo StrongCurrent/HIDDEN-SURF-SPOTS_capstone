@@ -87,7 +87,7 @@ export default function AddNewInfoForm({ spotId }) {
           name="create-info"
           aria-label="Create entry"
         >
-          ADD THIS ENTRY
+          ADD NEW ENTRY
         </AddEntryButton>
       </AddEntryButtonWrapper>
     </AddEntryForm>

@@ -167,13 +167,13 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
             onClick={() => closeModal(true)}
             aria-label="Confirm deletion"
           >
-            Yes, delete it
+            delete
           </ModalDeleteButton>
           <ModalKeepButton
             onClick={() => closeModal(false)}
             aria-label="Cancel deletion"
           >
-            No, keep it
+            Cancel
           </ModalKeepButton>
         </Modal>
       )}
