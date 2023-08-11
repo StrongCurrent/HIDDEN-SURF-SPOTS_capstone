@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const FixedLine = styled.div`
-  position: fixed; 
-  top: 60; 
-  left: 0; 
-  right: 0; 
+  position: fixed;
+  top: 60;
+  left: 0;
+  right: 0;
   height: 5px;
   background-color: #2f6673;
   z-index: 10000;
@@ -13,6 +13,13 @@ export const FixedLine = styled.div`
 export const Welcome = styled.h2`
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
+`;
+
+export const User = styled.p`
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 0px 0px 20px 0px;
 `;
 
 export const Container = styled.div`
