@@ -63,7 +63,7 @@ export default function MarkerMap({
     }
 
     return () => map.remove();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [style, draggable, viewMode]);
 
   useEffect(() => {
@@ -78,13 +78,13 @@ export default function MarkerMap({
 
   return (
     <MapWrapper>
-      <MapContainer ref={mapContainerRef} aria-label="Map" />
-      <Coordinates>
-        <Longitude>Longitude: {coordinates.longitude.toFixed(4)}</Longitude>
-        <Latitude>Latitude: {coordinates.latitude.toFixed(4)}</Latitude>
-      </Coordinates>
-
+      <MapContainer ref={mapContainerRef} aria-label="Interactive map" />
+  
       <MapMenu id="menu" aria-label="Map Style Selector">
+        <Coordinates>
+          <Longitude>Longitude: {coordinates.longitude.toFixed(4)}</Longitude>
+          <Latitude>Latitude: {coordinates.latitude.toFixed(4)}</Latitude>
+        </Coordinates>
         <label>
           <input
             type="radio"
@@ -92,7 +92,7 @@ export default function MarkerMap({
             value="outdoors-v12"
             checked={style === "mapbox://styles/mapbox/outdoors-v12"}
             onChange={handleStyleChange}
-            aria-label="Outdoors Style"
+            aria-label="Select Outdoors Style"
           />
           Outdoors
         </label>
@@ -103,11 +103,11 @@ export default function MarkerMap({
             value="satellite-streets-v12"
             checked={style === "mapbox://styles/mapbox/satellite-streets-v12"}
             onChange={handleStyleChange}
-            aria-label="Satellite Streets Style"
+            aria-label="Select Satellite Streets Style"
           />
           Satellite Streets
         </label>
       </MapMenu>
     </MapWrapper>
-  );
+  );  
 }

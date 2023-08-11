@@ -4,7 +4,7 @@ export const MapWrapper = styled.div`
   position: relative;
   width: 100vw;
   height: 48vh;
-  `;
+`;
 
 export const MapContainer = styled.div`
   width: 100%;
@@ -12,37 +12,35 @@ export const MapContainer = styled.div`
 `;
 
 export const MapMenu = styled.div`
+  box-sizing: border-box;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.8);
-  padding: 5px 10px 0px 10px;
-  text-align: center;
+  padding: 5px ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 
-  label {
-    margin-right: 20px;
+  label:nth-child(2) {
+    margin-right: 40px;
   }
 `;
 
 export const Longitude = styled.span`
-  margin-right: 10px;
+  margin-right: 30px;
 `;
 
 export const Latitude = styled.span``;
 
 export const Coordinates = styled.div`
-  background: rgba(255, 255, 255, 0.8);
-  position: absolute;
+  box-sizing: border-box;
   width: 100%;
-  top: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0px 5px;
-  margin: 0;
-  font-size: 11px;
+
+  font-size: 0.8rem;
   line-height: 18px;
-  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
