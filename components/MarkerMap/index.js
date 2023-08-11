@@ -63,6 +63,7 @@ export default function MarkerMap({
     }
 
     return () => map.remove();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [style, draggable, viewMode]);
 
   useEffect(() => {
