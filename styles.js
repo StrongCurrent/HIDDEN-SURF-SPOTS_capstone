@@ -15,6 +15,6 @@ export default createGlobalStyle`
     font-size: 1.1rem;
     font-weight: 500;
     text-transform: uppercase;
-    margin: 40px 0px 20px 0px;
+    margin: 20px 0px 20px 0px;
   }
 `;

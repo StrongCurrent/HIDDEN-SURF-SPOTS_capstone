@@ -1,22 +1,45 @@
 import React, { useState, useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
-import { MapContainer, MapMenu, MapWrapper } from "./style";
+import {
+  MapContainer,
+  MapMenu,
+  MapWrapper,
+  Coordinates,
+  Longitude,
+  Latitude,
+} from "./style";
 
-export default function MarkerMap({ marker, setMarker, draggable = false }) {
+export default function MarkerMap({
+  marker,
+  setMarker,
+  draggable = false,
+  viewMode,
+}) {
   const mapContainerRef = useRef(null);
   const markerRef = useRef();
-  const [style, setStyle] = useState("mapbox://styles/mapbox/outdoors-v12");
+  const [coordinates, setCoordinates] = useState({
+    longitude: marker.longitude,
+    latitude: marker.latitude,
+  });
+
+  const defaultStyle =
+    viewMode === "create"
+      ? "mapbox://styles/mapbox/outdoors-v12"
+      : "mapbox://styles/mapbox/satellite-streets-v12";
+  const [style, setStyle] = useState(defaultStyle);
 
   useEffect(() => {
     mapContainerRef.current.innerHTML = "";
 
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAP_BOX_GL;
 
+    const zoomLevel = viewMode === "create" ? 0 : 13;
+
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: style,
       center: [marker.longitude, marker.latitude],
-      zoom: 5,
+      zoom: zoomLevel,
     });
 
     markerRef.current = new mapboxgl.Marker({
@@ -32,11 +55,15 @@ export default function MarkerMap({ marker, setMarker, draggable = false }) {
           longitude: lngLat.lng,
           latitude: lngLat.lat,
         });
+        setCoordinates({
+          longitude: lngLat.lng,
+          latitude: lngLat.lat,
+        });
       });
     }
 
     return () => map.remove();
-  }, [style, draggable]);
+  }, [style, draggable, viewMode]);
 
   useEffect(() => {
     if (markerRef.current) {
@@ -51,6 +78,11 @@ export default function MarkerMap({ marker, setMarker, draggable = false }) {
   return (
     <MapWrapper>
       <MapContainer ref={mapContainerRef} aria-label="Map" />
+      <Coordinates>
+        <Longitude>Longitude: {coordinates.longitude.toFixed(4)}</Longitude>
+        <Latitude>Latitude: {coordinates.latitude.toFixed(4)}</Latitude>
+      </Coordinates>
+
       <MapMenu id="menu" aria-label="Map Style Selector">
         <label>
           <input

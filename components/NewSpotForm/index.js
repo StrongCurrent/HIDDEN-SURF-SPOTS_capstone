@@ -17,7 +17,9 @@ const createSpot = async (spotName, longitude, latitude) => {
 
   if (!response.ok) {
     const responseData = await response.json();
-    const error = new Error(responseData.message || "Unexpected error occurred");
+    const error = new Error(
+      responseData.message || "Unexpected error occurred"
+    );
     error.status = response.status;
     throw error;
   }
@@ -27,8 +29,8 @@ export default function NewSpotForm() {
   const { data: session, status } = useSession();
   const [spotName, setSpotName] = useState("");
   const [marker, setMarker] = useState({
-    latitude: 53.5511,
-    longitude: 9.9937,
+    latitude: -28.6477,
+    longitude: 153.6345,
   });
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -60,9 +62,9 @@ export default function NewSpotForm() {
       setError("PLEASE FILL ALL FIELDS");
       return;
     }
-  
+
     setIsLoading(true);
-  
+
     try {
       await createSpot(
         spotName.toLowerCase(),
@@ -71,8 +73,8 @@ export default function NewSpotForm() {
       );
       setSpotName("");
       setMarker({
-        latitude: 53.5511,
-        longitude: 9.9937,
+        latitude: -28.6477,
+        longitude: 153.6345,
       });
       router.push("/");
     } catch (error) {
@@ -84,7 +86,7 @@ export default function NewSpotForm() {
         setError("UNKNOWN ERROR OCCURRED");
       }
     }
-  
+
     setIsLoading(false);
   };
 
@@ -100,7 +102,12 @@ export default function NewSpotForm() {
         required
         aria-label="Spot name Input"
       />
-      <MarkerMap marker={marker} setMarker={setMarker} draggable={true} />
+      <MarkerMap
+        marker={marker}
+        setMarker={setMarker}
+        draggable={true}
+        viewMode="create"
+      />
       <SpotCreateButton
         type="submit"
         name="create-spot"

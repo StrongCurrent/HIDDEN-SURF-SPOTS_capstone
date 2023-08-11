@@ -111,7 +111,11 @@ export default function SpotInfo({ spotId }) {
 
   return (
     <SpotWrapper>
-        <MarkerMap marker={{ latitude: spot.latitude, longitude: spot.longitude }} draggable={false} />
+      <MarkerMap
+        marker={{ latitude: spot.latitude, longitude: spot.longitude }}
+        draggable={false}
+        viewMode="info"
+      />
       <SpotName>
         {isEditingSpotName ? (
           <SpotNameInput

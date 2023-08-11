@@ -40,7 +40,7 @@ export const AddEntryButtonWrapper = styled.div`
 `;
 
 export const AddEntryButton = styled.button`
- text-transform: uppercase;
+  text-transform: uppercase;
   background-color: #40c057;
   text-shadow: 0px 1px 3px #474747;
   letter-spacing: 1px;
