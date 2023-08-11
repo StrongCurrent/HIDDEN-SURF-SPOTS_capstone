@@ -25,7 +25,7 @@ const createSpot = async (spotName, longitude, latitude) => {
   }
 };
 
-export default function NewSpotForm() {
+export default function CreateSpot() {
   const { data: session, status } = useSession();
   const [spotName, setSpotName] = useState("");
   const [marker, setMarker] = useState({
