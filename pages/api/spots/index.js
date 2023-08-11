@@ -3,6 +3,10 @@ import Spot from "../../../db/models/spots";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
 
+function normalizeSpotName(name) {
+  return name.toLowerCase().replace(/\s+/g, "");
+}
+
 export default async function handler(request, response) {
   await dbConnect();
 
@@ -16,19 +20,26 @@ export default async function handler(request, response) {
     response.status(200).json(spots);
   } else if (request.method === "POST") {
     const { spotName, longitude, latitude } = request.body;
+    const normalizedSpotName = normalizeSpotName(spotName);
 
-    const existingSpot = await Spot.findOne({ spotName: spotName });
+    const existingSpot = await Spot.findOne({
+      spotName: normalizedSpotName,
+      createdBy: session.user.email,
+    });
     if (existingSpot) {
-      return response.status(400).json({ message: "PLEASE CHOOSE ANOTHER NAME, THIS ONE IS ALREADY TAKEN. SPOT HAS NOT BEEN ADDED." });
+      return response.status(400).json({
+        message:
+          "PLEASE CHOOSE A DIFFERENT NAME, THIS ONE IS ALREADY TAKEN. SPOT HAS NOT BEEN ADDED.",
+      });
     }
 
     const newSpot = new Spot({
-      spotName,
+      spotName: normalizedSpotName,
       longitude,
       latitude,
-      createdBy: session.user.email
+      createdBy: session.user.email,
     });
-    
+
     await newSpot.save();
     response.status(201).json(newSpot);
   } else {
