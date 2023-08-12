@@ -162,7 +162,7 @@ export default function SpotInfo({ spotId }) {
       </InformationWrapper>
       <InformationWrapper>
       <h2>Spot Picture</h2>
-      <Upload/>
+      <Upload spotId={spotId} initialImage={spot.image}/>
       </InformationWrapper>
       <SpotDeleteButton
         onClick={openModal}

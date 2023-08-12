@@ -1,14 +1,21 @@
 import Image from "next/image.js";
 import React, { useState } from "react";
-import { StyledMain, ImageContainer, Form } from "./style";
+import { StyledMain, ImageContainer, Form, StyledButton } from "./style";
+import { useSession } from "next-auth/react";
 
-
-export default function Upload() {
-  const [image, setImage] = useState(null);
+export default function Upload({ spotId, initialImage }) {
+  const { data: session } = useSession();
+  const [image, setImage] = useState(initialImage);
   const [error, setError] = useState(null);
 
   async function submitImage(event) {
     event.preventDefault();
+
+    if (!session) {
+      setError(new Error("LOGIN TO UPLOAD AN IMAGE."));
+      return;
+    }
+
     const formData = new FormData(event.target);
 
     try {
@@ -19,6 +26,18 @@ export default function Upload() {
       const img = await response.json();
 
       console.log("Browser: response from API: ", img);
+
+      const updateResponse = await fetch(`/api/spots/${spotId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ image: img.url }),
+      });
+
+      if (!updateResponse.ok) {
+        throw new Error("ERROR UPDATING THE SPOT WITH THE IMAGE URL.");
+      }
 
       setImage(img);
     } catch (error) {
@@ -31,11 +50,12 @@ export default function Upload() {
       {image && (
         <ImageContainer>
           <Image
-            src={image.url}
+            src={image.url || image}
             alt="Uploaded image"
+            priority
             layout="responsive"
-            height={image.height}
-            width={image.width}
+            height={image.height || 500}
+            width={image.width || 500}
           />
         </ImageContainer>
       )}
