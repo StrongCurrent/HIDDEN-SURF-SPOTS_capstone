@@ -1,20 +1,21 @@
 import styled from "styled-components";
 
-const StyledMain = styled.main`
+export const StyledMain = styled.main`
   text-align: center;
-  height: 100vh;
-  padding: 2em;
 `;
 
-const Form = styled.form`
+export const Form = styled.form`
   max-width: 20rem;
-  margin: 2rem auto;
+  margin: 1rem auto 4rem auto;
 `;
 
-const ImageContainer = styled.div`
+export const ImageContainer = styled.div`
+  position: relative;
   max-width: 40rem;
   margin: 0 auto;
-  border: 2px solid grey;
-  border-radius: 1rem;
-  padding: 1rem;
+
+  img {
+    border: 2px solid var(--theme-secondary-light);
+    border-radius: 1rem;
+  }
 `;
