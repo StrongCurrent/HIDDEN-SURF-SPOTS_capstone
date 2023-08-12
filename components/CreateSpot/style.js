@@ -19,6 +19,8 @@ export const SpotName = styled.input`
   border-bottom: solid 1px #d5d5d5;
   border-left: 0px;
   border-right: 0px;
+  margin: 0;
+  -webkit-appearance: none;
 
   &:focus {
     outline: none;

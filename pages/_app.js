@@ -11,6 +11,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         <GlobalStyle />
         <Head>
           <title>HIDDEN SURF SPOTS</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         </Head>
         <SessionProvider session={session}>
           <Component {...pageProps} />
