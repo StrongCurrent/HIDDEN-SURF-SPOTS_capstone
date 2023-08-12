@@ -42,7 +42,7 @@ export const EntryTextarea = styled(({ isEditing, ...props }) =>
   ${({ isEditing }) =>
     isEditing
       ? `
-    border: dotted 1.5px #5d9ea6;
+    border: dotted 1.5px var(--theme-secondary-light);
     
       `
       : `
@@ -51,13 +51,13 @@ export const EntryTextarea = styled(({ isEditing, ...props }) =>
       `}
   &:focus {
     background-color: #ffffff;
-    outline: solid 1px #5d9ea6;
+    outline: solid 1px var(--theme-secondary-light);
     border: none;
   }
 `;
 
 export const EditIcon = styled.svg`
-  fill: #5d9ea6;
+  fill: var(--theme-secondary-light);
 `;
 
 export const TrashIcon = styled.svg`

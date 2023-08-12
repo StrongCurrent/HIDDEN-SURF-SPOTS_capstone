@@ -5,7 +5,7 @@ export const StyledHeader = styled.h1`
   top: 0;
   width: 100%;
   background-color: #ffffff;
-  border-bottom: 5px solid #2f6673;
+  border-bottom: 5px solid var(--theme-primary-dark);
   font-weight: 500;
   letter-spacing: 0.05rem;
   text-align: center;

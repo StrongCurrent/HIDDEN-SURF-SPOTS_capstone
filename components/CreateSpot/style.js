@@ -15,7 +15,7 @@ export const SpotName = styled.input`
   list-style: none;
   padding: 15px 0px 15px 0px;
   background-color: #fcfcfc;
-  border-top: solid 5px #2f6673;
+  border-top: solid 5px var(--theme-primary-dark);
   border-bottom: solid 1px #d5d5d5;
   border-radius: 0;
   border-left: 0px;
@@ -56,7 +56,7 @@ export const InputLabelWrapper = styled.div`
 export const AddSpotLabel = styled.label`
   display: block;
   font-size: 1rem;
-  color: #2f6673;
+  color: var(--theme-primary-dark);
   list-style-type: none;
   margin-right: 10px;
 `;

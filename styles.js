@@ -11,6 +11,11 @@ export default createGlobalStyle`
   *::after {
     box-sizing: border-box;
   }
+  :root {
+    --theme-primary-dark: #2f6673;
+    --theme-secondary-light: #5d9ea6;
+  }
+
   body {
     margin: 0;
     padding: 0;

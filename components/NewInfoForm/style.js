@@ -28,7 +28,7 @@ export const AddEntryTextarea = styled.textarea`
 
   &:focus {
     background-color: #ffffff;
-    outline: solid 1px #5d9ea6;
+    outline: solid 1px var(--theme-secondary-light);
     border: none;
   }
 `;

@@ -10,7 +10,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
-  background-color: #2f6673;
+  background-color: var(--theme-primary-dark);
   padding-top: 30vh;
 `;
 
