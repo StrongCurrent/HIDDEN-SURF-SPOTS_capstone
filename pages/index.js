@@ -15,7 +15,7 @@ const Container = styled.div`
 `;
 
 const WelcomeText = styled.p`
-  color: white;
+  color: #ffffff;
   text-align: center;
   font-weight: 400;
   font-size: 1.5rem;
@@ -23,7 +23,7 @@ const WelcomeText = styled.p`
 `;
 
 const Heading = styled.h1`
-  color: white;
+  color: #ffffff;
   text-align: center;
   font-weight: 400;
   font-size: 1.5rem;
@@ -40,7 +40,7 @@ const LoginButton = styled.button`
   align-items: center;
   padding: 0.5rem 1rem;
   width: 100%;
-  background-color: white;
+  background-color: #ffffff;
   font-weight: 800;
   color: #000000;
   border: none;
