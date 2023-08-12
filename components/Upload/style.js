@@ -15,7 +15,6 @@ export const ImageContainer = styled.div`
   margin: 0 auto;
 
   img {
-    border: 2px solid var(--theme-secondary-light);
     border-radius: 1rem;
   }
 `;
