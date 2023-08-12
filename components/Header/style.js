@@ -12,6 +12,6 @@ export const StyledHeader = styled.h1`
   text-transform: uppercase;
   font-size: 1.4rem;
   z-index: 1000;
-  padding: 50px 0 10px;
+  padding: 40px 0 10px;
   margin: 0;
 `;
