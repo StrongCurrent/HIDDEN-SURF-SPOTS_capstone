@@ -92,7 +92,13 @@ export default function CreateSpot() {
 
   return (
     <AddSpotForm onSubmit={handleAddSpot}>
-      <SpotName
+      <MarkerMap
+        marker={marker}
+        setMarker={setMarker}
+        draggable={true}
+        viewMode="create"
+      />
+         <SpotName
         id="spotName"
         name="spotName"
         type="input"
@@ -101,12 +107,6 @@ export default function CreateSpot() {
         onChange={handleChange}
         required
         aria-label="Spot name Input"
-      />
-      <MarkerMap
-        marker={marker}
-        setMarker={setMarker}
-        draggable={true}
-        viewMode="create"
       />
       <SpotCreateButton
         type="submit"
