@@ -69,7 +69,7 @@ export default function AddNewInfoForm({ spotId }) {
       onSubmit={handleAddNewEntry}
       aria-label="Form to add a new entry"
     >
-      <AddEntryLabel htmlFor="new-info">Enter a new Information</AddEntryLabel>
+      <AddEntryLabel htmlFor="new-info">ENTER A NEW INFORMATION</AddEntryLabel>
       <EntryEditErrorText role="alert" aria-live="polite">
         {entryError}
       </EntryEditErrorText>
