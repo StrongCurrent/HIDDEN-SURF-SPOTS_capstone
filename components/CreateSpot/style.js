@@ -81,7 +81,7 @@ export const SpotCreateButton = styled.button`
   letter-spacing: 1px;
   font-weight: 600;
   color: #ffffff;
-  margin-top: 25px;
+  margin-top: 40px;
   height: 50px;
   width: 180px;
   border-radius: 5px;

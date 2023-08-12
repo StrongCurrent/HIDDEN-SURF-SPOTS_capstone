@@ -61,7 +61,7 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
 
   const validateInfo = () => {
     if (!editInfo.trim()) {
-      return "CANNOT BE EMPTY OR JUST SPACES";
+      return "CANNOT BE EMPTY";
     }
     return null;
   };

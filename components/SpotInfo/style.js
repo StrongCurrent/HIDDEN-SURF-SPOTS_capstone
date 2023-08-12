@@ -98,9 +98,9 @@ export const SpotDeleteButton = styled.button`
   letter-spacing: 1px;
   font-weight: 600;
   color: #ffffff;
-  margin-top: 35px;
+  margin-top: 15px;
   height: 50px;
-  width: 170px;
+  width: 270px;
   border-radius: 5px;
   border: none;
 
