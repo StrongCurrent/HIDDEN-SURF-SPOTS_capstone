@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 export const SpotNameInput = styled.input`
-  border: 1px dotted #5d9ea6;
+  border: 1px dotted var(--theme-secondary-light);
   border-radius: 5px;
   padding: 5px;
   width: 25%;
 
   &:focus {
     background-color: #ffffff;
-    outline: solid 1px #5d9ea6;
+    outline: solid 1px var(--theme-secondary-light);
     border: none;
   }
 `;
@@ -47,7 +47,7 @@ export const SpotName = styled.div`
   padding: 10px 0px 10px 25px;
   background-color: #fcfcfc;
   border-bottom: solid 1px #d5d5d5;
-  border-top: solid 5px #2f6673;
+  border-top: solid 5px var(--theme-primary-dark);
   border-left: 0px;
   border-right: 0px;
 `;
@@ -61,13 +61,13 @@ export const InformationWrapper = styled.div`
 
 export const Longitude = styled.p`
   font-size: 1rem;
-  color: #2f6673;
+  color: var(--theme-primary-dark);
   margin: 0px 0px 10px 0px;
 `;
 
 export const Latitude = styled.p`
   font-size: 1rem;
-  color: #2f6673;
+  color: var(--theme-primary-dark);
   margin: 0px 0px 10px 0px;
 `;
 
@@ -88,7 +88,7 @@ export const EntryList = styled.ul`
 export const EntryListItem = styled.li``;
 
 export const EditIcon = styled.svg`
-  fill: #5d9ea6;
+  fill: var(--theme-secondary-light);
 `;
 
 export const SpotDeleteButton = styled.button`
@@ -100,7 +100,7 @@ export const SpotDeleteButton = styled.button`
   color: #ffffff;
   margin-top: 15px;
   height: 50px;
-  width: 170px;
+  width: 270px;
   border-radius: 5px;
   border: none;
 
@@ -143,7 +143,7 @@ export const BaseModalButton = styled.button`
   color: #ffffff;
   font-weight: 600;
   height: 45px;
-  width: 135px;
+  width: 100px;
   border-radius: 5px;
   border: none;  
 

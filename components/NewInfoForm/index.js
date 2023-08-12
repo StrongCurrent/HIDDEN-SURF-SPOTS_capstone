@@ -6,7 +6,7 @@ import {
   AddEntryTextarea,
   AddEntryButtonWrapper,
   AddEntryButton,
-  EntryEditErrorText
+  EntryEditErrorText,
 } from "./style";
 
 const useAddNewEntry = (spotId) => {
@@ -32,7 +32,7 @@ const useAddNewEntry = (spotId) => {
       setEntryError(error);
       return;
     }
-    
+
     const response = await fetch(`/api/spots/${spotId}/informations`, {
       method: "POST",
       headers: {
@@ -45,6 +45,8 @@ const useAddNewEntry = (spotId) => {
       setNewInfo("");
       mutate(`/api/spots/${spotId}`);
       setEntryError("");
+    } else if (response.status === 401) {
+      setEntryError("PLEASE LOGIN TO ACCESS YOUR DATA");
     } else {
       setEntryError("AN UNKNOWN ERROR OCCURRED");
     }
@@ -54,27 +56,23 @@ const useAddNewEntry = (spotId) => {
     newInfo,
     entryError,
     handleNewEntryChange,
-    handleAddNewEntry
+    handleAddNewEntry,
   };
 };
 
 export default function AddNewInfoForm({ spotId }) {
-  const {
-    newInfo,
-    entryError,
-    handleNewEntryChange,
-    handleAddNewEntry
-  } = useAddNewEntry(spotId);
+  const { newInfo, entryError, handleNewEntryChange, handleAddNewEntry } =
+    useAddNewEntry(spotId);
 
   return (
     <AddEntryForm
       onSubmit={handleAddNewEntry}
       aria-label="Form to add a new entry"
     >
-      <AddEntryLabel htmlFor="new-info">
-        ADD SOME SPOT INFORMATION
-      </AddEntryLabel>
-      <EntryEditErrorText role="alert" aria-live="polite">{entryError}</EntryEditErrorText>
+      <AddEntryLabel htmlFor="new-info">FILL IN SPOT INFORMATION</AddEntryLabel>
+      <EntryEditErrorText role="alert" aria-live="polite">
+        {entryError}
+      </EntryEditErrorText>
       <AddEntryTextarea
         id="new-info"
         name="new-info"
@@ -89,7 +87,7 @@ export default function AddNewInfoForm({ spotId }) {
           name="create-info"
           aria-label="Create entry"
         >
-          add this entry
+          ADD NEW ENTRY
         </AddEntryButton>
       </AddEntryButtonWrapper>
     </AddEntryForm>

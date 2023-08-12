@@ -1,10 +1,28 @@
 import Spot from "../../../../../db/models/spots";
 import mongoose from "mongoose";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../../../auth/[...nextauth]";
 
 export default async function handler(req, res) {
   const { spotId, infoId } = req.query;
   const objectIdSpot = new mongoose.Types.ObjectId(spotId);
   const objectIdInfo = new mongoose.Types.ObjectId(infoId);
+
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!session) {
+    return res.status(401).json({ msg: "PLEASE LOG IN" });
+  }
+
+  const spot = await Spot.findById(objectIdSpot);
+
+  if (!spot) {
+    return res.status(404).json({ message: "SPOT NOT FOUND" });
+  }
+
+  if (spot.createdBy !== session.user.email) {
+    return res.status(401).json({ msg: "YOU ARE NOT ALLOWED TO MODIFY THIS SPOT'S INFORMATION" });
+  }
 
   if (req.method === "DELETE") {
     try {

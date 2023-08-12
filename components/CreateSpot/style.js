@@ -15,10 +15,13 @@ export const SpotName = styled.input`
   list-style: none;
   padding: 15px 0px 15px 0px;
   background-color: #fcfcfc;
+  border-top: solid 5px var(--theme-primary-dark);
   border-bottom: solid 1px #d5d5d5;
-  border-top: solid 5px #2f6673;
+  border-radius: 0;
   border-left: 0px;
   border-right: 0px;
+  margin: 0;
+  -webkit-appearance: none;
 
   &:focus {
     outline: none;
@@ -53,7 +56,7 @@ export const InputLabelWrapper = styled.div`
 export const AddSpotLabel = styled.label`
   display: block;
   font-size: 1rem;
-  color: #2f6673;
+  color: var(--theme-primary-dark);
   list-style-type: none;
   margin-right: 10px;
 `;
@@ -81,7 +84,7 @@ export const SpotCreateButton = styled.button`
   letter-spacing: 1px;
   font-weight: 600;
   color: #ffffff;
-  margin-top: 25px;
+  margin-top: 40px;
   height: 50px;
   width: 180px;
   border-radius: 5px;

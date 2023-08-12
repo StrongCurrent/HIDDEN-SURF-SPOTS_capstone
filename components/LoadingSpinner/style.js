@@ -30,7 +30,7 @@ const Circle = styled.div`
       margin: 0 auto;
       width: 15%;
       height: 15%;
-      background-color: #2f6673;
+      background-color: var(--theme-primary-dark);
       border-radius: 100%;
       animation: ${skCircleBounceDelay} 1.2s infinite ease-in-out both;
     }

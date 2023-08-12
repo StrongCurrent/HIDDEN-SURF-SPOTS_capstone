@@ -59,12 +59,25 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
     setDisabled(!isValidEntry());
   }, [entry]);
 
+  const validateInfo = () => {
+    if (!editInfo.trim()) {
+      return "CANNOT BE EMPTY";
+    }
+    return null;
+  };
+
   const handleEdit = async () => {
     if (!entry || !entry.info.trim() || disabled) {
       return;
     }
 
     if (isEditing) {
+      const validationError = validateInfo();
+      if (validationError) {
+        setInputError(validationError);
+        return;
+      }
+
       try {
         await updateInformation(spotId, entry._id, editInfo);
         setIsEditing(false);
@@ -154,13 +167,13 @@ export default function EditDeleteInfoForm({ entry, spotId }) {
             onClick={() => closeModal(true)}
             aria-label="Confirm deletion"
           >
-            Yes, delete it
+            delete
           </ModalDeleteButton>
           <ModalKeepButton
             onClick={() => closeModal(false)}
             aria-label="Cancel deletion"
           >
-            No, keep it
+            Cancel
           </ModalKeepButton>
         </Modal>
       )}

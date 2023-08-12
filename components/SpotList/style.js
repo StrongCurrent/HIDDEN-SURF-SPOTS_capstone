@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SpotsList = styled.ul`
   padding: 0;
@@ -18,11 +18,15 @@ export const Spot = styled.li`
   background-color: #fcfcfc;
   border-bottom: solid 1px #d5d5d5;
   border-top: ${({ isEven }) =>
-    isEven ? "solid 5px #2f6673" : "solid 5px #5d9ea6"};
+    isEven ? "solid 5px var(--theme-primary-dark)" : "solid 5px var(--theme-secondary-light)"};
 
   &:hover {
     background-color: #f7f7f7;
     font-weight: 500;
+  }
+
+  &:first-child {
+    border-top: none;
   }
 `;
 
@@ -44,5 +48,5 @@ export const NoEntryMessage = styled.div`
   padding: 40px 0;
   background-color: #fcfcfc;
   border-bottom: solid 1px #d5d5d5;
-  border-top: solid 5px #2f6673;
+  border-top: solid 5px var(--theme-primary-dark);
 `;

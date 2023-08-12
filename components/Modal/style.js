@@ -29,7 +29,8 @@ export const ModalOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #FCFCFC80;
+  background-color: #fcfcfc80;
+  z-index: 1000;
 `;
 
 export const ModalBody = styled.div``;

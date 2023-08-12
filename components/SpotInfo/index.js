@@ -100,18 +100,22 @@ export default function SpotInfo({ spotId }) {
   }
 
   if (error) {
-    return (
-      <Error role="alert">
-        {error.message === "Spot not found"
-          ? "Spot not found"
-          : "Failed to load spot information"}
-      </Error>
-    );
+    console.error("SWR Error:", error);
+    if (error.status === 401) {
+      return <Error role="alert">PLEASE LOGIN TO ACCESS YOUR DATA</Error>;
+    } else if (error.message === "SPOT NOT FOUND") {
+      return <Error role="alert">SPOT NOT FOUND</Error>;
+    }
+    return <Error role="alert">FAILED TO LOAD SPOT INFORMATION</Error>;
   }
 
   return (
     <SpotWrapper>
-        <MarkerMap marker={{ latitude: spot.latitude, longitude: spot.longitude }} draggable={false} />
+      <MarkerMap
+        marker={{ latitude: spot.latitude, longitude: spot.longitude }}
+        draggable={false}
+        viewMode="info"
+      />
       <SpotName>
         {isEditingSpotName ? (
           <SpotNameInput
@@ -171,10 +175,10 @@ export default function SpotInfo({ spotId }) {
             onClick={handleDeleteSpot}
             aria-label="Confirm deletion"
           >
-            Yes, delete it
+            Delete
           </ModalDeleteButton>
           <ModalKeepButton onClick={closeModal} aria-label="Cancel deletion">
-            No, keep it
+            Cancel
           </ModalKeepButton>
         </Modal>
       )}
