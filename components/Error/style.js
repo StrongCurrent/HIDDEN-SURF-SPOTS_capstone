@@ -5,5 +5,5 @@ export const ErrorMessage = styled.div`
   text-align: center; 
   font-size: 1.0rem;
   color: #da2001;
-  z-index: 100;
+  z-index: 101;
 `;
