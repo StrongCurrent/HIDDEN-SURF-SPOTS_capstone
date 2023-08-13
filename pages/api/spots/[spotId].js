@@ -30,15 +30,15 @@ export default async function handler(request, response) {
   if (request.method === "DELETE") {
     try {
       await Spot.deleteOne({ _id: spotId });
-        return response.status(200).json({ message: "SPOT DELETED SUCCESSFULLY" });
+      return response.status(200).json({ message: "SPOT DELETED SUCCESSFULLY" });
     } catch (error) {
-        console.error("Error deleting the spot:", error);
-        return response.status(500).json({ message: "INTERNAL SERVER ERROR", error: error.message });
+      console.error("Error deleting the spot:", error);
+      return response.status(500).json({ message: "INTERNAL SERVER ERROR", error: error.message });
     }
-}
+  }
 
   if (request.method === "PUT") {
-    const { info, spotName } = request.body;
+    const { info, spotName, image } = request.body;
 
     if (info) {
       const newInfo = {
@@ -54,7 +54,6 @@ export default async function handler(request, response) {
         );
 
         return response.status(200).json(updatedSpot);
-
       } catch (error) {
         return response
           .status(500)
@@ -67,7 +66,7 @@ export default async function handler(request, response) {
       if (existingSpot && String(existingSpot._id) !== spotId) {
         return response
           .status(400)
-          .json({ message: "PLEASE CHOOSE ANOTHER NAME, THIS ONE IS ALREADY TAKEN." });
+          .json({ message: "CHOOSE ANOTHER NAME, THIS ONE IS TAKEN." });
       }
 
       try {
@@ -78,14 +77,25 @@ export default async function handler(request, response) {
         );
 
         return response.status(200).json(updatedSpot);
+      } catch (error) {
+        return response.status(500).json({ message: error.message, error: error });
+      }
+    } else if (image) {
+      try {
+        const updatedSpot = await Spot.findByIdAndUpdate(
+          spotId,
+          { $set: { image: image } },
+          { new: true }
+        );
 
+        return response.status(200).json(updatedSpot);
       } catch (error) {
         return response.status(500).json({ message: error.message, error: error });
       }
     } else {
       return response
         .status(400)
-        .json({ message: "NO INFORMATION OR SPOT NAME PROVIDED" });
+        .json({ message: "NO INFORMATION, SPOT NAME, OR IMAGE PROVIDED" });
     }
   }
 }

@@ -15,7 +15,7 @@ export const StyledModal = styled.div`
   background: #ffffff;
   width: 100%;
   border-radius: 15px;
-  border: solid 1px #000000;
+  border: solid 3px var(--theme-primary-dark);
   padding: 15px;
   text-align: center;
 `;

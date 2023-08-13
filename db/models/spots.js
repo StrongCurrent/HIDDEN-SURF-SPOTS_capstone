@@ -11,6 +11,7 @@ const spotSchema = new Schema({
   longitude: { type: Number, required: true },
   latitude: { type: Number, required: true },
   informations: [AdditionalInformationSchema],
+  image:{ type: String, required: false },
   createdBy: { type: String, required: true },
 });
 

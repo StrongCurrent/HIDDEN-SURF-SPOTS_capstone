@@ -29,7 +29,7 @@ export default async function handler(request, response) {
     if (existingSpot) {
       return response.status(400).json({
         message:
-          "PLEASE CHOOSE A DIFFERENT NAME, THIS ONE IS ALREADY TAKEN. SPOT HAS NOT BEEN ADDED.",
+          "CHOOSE ANOTHER NAME, THIS ONE TAKEN. SPOT HAS NOT BEEN ADDED.",
       });
     }
 

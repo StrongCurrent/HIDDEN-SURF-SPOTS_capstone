@@ -25,6 +25,7 @@ import { CiEdit, CiCircleCheck } from "react-icons/ci";
 import EditDeleteInfoForm from "../EditDeleteInfoForm";
 import NewInfoForm from "../NewInfoForm";
 import Modal from "../Modal";
+import Upload from "../Upload";
 
 export default function SpotInfo({ spotId }) {
   const { data: spot, error, mutate } = useSWR(`/api/spots/${spotId}`);
@@ -67,7 +68,7 @@ export default function SpotInfo({ spotId }) {
       } else {
         if (
           data.message.toUpperCase() ===
-          "PLEASE CHOOSE ANOTHER NAME, THIS ONE IS ALREADY TAKEN."
+          "CHOOSE ANOTHER NAME, THIS ONE IS TAKEN."
         ) {
           setSpotNameError(data.message);
         } else {
@@ -158,6 +159,10 @@ export default function SpotInfo({ spotId }) {
           <NoEntryMessage>There is no entry yet</NoEntryMessage>
         )}
         <NewInfoForm spotId={spotId} />
+      </InformationWrapper>
+      <InformationWrapper>
+      <h2>Spot Picture</h2>
+      <Upload spotId={spotId} initialImage={spot.image}/>
       </InformationWrapper>
       <SpotDeleteButton
         onClick={openModal}

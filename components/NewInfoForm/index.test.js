@@ -14,7 +14,7 @@ beforeEach(() => {
 test('AddNewInfoForm', async () => {
   render(<AddNewInfoForm spotId="1" />);
 
-  const inputField = screen.getByLabelText(/FILL IN SPOT INFORMATION/);
+  const inputField = screen.getByLabelText(/ENTER A NEW INFORMATION/);
   expect(inputField).toBeInTheDocument();
 
   const button = screen.getByText(/ADD NEW ENTRY/i);

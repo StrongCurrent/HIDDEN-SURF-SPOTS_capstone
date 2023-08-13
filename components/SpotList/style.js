@@ -43,7 +43,7 @@ export const NoEntryMessage = styled.div`
   text-align: center;
   text-transform: uppercase;
   font-size: 1rem;
-  color: #ff0000;
+  color: #da2001;
   list-style: none;
   padding: 40px 0;
   background-color: #fcfcfc;

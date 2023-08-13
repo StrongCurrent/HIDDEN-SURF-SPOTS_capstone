@@ -29,7 +29,7 @@ export const Text = styled.p`
   margin: 0rem 0rem 1.5rem 0rem;
 `;
 
-export const BaseModalButton = styled.button`
+export const BaseLogButton = styled.button`
   text-transform: uppercase;
   text-shadow: 0px 1px 3px #474747;
   color: #ffffff;
@@ -41,26 +41,43 @@ export const BaseModalButton = styled.button`
   border: none;
   margin-top: 1rem;
 
+  &:hover {
+    font-weight: 800;
+  }
+
   &:focus {
-    font-weight: 200;
+    text-shadow: none; 
+    font-weight: 800;
   }
 `;
 
-export const LogoutButton = styled(BaseModalButton)`
-  background-color: #ff5050;
+export const LogoutButton = styled(BaseLogButton)`
+  background-color: #da2001;
+  border: solid 3px #da2001;
 
   &:hover,
   &:focus {
-    background-color: #ff3232;
+    font-weight: 800; 
+  }
+
+  &:focus {
+    color: #da2001;
+    background-color: #ffffff;
   }
 `;
 
-export const LoginButton = styled(BaseModalButton)`
-  background-color: #2f9e44;
+export const LoginButton = styled(BaseLogButton)`
+  background-color: #007f1a;
+  border: solid 3px #007f1a;
   margin: 20px 0px 0px 10px;
 
   &:hover,
   &:focus {
-    background-color: #40c057;
+    font-weight: 800;
+  }
+
+  &:focus {
+    color: #007f1a;
+    background-color: #ffffff;
   }
 `;

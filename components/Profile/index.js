@@ -1,6 +1,5 @@
 import { useSession, signOut, signIn } from "next-auth/react";
 import {
-  FixedLine,
   Welcome,
   User,
   Container,
@@ -40,7 +39,7 @@ function Profile() {
     return (
       <Container>
         <Error>OOPS YOU ARE NOT LOGGED IN </Error>{" "}
-        <Error>Please log in to access your data.</Error>
+        <Error>LOGIN TO ACCESS YOUR DATA</Error>
         <LoginButton aria-label="Login" onClick={() => signIn("github")}>
           Login
         </LoginButton>
@@ -55,18 +54,18 @@ function Profile() {
   };
 
   return (
-      <Container>
-        <Welcome>{getAussieGreeting()}</Welcome>
-        <User>{session.user.name}</User>
-        <Text>you are logged in as: {session.user.email}</Text>
-        <Text>
-          As long as you are logged in, you can use the app and its features.
-        </Text>
-        <Text>I would be happy about a small donation if you like the app</Text>
-        <LogoutButton aria-label="Logout" onClick={handleLogout}>
-          Logout
-        </LogoutButton>
-      </Container>
+    <Container>
+      <Welcome>{getAussieGreeting()}</Welcome>
+      <User>{session.user.name}</User>
+      <Text>you are logged in as: {session.user.email}</Text>
+      <Text>
+        As long as you are logged in, you can use the app and its features.
+      </Text>
+      <Text>I would be happy about a small donation if you like the app</Text>
+      <LogoutButton aria-label="Logout" onClick={handleLogout}>
+        Logout
+      </LogoutButton>
+    </Container>
   );
 }
 

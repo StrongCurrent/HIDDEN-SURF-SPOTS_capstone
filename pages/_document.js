@@ -27,6 +27,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@100..900&display=swap" rel="stylesheet"/>
         <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
           <meta 
             name="description" 

@@ -29,8 +29,7 @@ export const SpotName = styled.input`
   }
 
   &::placeholder {
-    color: #ff0000;
-    opacity: 0.8;
+    color: #da2001;
   }
 
   &:focus::placeholder {
@@ -78,31 +77,33 @@ export const AddSpotInput = styled.input`
 `;
 
 export const SpotCreateButton = styled.button`
-  background-color: #2f9e44;
+  background-color: #007f1a;
   text-transform: uppercase;
-  text-shadow: 0px 1px 3px #474747;
   letter-spacing: 1px;
   font-weight: 600;
   color: #ffffff;
+  text-shadow: 0px 1px 3px #474747;
   margin-top: 40px;
   height: 50px;
   width: 180px;
   border-radius: 5px;
-  border: none;
+  border: solid 3px #007f1a;
 
   &:hover {
-    background-color: #40c057;
+    font-weight: 800;
   }
 
   &:focus {
-    background-color: #40c057;
-    font-weight: 200;
+    color: #007f1a;
+    font-weight: 800;
+    background-color: #ffffff;
+    text-shadow: none;
   }
 `;
 
 export const SpotAdded = styled.p`
   margin-top: 5px;
   font-size: 1rem;
-  color: #40c057;
+  color: #007f1a;
   z-index: 100;
 `;

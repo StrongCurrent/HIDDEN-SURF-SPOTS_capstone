@@ -26,7 +26,8 @@ export const EntryTextarea = styled(({ isEditing, ...props }) =>
 )`
   flex: 1;
   list-style: none;
-  font-family: Roboto;
+  font-family: 'Roboto Flex', Arial, sans-serif;
+  -webkit-appearance: none;
   padding: 10px;
   height: auto;
   width: 100%;
@@ -61,7 +62,7 @@ export const EditIcon = styled.svg`
 `;
 
 export const TrashIcon = styled.svg`
-  fill: #ff3232;
+  fill: #da2001;
 `;
 
 export const EdTrButtonWrapper = styled.div`
@@ -70,7 +71,7 @@ export const EdTrButtonWrapper = styled.div`
 `;
 
 export const EntryEditErrorText = styled.p`
-  color: #ff3232;
+  color: #da2001;
   font-size: 0.9rem;
   margin: 0px 0px 2px 0px;
 `;
@@ -107,7 +108,7 @@ export const ModalHeadline = styled.h2`
   text-transform: uppercase;
   font-size: 1.3rem;
   font-weight: 700;
-  color: #ff0000;
+  color: #da2001;
   margin: 0px 0px 10px 0px;
 `;
 
@@ -127,26 +128,41 @@ export const BaseModalButton = styled.button`
   height: 45px;
   width: 100px;
   border-radius: 5px;
-  border: none;  
+  border: none;
 
   &:focus {
-    font-weight: 200;
+    font-weight: 600;
+    text-shadow: none;
   }
 `;
 
 export const ModalDeleteButton = styled(BaseModalButton)`
-  background-color: #ff5050;
+  background-color: #da2001;
+  border: solid 3px #da2001;
 
-  &:hover, &:focus {
-    background-color: #ff3232;
+  &:hover {
+    font-weight: 800;
+  }
+
+  &:focus {
+    color: #da2001;
+    font-weight: 800;
+    background-color: #ffffff;
   }
 `;
 
 export const ModalKeepButton = styled(BaseModalButton)`
-  background-color: #2f9e44;
+  background-color: #008e1d;
+  border: solid 3px #008e1d;
   margin: 0px 0px 0px 10px;
 
-  &:hover, &:focus {
-    background-color: #40c057;
+  &:hover {
+    font-weight: 800;
+  }
+
+  &:focus {
+    color: #008e1d;
+    font-weight: 800;
+    background-color: #ffffff;
   }
 `;
