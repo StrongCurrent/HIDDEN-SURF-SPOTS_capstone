@@ -21,7 +21,7 @@ export const SpotNameEditButton = styled.button`
 
 export const SpotNameError = styled.div`
   text-align: center;
-  color: #ff3232;
+  color: #da2001;
   font-size: 0.9rem;
   margin: 5px 0px 0px 0px;
 `;
@@ -74,7 +74,7 @@ export const Latitude = styled.p`
 export const NoEntryMessage = styled.p`
   text-transform: uppercase;
   font-size: 1rem;
-  color: #ff0000;
+  color: #da2001;
   margin-top: 0px;
 `;
 
@@ -92,27 +92,30 @@ export const EditIcon = styled.svg`
 `;
 
 export const SpotDeleteButton = styled.button`
-  background-color: #ff5050;
+  background-color: #da2001;
   text-transform: uppercase;
   text-shadow: 0px 1px 3px #474747;
   letter-spacing: 1px;
   font-weight: 600;
   color: #ffffff;
   margin-top: 15px;
-  height: 50px;
-  width: 270px;
+  height: 45px;
+  width: 170px;
   border-radius: 5px;
-  border: none;
+  border: solid 3px #da2001;
 
   &:hover {
-    background-color: #ff3232;
+    font-weight: 800;
   }
 
   &:focus {
-    background-color: #ff3232;
-    font-weight: 200;
+    color: #da2001;
+    font-weight: 800;
+    background-color: #ffffff;
+    text-shadow: none;
   }
 `;
+
 
 export const SpotNameChangedSuccess = styled.div`
   margin-top: 5px;
@@ -125,7 +128,7 @@ export const ModalHeadline = styled.h2`
   text-transform: uppercase;
   font-size: 1.3rem;
   font-weight: 700;
-  color: #ff0000;
+  color: #da2001;
   margin: 0px 0px 10px 0px;
 `;
 
@@ -139,32 +142,47 @@ export const ModalMessage = styled.p`
 export const BaseModalButton = styled.button`
   text-transform: uppercase;
   text-shadow: 0px 1px 3px #474747;
-  letter-spacing: 1px;
   color: #ffffff;
   font-weight: 600;
+  letter-spacing: 1px;
   height: 45px;
   width: 100px;
   border-radius: 5px;
-  border: none;  
+  border: none;
 
   &:focus {
-    font-weight: 200;
+    font-weight: 600;
+    text-shadow: none;
   }
 `;
 
 export const ModalDeleteButton = styled(BaseModalButton)`
-  background-color: #ff5050;
+  background-color: #da2001;
+  border: solid 3px #da2001;
 
-  &:hover, &:focus {
-    background-color: #ff3232;
+  &:hover {
+    font-weight: 800;
+  }
+
+  &:focus {
+    color: #da2001;
+    font-weight: 800;
+    background-color: #ffffff;
   }
 `;
 
 export const ModalKeepButton = styled(BaseModalButton)`
-  background-color: #2f9e44;
+  background-color: #008e1d;
+  border: solid 3px #008e1d;
   margin: 0px 0px 0px 10px;
 
-  &:hover, &:focus {
-    background-color: #40c057; 
+  &:hover {
+    font-weight: 800;
+  }
+
+  &:focus {
+    color: #008e1d;
+    font-weight: 800;
+    background-color: #ffffff;
   }
 `;
