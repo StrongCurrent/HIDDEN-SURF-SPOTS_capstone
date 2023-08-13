@@ -39,7 +39,7 @@ function Profile() {
     return (
       <Container>
         <Error>OOPS YOU ARE NOT LOGGED IN </Error>{" "}
-        <Error>Please log in to access your data.</Error>
+        <Error>PLEASE LOGIN TO ACCESS YOUR DATA.</Error>
         <LoginButton aria-label="Login" onClick={() => signIn("github")}>
           Login
         </LoginButton>
