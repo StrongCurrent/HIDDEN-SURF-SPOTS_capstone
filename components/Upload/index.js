@@ -25,7 +25,7 @@ export default function Upload({ spotId, initialImage }) {
       });
       const img = await response.json();
 
-      console.log("Browser: response from API: ", img);
+
 
       const updateResponse = await fetch(`/api/spots/${spotId}`, {
         method: "PUT",

@@ -24,7 +24,7 @@ export default async function handler(request, response) {
     const result = await cloudinary.v2.uploader.upload(filepath, {
       public_id: newFilename,
     });
-    console.log("API: response from cloudinary: ", result);
+
     return response.status(201).json(result);
   }
 
