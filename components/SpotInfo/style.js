@@ -22,7 +22,7 @@ export const SpotNameEditButton = styled.button`
 export const SpotNameError = styled.div`
   text-align: center;
   color: #da2001;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin: 5px 0px 0px 0px;
 `;
 
@@ -116,11 +116,10 @@ export const SpotDeleteButton = styled.button`
   }
 `;
 
-
 export const SpotNameChangedSuccess = styled.div`
-  margin-top: 5px;
+  text-transform: uppercase;
   font-size: 1rem;
-  color: #40c057;
+  color: #008e1d;
   z-index: 100;
 `;
 

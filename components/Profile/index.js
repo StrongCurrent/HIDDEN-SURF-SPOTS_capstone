@@ -1,6 +1,5 @@
 import { useSession, signOut, signIn } from "next-auth/react";
 import {
-  FixedLine,
   Welcome,
   User,
   Container,

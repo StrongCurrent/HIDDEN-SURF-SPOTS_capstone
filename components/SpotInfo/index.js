@@ -68,7 +68,7 @@ export default function SpotInfo({ spotId }) {
       } else {
         if (
           data.message.toUpperCase() ===
-          "PLEASE CHOOSE ANOTHER NAME, THIS ONE IS ALREADY TAKEN."
+          "CHOOSE ANOTHER NAME, THIS ONE IS TAKEN."
         ) {
           setSpotNameError(data.message);
         } else {

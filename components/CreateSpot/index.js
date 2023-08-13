@@ -49,6 +49,7 @@ export default function CreateSpot() {
 
     if (name === "spotName") {
       setSpotName(value);
+      setError("");
     }
   };
 
@@ -78,16 +79,14 @@ export default function CreateSpot() {
       });
       router.push("/");
     } catch (error) {
-      if (error.status === 401) {
-        setError("PLEASE LOGIN TO CREATE A SPOT");
-      } else if (error.message && typeof error.message === "string") {
-        setError(error.message.toUpperCase());
-      } else {
-        setError("UNKNOWN ERROR OCCURRED");
-      }
+      setError(
+        error.status === 401 ? "PLEASE LOGIN TO CREATE A SPOT"
+        : (error.message && typeof error.message === "string") ? error.message.toUpperCase()
+        : "UNKNOWN ERROR OCCURRED"
+      );
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (
@@ -98,7 +97,7 @@ export default function CreateSpot() {
         draggable={true}
         viewMode="create"
       />
-         <SpotName
+      <SpotName
         id="spotName"
         name="spotName"
         type="input"

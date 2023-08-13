@@ -66,7 +66,7 @@ export default async function handler(request, response) {
       if (existingSpot && String(existingSpot._id) !== spotId) {
         return response
           .status(400)
-          .json({ message: "PLEASE CHOOSE ANOTHER NAME, THIS ONE IS ALREADY TAKEN." });
+          .json({ message: "CHOOSE ANOTHER NAME, THIS ONE IS TAKEN." });
       }
 
       try {

@@ -104,6 +104,6 @@ export const SpotCreateButton = styled.button`
 export const SpotAdded = styled.p`
   margin-top: 5px;
   font-size: 1rem;
-  color: #40c057;
+  color: #007f1a;
   z-index: 100;
 `;
