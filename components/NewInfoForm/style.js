@@ -14,7 +14,7 @@ export const AddEntryLabel = styled.label`
 `;
 
 export const AddEntryTextarea = styled.textarea`
-  font-family: Roboto;
+  font-family: 'Roboto Flex', Arial, sans-serif;
   background-color: #fcfcfc;
   border: solid 1px #d5d5d5;
   border-radius: 5px;

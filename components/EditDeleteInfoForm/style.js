@@ -26,7 +26,7 @@ export const EntryTextarea = styled(({ isEditing, ...props }) =>
 )`
   flex: 1;
   list-style: none;
-  font-family: Roboto;
+  font-family: 'Roboto Flex', Arial, sans-serif;
   padding: 10px;
   height: auto;
   width: 100%;
