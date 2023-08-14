@@ -118,7 +118,6 @@ export default function WeatherDisplay({ searchKey }) {
               °C
             </InfoItem>
           </InfoRow>
-
           <InfoRow>
             <InfoItem
               aria-label={`Swell Height: ${
@@ -129,7 +128,7 @@ export default function WeatherDisplay({ searchKey }) {
               Swell Height:{" "}
               {marineWeather?.forecast?.forecastday?.[0]?.hour?.[0]
                 ?.swell_ht_mt || "N/A"}{" "}
-              meters
+              m
             </InfoItem>
             <InfoItem
               aria-label={`Swell Period: ${
@@ -140,7 +139,7 @@ export default function WeatherDisplay({ searchKey }) {
               Swell Period:{" "}
               {marineWeather?.forecast?.forecastday?.[0]?.hour?.[0]
                 ?.swell_period_secs || "N/A"}{" "}
-              seconds
+              s
             </InfoItem>
           </InfoRow>
           <InfoRow>
@@ -152,7 +151,7 @@ export default function WeatherDisplay({ searchKey }) {
             <InfoItem
               aria-label={`Wind Direction: ${currentWeather.current.wind_degree} / ${currentWeather.current.wind_dir}`}
             >
-              Wind Direction: {currentWeather.current.wind_degree} /{" "}
+              Wind Dir: {currentWeather.current.wind_degree} /{" "}
               {currentWeather.current.wind_dir}
             </InfoItem>
           </InfoRow>
