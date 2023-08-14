@@ -26,6 +26,7 @@ import EditDeleteInfoForm from "../EditDeleteInfoForm";
 import NewInfoForm from "../NewInfoForm";
 import Modal from "../Modal";
 import Upload from "../Upload";
+import WeatherDisplay from "../WeatherData";
 
 export default function SpotInfo({ spotId }) {
   const { data: spot, error, mutate } = useSWR(`/api/spots/${spotId}`);
@@ -145,6 +146,7 @@ export default function SpotInfo({ spotId }) {
       {spotNameChangeSuccess && (
         <SpotNameChangedSuccess>SPOT NAME CHANGED</SpotNameChangedSuccess>
       )}
+      <WeatherDisplay searchKey={spot.latitude+","+spot.longitude}/>
       <InformationWrapper>
         <h2>ADDITIONAL SPOT INFORMATION</h2>
         {spot.informations && spot.informations.length > 0 ? (
