@@ -1,6 +1,6 @@
 # HIDDEN SURF SPOTS
 
-This is my capstone project from the bootcamp of neue Fische.
+This is my capstone project from the bootcamp of neue fische.
 
 ![Mockup HIDDEN-SURF-SPOTS](https://res.cloudinary.com/dumpzwjem/image/upload/v1692087953/bbymeyx5mubgpzaj6slw.png)
 
